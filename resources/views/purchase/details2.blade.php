@@ -9,8 +9,7 @@
             <tbody>
                 <tr>
                     <td colspan="9">
-                        <h3>PT. SUMBER MITRAJAYA</h3>
-                        PROYEK
+                        <h3 style="text-align: center;">PURCHASE REQUESTS</h3>
                     </td>
                 </tr>
                 <tr>
