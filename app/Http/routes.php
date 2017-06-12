@@ -20,5 +20,6 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::resource('item','ItemController');
 	Route::resource('purchase','PurchaseController');
 	Route::get('purchase/{id}/print','PurchaseController@printPurchase');
+	Route::get('unit/completion','PurchaseController@unitCompletion');
 });
 //Route::get('/home', 'HomeController@index');

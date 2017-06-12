@@ -45,7 +45,7 @@
                             <tr>
                                 <td>{{ $purchase->unit->code }}</td>
                                 <td>{{ $purchase->type }}</td>
-                                <td>{{ $purchase->cost }}</td>
+                                <td>Rp.{{ $purchase->cost }}</td>
                                 <td>{{ $purchase->mol }}</td>
                                 <td>{{ $purchase->km_hm }}</td>
                                 <td>{{ $purchase->warehouse_manager }}</td>
