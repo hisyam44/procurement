@@ -151,6 +151,12 @@
                             <a class="btn btn-success pull-right" onclick="appendNewFormRequest()">Add New Request</a>
                         </div>
                         <script type="text/javascript">
+                            function deleteRequest(elem){
+                                console.log($(elem).parent());
+                                var panel = $(elem).parent().parent();
+                                panel.remove();
+
+                            }
                             function checkDepartment(val){
                                 var val = $('#department').val();
                                 if(val == "Plant"){
@@ -166,7 +172,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-2"> <input id="no" type="text" class="form-control" name="no[]" placeholder="Spare Part No..." required> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-4"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="Measurement..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-3"> <input id="device_code" type="text" class="form-control device_code" name="device_code[]" placeholder="Device Code..."> </div><div class="col-md-6"> <textarea id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Damage Description..." required></textarea> </div></div></div></div></div>').appendTo(formRequest);
+                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-2"> <input id="no" type="text" class="form-control" name="no[]" placeholder="Spare Part No..." required> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-4"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="Measurement..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-3"> <input id="device_code" type="text" class="form-control device_code" name="device_code[]" placeholder="Device Code..."> </div><div class="col-md-6"> <textarea id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Damage Description..." required></textarea> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a></div></div>').appendTo(formRequest);
                                 checkDepartment();
 
                             }
