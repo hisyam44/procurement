@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 12, 2017 at 03:26 
+-- Generation Time: Jun 14, 2017 at 04:46 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 `id` int(10) unsigned NOT NULL,
   `unit_id` int(10) unsigned NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `department` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `cost` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mol` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `km_hm` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -92,14 +93,14 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   `purpose` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `purchases`
 --
 
-INSERT INTO `purchases` (`id`, `unit_id`, `type`, `cost`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `optional`, `purpose`, `created_at`, `updated_at`) VALUES
-(2, 1, 'BD', '100000', '214432', '0', 'Slamet Riyadi', 'Toni Dirgantoro', 'Doni Sumarno', 'Lorem Ipsum', 'The Purpose is to fix something, with something', '2017-06-09 17:20:05', '2017-06-09 17:20:05');
+INSERT INTO `purchases` (`id`, `unit_id`, `type`, `department`, `cost`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `optional`, `purpose`, `created_at`, `updated_at`) VALUES
+(1, 1, 'BD', 'Plant', '100000', '214432', '0', 'Slamet Riyadi', 'Toni Dirgantoro', 'Doni Sumarno', 'Lorem Ipsum', 'The Purpose is to fix something, with something', '2017-06-14 07:38:00', '2017-06-14 07:38:00');
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,6 @@ INSERT INTO `purchases` (`id`, `unit_id`, `type`, `cost`, `mol`, `km_hm`, `wareh
 CREATE TABLE IF NOT EXISTS `requests` (
 `id` int(10) unsigned NOT NULL,
   `purchase_id` int(10) unsigned NOT NULL,
-  `department` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `component` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -121,15 +121,15 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `damage_description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `requests`
 --
 
-INSERT INTO `requests` (`id`, `purchase_id`, `department`, `no`, `component`, `description`, `qty`, `satuan`, `model`, `device_code`, `damage_description`, `created_at`, `updated_at`) VALUES
-(2, 2, 'Plant', '102543', 'GH8616', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '3', 'pcs', 'WER3245', 'TRW895', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-09 17:20:05', '2017-06-09 17:20:05'),
-(3, 2, 'Plant', '102534', 'RTW2137', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '2', 'pcs', 'UIO8769', 'HGJ8768', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-09 17:20:05', '2017-06-09 17:20:05');
+INSERT INTO `requests` (`id`, `purchase_id`, `no`, `component`, `description`, `qty`, `satuan`, `model`, `device_code`, `damage_description`, `created_at`, `updated_at`) VALUES
+(1, 1, '102543', 'GH8616', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '3', 'pcs', 'WER3245', 'TRW895', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-14 07:38:00', '2017-06-14 07:38:00'),
+(2, 1, '102534', 'RTW2137', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '2', 'pcs', 'UIO8769', 'HGJ8768', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-14 07:38:01', '2017-06-14 07:38:01');
 
 -- --------------------------------------------------------
 
@@ -312,9 +312,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$8gBXsiTPMeJm.1lSqrIJw.2o/lzCWCg/JLHjnHpRVyGg/VLk81ej.', 'admin', NULL, '2017-06-09 16:57:01', '2017-06-09 16:57:01'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$wNcUek8KBbTV0ZqltyZZ6.xnZ7LEHRC/Ahh/xFx922wbBek40vYte', 'checker', NULL, '2017-06-09 16:57:01', '2017-06-09 16:57:01'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$WF43aXTSbBM3uopJY5xB2OdRBEChlhoU/mu/mpj/K67gUIKblDiUe', 'operator', NULL, '2017-06-09 16:57:01', '2017-06-09 16:57:01');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$CIzAkXOWdHtRxKJuTggPIe.aE/oz93k3INPGahT3HMqEt1Jee3cWm', 'admin', NULL, '2017-06-14 07:38:00', '2017-06-14 07:38:00'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$DrreKdYJI2/EChBg8S8L6..F2V4DwVw2O901OhSq.bkMvmHXtAVOO', 'checker', NULL, '2017-06-14 07:38:00', '2017-06-14 07:38:00'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$ksCvqccr.jH0gJ00J.R28eDg1h55mKf5pOo86KDgQuWkCDnS6sOu6', 'operator', NULL, '2017-06-14 07:38:00', '2017-06-14 07:38:00');
 
 --
 -- Indexes for dumped tables
@@ -342,7 +342,7 @@ ALTER TABLE `purchases`
 -- Indexes for table `requests`
 --
 ALTER TABLE `requests`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `requests_purchase_id_foreign` (`purchase_id`);
 
 --
 -- Indexes for table `units`
@@ -369,12 +369,12 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -385,6 +385,16 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=140;
 --
 ALTER TABLE `users`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `requests`
+--
+ALTER TABLE `requests`
+ADD CONSTRAINT `requests_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -16,6 +16,7 @@ class CreatePurchasesTable extends Migration
             $table->increments('id');
             $table->integer('unit_id')->unsigned();
             $table->string('type');
+            $table->string('department');
             $table->string('cost');
             $table->string('mol');
             $table->string('km_hm');

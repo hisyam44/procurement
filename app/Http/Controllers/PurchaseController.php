@@ -44,6 +44,7 @@ class PurchaseController extends Controller
         $purchase = new Purchase();
         $purchase->unit_id = $request->unit_id;
         $purchase->type = $request->type;
+        $purchase->department = $request->department;
         $purchase->cost = $request->cost;
         $purchase->mol = $request->mol;
         $purchase->km_hm = $request->km_hm;
@@ -56,7 +57,6 @@ class PurchaseController extends Controller
         $success = $purchase->save();
         for($i=0;$i<count($request->no);$i++){
             $req = new \App\Request;
-            $req->department = $request->department;
             $req->no = $request->no[$i];
             $req->component = $request->component[$i];
             $req->description = $request->description[$i];

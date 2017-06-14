@@ -15,7 +15,7 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('purchase_id')->unsigned();
-            $table->string('department');
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
             $table->string('no');
             $table->string('component');
             $table->string('description');

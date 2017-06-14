@@ -16,6 +16,7 @@ class PurchaseTableSeeder extends Seeder
         $purchase = new Purchase();
         $purchase->unit_id  = 1;
         $purchase->type  = "BD";
+        $purchase->department = "Plant";
         $purchase->cost  = "100000";
         $purchase->mol  = "214432";
         $purchase->km_hm  = 0;
@@ -27,7 +28,6 @@ class PurchaseTableSeeder extends Seeder
         $purchase->save();
 
         $request = new Request();
-        $request->department = "Plant";
         $request->no = "102543";
         $request->component = "GH8616";
         $request->description = "Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ";
@@ -39,7 +39,6 @@ class PurchaseTableSeeder extends Seeder
         $purchase->requests()->save($request);
 
         $request = new Request();
-        $request->department = "Plant";
         $request->no = "102534";
         $request->component = "RTW2137";
         $request->description = "Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ";
