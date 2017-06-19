@@ -39,6 +39,8 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $dimen = $data['dimension'];
+        $data['dimension'] = $dimen[0].' x '.$dimen[1];
         $count = Item::where('item_no','LIKE',$data['item_no'].'%')->count();
         $data['item_no'] .= str_pad($count+1, 4, "0", STR_PAD_LEFT);
         $success = Item::create($data); 

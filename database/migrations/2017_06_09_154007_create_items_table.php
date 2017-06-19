@@ -18,7 +18,11 @@ class CreateItemsTable extends Migration
             $table->string('part_no');
             $table->string('description');
             $table->string('uom');
-            $table->string('specification');
+            $table->string('weight');
+            $table->string('dimension');
+            $table->string('shelf_life');
+            $table->string('warranty');
+            $table->string('remark');
             $table->timestamps();
         });
     }

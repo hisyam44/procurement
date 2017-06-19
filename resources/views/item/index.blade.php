@@ -28,9 +28,13 @@
                             <tr>
                                 <td>Item No</td>
                                 <td>Part No</td>
-                                <td>Description</td>
+                                <td>Weight</td>
+                                <td>Dimension</td>
                                 <td>UOM</td>
-                                <td>Specification</td>
+                                <td>Shelf Life</td>
+                                <td>Warranty</td>
+                                <td>Remark</td>
+                                <td>Description</td>
                                 <td>Actions</td>
                             </tr>
                         </thead>
@@ -39,9 +43,13 @@
                             <tr>
                                 <td>{{ $item->item_no }}</td>
                                 <td>{{ $item->part_no }}</td>
-                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->weight }} Kilogram</td>
+                                <td>{{ $item->dimension }} Meter</td>
                                 <td>{{ $item->uom }}</td>
-                                <td>{{ $item->specification }}</td>
+                                <td>{{ $item->shelf_life }} th</td>
+                                <td>{{ $item->warranty }}</td>
+                                <td>{{ $item->remark }}</td>
+                                <td>{{ $item->description }}</td>
                                 <td>
                                     <form method="post" action="{{ url('item/'.$item->id) }}">
                                         {{ csrf_field() }}
