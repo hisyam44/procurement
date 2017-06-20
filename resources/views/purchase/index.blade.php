@@ -28,13 +28,11 @@
                             <tr>
                                 <td>Unit Code</td>
                                 <td>Type</td>
-                                <td>Cost</td>
                                 <td>MOL</td>
                                 <td>KM/HM</td>
                                 <td>Warehouse Manager</td>
                                 <td>Maintenance Manager</td>
                                 <td>Project Manager</td>
-                                <td>Optional</td>
                                 <td>Purpose</td>
                                 <td>Date</td>
                                 <td colspan="2">Actions</td>
@@ -45,13 +43,11 @@
                             <tr>
                                 <td>{{ $purchase->unit->code }}</td>
                                 <td>{{ $purchase->type }}</td>
-                                <td>Rp.{{ $purchase->cost }}</td>
                                 <td>{{ $purchase->mol }}</td>
                                 <td>{{ $purchase->km_hm }}</td>
                                 <td>{{ $purchase->warehouse_manager }}</td>
                                 <td>{{ $purchase->maintenance_manager }}</td>
                                 <td>{{ $purchase->project_manager }}</td>
-                                <td>{{ $purchase->optional }}</td>
                                 <td>{{ $purchase->purpose }}</td>
                                 <td>{{ $purchase->created_at }}</td>
                                 <td>

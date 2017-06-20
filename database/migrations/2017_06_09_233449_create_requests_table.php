@@ -22,7 +22,6 @@ class CreateRequestsTable extends Migration
             $table->string('qty');
             $table->string('satuan');
             $table->string('model');
-            $table->string('device_code');
             $table->string('damage_description');
             $table->timestamps();
         });

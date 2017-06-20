@@ -45,13 +45,13 @@ class PurchaseController extends Controller
         $purchase->unit_id = $request->unit_id;
         $purchase->type = $request->type;
         $purchase->department = $request->department;
-        $purchase->cost = $request->cost;
+
         $purchase->mol = $request->mol;
         $purchase->km_hm = $request->km_hm;
         $purchase->warehouse_manager = $request->warehouse_manager;
         $purchase->maintenance_manager = $request->maintenance_manager;
         $purchase->project_manager = $request->project_manager;
-        $purchase->optional = $request->optional;
+
         $purchase->purpose = $request->purpose;
         $purchase->created_at = $request->created_at;
         $success = $purchase->save();
@@ -63,7 +63,7 @@ class PurchaseController extends Controller
             $req->qty = $request->qty[$i];
             $req->satuan = $request->satuan[$i];
             $req->model = $request->model[$i];
-            $req->device_code = $request->device_code[$i];
+
             $req->damage_description = $request->damage_description[$i];
             $purchase->requests()->save($req);
         }

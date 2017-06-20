@@ -7,35 +7,21 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/purchase') }}">
                     {{ csrf_field() }}
                     <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Department</label>
                                 <div class="col-md-6">
                                     <!-- <input id="part_no" type="text" class="form-control" name="part_no" required> -->
                                     <select id="department" class="form-control" name="department" onchange="checkDepartment()">
-                                        <option>HR & GA</option>
+                                        <option>HR and GA</option>
                                         <option>Plant</option>
+                                        <option>Production</option>
+                                        <option>Safety</option>
+                                        <option>Engine</option>
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="part_no" class="col-md-4 control-label">Date</label>
-                                <div class="col-md-6">
-                                    <input id="created_at" type="text" class="form-control" name="created_at" required>
-                                </div>
-                                <script type="text/javascript">
-                                    $(function () {
-                                        $('#created_at').datetimepicker({
-                                            format: 'YYYY-MM-DD'
-                                        });
-                                    });
-                                </script>
                             </div>
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Unit Code</label>
@@ -69,6 +55,19 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="part_no" class="col-md-4 control-label">Date</label>
+                                <div class="col-md-6">
+                                    <input id="created_at" type="text" class="form-control" name="created_at" required>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#created_at').datetimepicker({
+                                            format: 'YYYY-MM-DD'
+                                        });
+                                    });
+                                </script>
+                            </div>
+                            <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Type</label>
                                 <div class="col-md-6">
                                     <!-- <input id="part_no" type="text" class="form-control" name="part_no" required> -->
@@ -81,7 +80,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                           <!--  <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Cost</label>
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -89,7 +88,7 @@
                                         <input id="cost" type="text" class="form-control" name="cost" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -114,33 +113,30 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="form-group">
-                                        <div class="col-md-2">
-                                            <input id="no" type="text" class="form-control" name="no[]" placeholder="Spare Part No..." required>
+                                        <div class="col-md-3">
+                                            <input id="no" type="text" class="form-control" name="no[]" placeholder="Part No..." required>
                                         </div>
                                         <div class="col-md-3">
                                             <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="Measurement..." required>
+                                        <div class="col-md-6">
+                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
+                                        <div class="col-md-1">
+                                            <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="UOM..." required>
+                                        </div>
                                         <div class="col-md-3">
                                             <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model...">
                                         </div>
-                                        <div class="col-md-3">
-                                            <input id="device_code" type="text" class="form-control device_code" name="device_code[]" placeholder="Device Code..."  >
-                                        </div>
                                         <div class="col-md-6">
-                                            <textarea id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Damage Description..." required></textarea>
+                                            <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required>
                                         </div>
                                     </div>
                                 </div>
@@ -159,12 +155,12 @@
                             }
                             function checkDepartment(val){
                                 var val = $('#department').val();
-                                if(val == "Plant"){
+                                if(val != "HR and GA"){
                                     $('.model').parent().show();
-                                    $('.device_code').parent().show();
+                                    //$('.device_code').parent().show();
                                 }else{
                                     $('.model').parent().hide();    
-                                    $('.device_code').parent().hide();
+                                    //$('.device_code').parent().hide();
                                 }
                             }
                             checkDepartment();
@@ -172,7 +168,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-2"> <input id="no" type="text" class="form-control" name="no[]" placeholder="Spare Part No..." required> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-4"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="Measurement..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-3"> <input id="device_code" type="text" class="form-control device_code" name="device_code[]" placeholder="Device Code..."> </div><div class="col-md-6"> <textarea id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Damage Description..." required></textarea> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a></div></div>').appendTo(formRequest);
+                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" name="no[]" placeholder="Part No..." required> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="UOM..." required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
                                 checkDepartment();
 
                             }
@@ -195,18 +191,12 @@
                                     <input id="maintenance_manager" type="text" class="form-control" name="maintenance_manager" required>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Project Manager</label>
                                 <div class="col-md-6">
                                     <input id="project_manager" type="text" class="form-control" name="project_manager" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="part_no" class="col-md-4 control-label">Optional</label>
-                                <div class="col-md-6">
-                                    <input id="optional" type="text" class="form-control" name="optional" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -215,6 +205,8 @@
                                     <textarea id="purpose" type="text" class="form-control" name="purpose" required></textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-4">
                         </div>
                         </div>
                     </div>

@@ -17,13 +17,13 @@ class PurchaseTableSeeder extends Seeder
         $purchase->unit_id  = 1;
         $purchase->type  = "BD";
         $purchase->department = "Plant";
-        $purchase->cost  = "100000";
+
         $purchase->mol  = "214432";
         $purchase->km_hm  = 0;
         $purchase->warehouse_manager  = "Slamet Riyadi";
         $purchase->maintenance_manager  = "Toni Dirgantoro";
         $purchase->project_manager  = "Doni Sumarno";
-        $purchase->optional  = "Lorem Ipsum";
+
         $purchase->purpose  = "The Purpose is to fix something, with something";
         $purchase->save();
 
@@ -34,7 +34,7 @@ class PurchaseTableSeeder extends Seeder
         $request->qty = "3";
         $request->satuan = "pcs";
         $request->model = "WER3245";
-        $request->device_code = "TRW895";
+
         $request->damage_description = "Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,";
         $purchase->requests()->save($request);
 
@@ -45,7 +45,7 @@ class PurchaseTableSeeder extends Seeder
         $request->qty = "2";
         $request->satuan = "pcs";
         $request->model = "UIO8769";
-        $request->device_code = "HGJ8768";
+
         $request->damage_description = "Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,";
         $purchase->requests()->save($request);
 
