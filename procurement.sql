@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 14, 2017 at 04:47 
+-- Generation Time: Jun 20, 2017 at 10:08 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -23,6 +23,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `costs`
+--
+
+CREATE TABLE IF NOT EXISTS `costs` (
+`id` int(10) unsigned NOT NULL,
+  `transaksi_id` int(10) unsigned NOT NULL,
+  `type` enum('debet','credit') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'debet',
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `rekening_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `costs`
+--
+
+INSERT INTO `costs` (`id`, `transaksi_id`, `type`, `code`, `rekening_code`, `description`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 1, 'debet', 'GH5678', '6651776', 'Lorem Ipsum Sit Dolor 1', '700000', '2017-06-20 01:05:52', '2017-06-20 01:05:52'),
+(2, 1, 'debet', 'SE5678', '6651776', 'Lorem Ipsum Sit Dolor 2', '500000', '2017-06-20 01:05:52', '2017-06-20 01:05:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `items`
 --
 
@@ -32,10 +58,21 @@ CREATE TABLE IF NOT EXISTS `items` (
   `part_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `uom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `specification` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `weight` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dimension` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `shelf_life` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `warranty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remark` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `item_no`, `part_no`, `description`, `uom`, `weight`, `dimension`, `shelf_life`, `warranty`, `remark`, `created_at`, `updated_at`) VALUES
+(1, '11320001', 'GH76543', 'Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada. ', 'pcs', '56', '12 x 17', '2', 'yes', 'Lorem Ipsum', '2017-06-20 01:08:03', '2017-06-20 01:08:03');
 
 -- --------------------------------------------------------
 
@@ -58,7 +95,9 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_06_09_150022_create_units_table', 1),
 ('2017_06_09_154007_create_items_table', 1),
 ('2017_06_09_233333_create_purchases_table', 1),
-('2017_06_09_233449_create_requests_table', 1);
+('2017_06_09_233449_create_requests_table', 1),
+('2017_06_19_152213_create_transaksi_table', 1),
+('2017_06_19_152319_create_costs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -83,13 +122,11 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   `unit_id` int(10) unsigned NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `department` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `cost` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mol` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `km_hm` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `warehouse_manager` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `maintenance_manager` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `project_manager` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `optional` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `purpose` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -99,8 +136,8 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 -- Dumping data for table `purchases`
 --
 
-INSERT INTO `purchases` (`id`, `unit_id`, `type`, `department`, `cost`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `optional`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, 1, 'BD', 'Plant', '100000', '214432', '0', 'Slamet Riyadi', 'Toni Dirgantoro', 'Doni Sumarno', 'Lorem Ipsum', 'The Purpose is to fix something, with something', '2017-06-14 07:38:00', '2017-06-14 07:38:00');
+INSERT INTO `purchases` (`id`, `unit_id`, `type`, `department`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `purpose`, `created_at`, `updated_at`) VALUES
+(1, 1, 'BD', 'Plant', '214432', '0', 'Slamet Riyadi', 'Toni Dirgantoro', 'Doni Sumarno', 'The Purpose is to fix something, with something', '2017-06-20 01:05:52', '2017-06-20 01:05:52');
 
 -- --------------------------------------------------------
 
@@ -117,7 +154,6 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `satuan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `model` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `device_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `damage_description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -127,9 +163,39 @@ CREATE TABLE IF NOT EXISTS `requests` (
 -- Dumping data for table `requests`
 --
 
-INSERT INTO `requests` (`id`, `purchase_id`, `no`, `component`, `description`, `qty`, `satuan`, `model`, `device_code`, `damage_description`, `created_at`, `updated_at`) VALUES
-(1, 1, '102543', 'GH8616', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '3', 'pcs', 'WER3245', 'TRW895', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-14 07:38:00', '2017-06-14 07:38:00'),
-(2, 1, '102534', 'RTW2137', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '2', 'pcs', 'UIO8769', 'HGJ8768', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-14 07:38:01', '2017-06-14 07:38:01');
+INSERT INTO `requests` (`id`, `purchase_id`, `no`, `component`, `description`, `qty`, `satuan`, `model`, `damage_description`, `created_at`, `updated_at`) VALUES
+(1, 1, '102543', 'GH8616', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '3', 'pcs', 'WER3245', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-20 01:05:52', '2017-06-20 01:05:52'),
+(2, 1, '102534', 'RTW2137', 'Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. ', '2', 'pcs', 'UIO8769', 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa,', '2017-06-20 01:05:52', '2017-06-20 01:05:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE IF NOT EXISTS `transaksi` (
+`id` int(10) unsigned NOT NULL,
+  `type` enum('kas','bank') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'kas',
+  `project_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `project_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `receiver` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `receiver_rekening` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `amount_total` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `direksi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `kepala_bagian` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `kasir` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `penerima` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `attachment` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `type`, `project_name`, `project_code`, `receiver`, `receiver_rekening`, `amount_total`, `direksi`, `kepala_bagian`, `kasir`, `penerima`, `attachment`, `created_at`, `updated_at`) VALUES
+(1, 'kas', 'Project Name', 'PC124', 'Ahmad', '56752652825642', '1200000', 'Bejo', 'Slamet', 'Siti', 'Ahmad', '', '2017-06-20 01:05:52', '2017-06-20 01:05:52');
 
 -- --------------------------------------------------------
 
@@ -312,13 +378,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$CIzAkXOWdHtRxKJuTggPIe.aE/oz93k3INPGahT3HMqEt1Jee3cWm', 'admin', NULL, '2017-06-14 07:38:00', '2017-06-14 07:38:00'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$DrreKdYJI2/EChBg8S8L6..F2V4DwVw2O901OhSq.bkMvmHXtAVOO', 'checker', NULL, '2017-06-14 07:38:00', '2017-06-14 07:38:00'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$ksCvqccr.jH0gJ00J.R28eDg1h55mKf5pOo86KDgQuWkCDnS6sOu6', 'operator', NULL, '2017-06-14 07:38:00', '2017-06-14 07:38:00');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$M8rsQt.6rUG3jH0wovrX4Oqg.AMLrUKsrR1cRqr519VIzQICJ7fYq', 'admin', NULL, '2017-06-20 01:05:51', '2017-06-20 01:05:51'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$H9.r6K8cGVuBLrXuZgsQdO37T0CgHgreEovw0Zj9ScNFXpu8/dk3W', 'checker', NULL, '2017-06-20 01:05:52', '2017-06-20 01:05:52'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$Yu8esGRvtUHM/pk8e/7omeaTJobu0SAeucGeXO6hSXWxmPW3z.D5W', 'operator', NULL, '2017-06-20 01:05:52', '2017-06-20 01:05:52');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `costs`
+--
+ALTER TABLE `costs`
+ ADD PRIMARY KEY (`id`), ADD KEY `costs_transaksi_id_foreign` (`transaksi_id`);
 
 --
 -- Indexes for table `items`
@@ -345,6 +417,12 @@ ALTER TABLE `requests`
  ADD PRIMARY KEY (`id`), ADD KEY `requests_purchase_id_foreign` (`purchase_id`);
 
 --
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
@@ -361,10 +439,15 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `costs`
+--
+ALTER TABLE `costs`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `purchases`
 --
@@ -375,6 +458,11 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `requests`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -388,6 +476,12 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `costs`
+--
+ALTER TABLE `costs`
+ADD CONSTRAINT `costs_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `requests`

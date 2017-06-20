@@ -55,7 +55,15 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    PROCUREMENT & WAREHOUSE
+                    @if(strpos(Request::url(),"transaksi"))
+                        FINANCE
+                    @elseif(strpos(Request::url(),"item"))
+                        PROCUREMENT & WAREHOUSE
+                    @elseif(strpos(Request::url(),"purchase"))
+                        PROCUREMENT & WAREHOUSE
+                    @else
+                        LaravelApp
+                    @endif
                 </a>
             </div>
 
@@ -63,8 +71,17 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
-                    <li><a href="{{ url('/item') }}">Item Masters</a></li>
-                    <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                        @if(strpos(Request::url(),"transaksi"))
+                            <li><a href="{{ url('/transaksi') }}">Transaksi</a></li>
+                        @elseif(strpos(Request::url(),"item"))
+                            <li><a href="{{ url('/item') }}">Item Masters</a></li>
+                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                        @elseif(strpos(Request::url(),"purchase"))
+                            <li><a href="{{ url('/item') }}">Item Masters</a></li>
+                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                        @else
+                            
+                        @endif
                     @endif
                 </ul>
 
