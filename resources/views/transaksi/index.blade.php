@@ -23,9 +23,66 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <form class="form-inline" action="{{ url('transaksi') }}" method="get">
+                        <div class="form-group">
+                            <select class="form-control" name="type" placeholder="Tipe...">
+                                <option>{{ isset($_GET['type'])?$_GET['type']:'' }}</option>
+                                <option></option>
+                                <option>Kas</option>
+                                <option>Bank</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="cost_type" placeholder="Tipe...">
+                                <option>{{ isset($_GET['cost_type'])?$_GET['cost_type']:'' }}</option>
+                                <option></option>
+                                <option>Debet</option>
+                                <option>Credit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="cost_code" id="cost_code" placeholder="Cost Code..." value="{{ isset($_GET['cost_code'])?$_GET['cost_code']:'' }}"></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="rekening_code" id="rekening_code" placeholder="Rekening Code..." value="{{ isset($_GET['rekening_code'])?$_GET['rekening_code']:'' }}"></input>
+                        </div> 
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="start_date" name="start_date" placeholder="Dari Tanggal..." value="{{ isset($_GET['start_date'])?$_GET['start_date']:'' }}"></input>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#start_date').datetimepicker({
+                                        format: 'YYYY-MM-DD'
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="end_date" name="end_date" placeholder="Sampai Tanggal..." value="{{ isset($_GET['end_date'])?$_GET['end_date']:'' }}"></input>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#end_date').datetimepicker({
+                                        format: 'YYYY-MM-DD'
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary">Tampilkan</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <td>No</td>
                                 <td>Nama Project</td>
                                 <td>Kode Project</td>
                                 <td>Tipe</td>
@@ -43,6 +100,7 @@
                             @foreach($transaksi as $index => $trans)
                             <div id="transaksi">
                                 <tr>
+                                    <td>{{ sprintf('%06d',$trans->id) }}</td>
                                     <td>{{ $trans->project_name }}</td>
                                     <td>{{ $trans->project_code }}</td>
                                     <td>{{ strtoupper($trans->type) }}</td>
@@ -72,7 +130,7 @@
                                 @foreach($trans->costs as $index => $cost)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>{{ $cost->created_at }}</td>
+                                            <td>{{ $trans->created_at }}</td>
                                             <td colspan="2">{{ strtoupper($cost->type) }}</td>
                                             <td colspan="2">Rekening Kode : {{ $cost->rekening_code }}</td>
                                             <td colspan="2">Cost Code : {{ $cost->code }}</td>
@@ -87,7 +145,7 @@
                             </div>
                             @endforeach
                             <script type="text/javascript">
-                                $(".details").hide();
+                                //$(".details").hide();
                                 var hided = true;
                                 function ShowDetails(elem){
                                     var detailsItem = $(elem).parent().parent();

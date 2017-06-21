@@ -14,9 +14,37 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transaksi = Transaksi::orderBy('updated_at','desc')->with('costs')->get();
+        $transaksi = Transaksi::query();
+        if($request->type != null){
+            $transaksi = $transaksi->where('type',$request->type);
+        }
+        if($request->start_date != null){
+            $transaksi = $transaksi->where('created_at','>=',$request->start_date);
+        }
+        if($request->end_date != null){
+            $transaksi = $transaksi->where('created_at','<=',$request->end_date);
+        }
+        if($request->cost_code != null){
+            $cost_code = $request->cost_code;
+            $transaksi = $transaksi->whereHas('costs',function ($q) use($cost_code){
+                $q->where('code','LIKE','%'.$cost_code.'%');
+            });
+        }
+        if($request->rekening_code != null){
+            $rekening_code = $request->rekening_code;
+            $transaksi = $transaksi->whereHas('costs',function ($q) use($rekening_code){
+                $q->where('rekening_code','LIKE','%'.$rekening_code.'%');
+            });
+        }
+        if($request->cost_type != null){
+            $cost_type = $request->cost_type;
+            $transaksi = $transaksi->whereHas('costs',function ($q) use($cost_type){
+                $q->where('type',$cost_type);
+            });
+        }
+        $transaksi = $transaksi->orderBy('created_at','desc')->get();
         return view('transaksi.index',['transaksi' => $transaksi]);
     }
 
