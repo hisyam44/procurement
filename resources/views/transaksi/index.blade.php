@@ -13,7 +13,9 @@
     </div>
     <div class="row">
         <div class="panel-body"> 
-            <div class="col-md-9">&nbsp;</div>
+            <div class="col-md-9">
+                <a class="btn btn-success" href="{!! strpos(Request::fullUrl(),'?') ? Request::fullUrl().'&' : Request::fullUrl().'?' !!}print=true">Download Excel</a>
+            </div>
             <div class="col-md-3">
                 <a class="btn btn-success btn-block" href="{{ url('transaksi/create') }}">Tambahkan Transaksi</a>
             </div>

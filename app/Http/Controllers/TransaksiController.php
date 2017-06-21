@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Transaksi;
+use Excel;
 
 class TransaksiController extends Controller
 {
@@ -44,7 +45,22 @@ class TransaksiController extends Controller
                 $q->where('type',$cost_type);
             });
         }
+        if(count($request->all()) < 2){
+            $transaksi = $transaksi->limit(5);
+        }
         $transaksi = $transaksi->orderBy('created_at','desc')->get();
+        if($request->print){
+            $view = "transaksi.print";
+            $data = [];
+            $data['transaksi'] = $transaksi;
+            //return view('transaksi.print',$data);
+            $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
+                $excel->sheet('laporan', function($sheet) use($view,$data) {
+                    $sheet->loadView($view,$data);
+                });
+            });
+            return $excel->export('xls');
+        }
         return view('transaksi.index',['transaksi' => $transaksi]);
     }
 
