@@ -1,0 +1,16 @@
+.image{
+	height: 150px;overflow: hidden;
+}
+.image-cap{
+	display: none;
+}
+.bg-trans{
+	position: absolute;background:rgba(255,255,255,0.8);height: 100%;width: 100%;
+}
+.image .action{
+	position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);
+}
+.image:hover > .image-cap{
+	display: block;
+	transition: 1s all ease;
+}

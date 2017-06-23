@@ -14,7 +14,7 @@
     <div class="row">
         <div class="panel-body"> 
             <div class="col-md-9">
-                <a class="btn btn-success" href="{!! strpos(Request::fullUrl(),'?') ? Request::fullUrl().'&' : Request::fullUrl().'?' !!}print=true">Download Excel</a>
+                <a class="btn btn-success" href="{!! strpos(Request::fullUrl(),'?') ? Request::fullUrl().'&' : Request::fullUrl().'?' !!}print=true">Download Excel <span class="glyphicon glyphicon-print"></span></a>
             </div>
             <div class="col-md-3">
                 <a class="btn btn-success btn-block" href="{{ url('transaksi/create') }}">Tambahkan Transaksi</a>
@@ -95,7 +95,7 @@
                                 <td>Kepala Bagian</td>
                                 <td>Kasir</td>
                                 <td>Penerima</td>
-                                <td colspan="2">Actions</td>
+                                <td colspan="3">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,20 +114,23 @@
                                     <td>{{ $trans->kasir }}</td>
                                     <td>{{ $trans->penerima }}</td>
                                     <td>
-                                        <a class="btn btn-info" onclick="ShowDetails(this)">Details</a>
+                                       <a class="btn btn-info" onclick="ShowDetails(this)"><span class="glyphicon glyphicon-list"></span></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{ url('transaksi/'.$trans->id.'/attachment') }}"><span class="glyphicon glyphicon-paperclip"></span></a>
                                     </td>
                                     <td>
                                         <form method="post" action="{{ url('transaksi/'.$trans->id) }}">
                                             {{ csrf_field() }}
                                             <input type="text" name="_method" value="delete" hidden>
-                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                                         </form>
                                     </td>
                                 </tr>
                                 <div id="desc">
                                     
                                 <tr class="details">
-                                    <td colspan="12">
+                                    <td colspan="13">
                                     <table class="table table-bordered">
                                 @foreach($trans->costs as $index => $cost)
                                         <tr>
@@ -147,7 +150,7 @@
                             </div>
                             @endforeach
                             <script type="text/javascript">
-                                //$(".details").hide();
+                                $(".details").hide();
                                 var hided = true;
                                 function ShowDetails(elem){
                                     var detailsItem = $(elem).parent().parent();

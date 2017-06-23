@@ -19,6 +19,9 @@ Route::group(['middleware' => ['auth']],function(){
 	});
 	Route::resource('item','ItemController');
 	Route::resource('purchase','PurchaseController');
+	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
+	Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
+	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');
 	Route::resource('transaksi','TransaksiController');
 	Route::get('purchase/{id}/print','PurchaseController@printPurchase');
 	Route::get('unit/completion','PurchaseController@unitCompletion');

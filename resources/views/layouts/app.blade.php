@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ url('css/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ url('Lato/latofonts.css') }}">
     <link rel="stylesheet" href="{{ url('css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/style.css') }}">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <style>

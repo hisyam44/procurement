@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Transaksi;
+use App\Transaksi;  
+use App\Attachment;  
 use Excel;
 
 class TransaksiController extends Controller
@@ -46,7 +47,7 @@ class TransaksiController extends Controller
             });
         }
         if(count($request->all()) < 2){
-            $transaksi = $transaksi->limit(5);
+            $transaksi = $transaksi->limit(20);
         }
         $transaksi = $transaksi->orderBy('created_at','desc')->get();
         if($request->print){
@@ -107,9 +108,40 @@ class TransaksiController extends Controller
         if($success){
             \Session::flash('message','Berhasil Menambahkan Data');
         }
-        return redirect('/transaksi');
+        return redirect('/transaksi/'.$transaksi->id.'/attachment');
     }
 
+    public function attachmentView($id){
+        $transaksi = Transaksi::findOrFail($id);
+        $attachments = $transaksi->attachments;
+        return view('attachment.index',['attachments' => $attachments]);
+        echo $attachments;
+    }
+
+    public function attachmentPost(Request $request,$id){
+        $transaksi = Transaksi::findOrFail($id);
+        foreach ($request->filename as $photo) {
+            $attachment = new Attachment();
+            $transaksi->attachments()->save($attachment);
+            $extension = $photo->getClientOriginalExtension();
+            $name = sprintf('%06d',$attachment->id).".".$extension;
+            $photo->move("uploads",$name);
+            $attachment->filename = '/uploads/'.$name;
+            $attachment->save();
+        }
+        return redirect('/transaksi/'.$id.'/attachment');
+    }
+
+    public function attachmentDelete($id){
+        $attachment = Attachment::findOrFail($id);
+        $transaksi_id = $attachment->transaksi_id;
+        $attachment->delete();
+        $success = unlink(substr($attachment->filename,1));
+        if($success){
+            \Session::flash('message','Berhasil Menghapus Data');
+        }
+        return redirect('transaksi/'.$transaksi_id.'/attachment');
+    }
     /**
      * Display the specified resource.
      *
