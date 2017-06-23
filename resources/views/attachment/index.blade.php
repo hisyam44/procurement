@@ -52,6 +52,7 @@
 	<!-- <div class="">Lampiran Bukti (Attachment) Transaksi {{ sprintf('%06d',$attachments[0]['transaksi_id']) }}</div> -->
 	<div class="row">
 		<div class="panel-body">
+			<a class="btn btn-success" href="{{ Request::url().'?print=true' }}"><span class="glyphicon glyphicon-print"></span> Cetak Lampiran(Attachments)</a>
 			<button class="btn btn-success pull-right" onclick="showInput()">Tambahkan Lampiran Baru</button>
 		</div>
 	</div>

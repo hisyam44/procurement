@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Transaksi;  
 use App\Attachment;  
 use Excel;
+use PDF;
 
 class TransaksiController extends Controller
 {
@@ -111,11 +112,27 @@ class TransaksiController extends Controller
         return redirect('/transaksi/'.$transaksi->id.'/attachment');
     }
 
-    public function attachmentView($id){
+    public function attachmentView(Request $request,$id){
         $transaksi = Transaksi::findOrFail($id);
         $attachments = $transaksi->attachments;
+        if($request->print){
+            $data = [];
+            foreach($attachments as $attachment){
+                $image = [];
+                $arrContextOptions = array("ssl"=>array("verify_peer"=>false,"verify_peer_name"=>false,),);
+                $type = pathinfo(substr($attachment->filename,1),PATHINFO_EXTENSION);
+                $imageData = file_get_contents(substr($attachment->filename, 1),false,stream_context_create($arrContextOptions));
+                $imageBase64Data = base64_encode($imageData);
+                $imageData = 'data:image/'.$type.';base64,'.$imageBase64Data;
+                $image['filename'] =$imageData;
+                $data[] = $image;
+                   
+            }
+            $pdf = PDF::loadView('attachment.print',['attachments' => $data]);
+            //return view('attachment.print',['attachments' => $data]);
+            return $pdf->setPaper('a4', 'landscape')->download('Attachments'.sprintf('%05d',$id).'.pdf');
+        }
         return view('attachment.index',['attachments' => $attachments]);
-        echo $attachments;
     }
 
     public function attachmentPost(Request $request,$id){
