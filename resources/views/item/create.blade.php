@@ -3,17 +3,20 @@
 @section('content')
 <div class="container">
     <div class="row">
-         <div class="col-md-10 col-md-offset-1">
+         <div class="col-md-12">
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/item') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Item No</label>
-                        <div class="col-md-6">
+                        <!-- <label for="code" class="col-md-4 control-label">Item No</label> -->
+                        <div class="col-md-9 col-md-offset-2">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                
                             <div class="form-inline">
                                 <select onChange="gantiCode()" class="form-control codetype" id="code1">
-                                    <option value="1">IMP</option>
-                                    <option value="2">LOC</option>
+                                    <option value="1">Import</option>
+                                    <option value="2">Local</option>
                                 </select>
                                 <select onChange="gantiCode2()" class="form-control codetype" id="code2">
                                     <option value="0">Other</option>
@@ -25,28 +28,30 @@
                                     <option value="0">Other</option>
                                 </select>
                             </div>
+                            </div>
+                        </div>
                             <script type="text/javascript">
                                 var item_types = {
-                                    'CG' : {'HE' : ['EX', 'DZ', 'GD', 'CM', 'PV'],
-                                            'TK' : ['DT', 'FT', 'LT', 'WT', 'TT', 'AT'],
-                                            'PT' : ['SC', 'AM', 'BP'],
-                                            'CM' : ['AG', 'GT', 'FN', 'LT', 'DR', 'CP', 'BR']},
-                                    'SP' : {'HE' : ['EX', 'DZ', 'GD', 'CM', 'PV'],
-                                            'TK' : ['DT', 'AT'],
-                                            'PT' : ['SC', 'AM', 'BP']},
-                                    'CN' : {'FL' : ['IH', 'LH', 'PR'],
-                                            'LU' : [],
-                                            'CH' : ['CC', 'LC', 'OT'],
-                                            'CL' : []},
-                                    'OE' : {'FR' : [],
-                                            'MI' : [],
-                                            'EI' : [],
-                                            'ST' : []},
-                                    'TL' : {'HT' : [],
-                                            'PT' : [],
-                                            'ST' : [],
-                                            'LT' : [],
-                                            'PG' : []}
+                                    'CG (Capital Good)' : {'HE (Heavy Equipment)' : ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
+                                            'TK (Trucks)' : ['DT (Dump Truck)', 'FT (Fuel Truck)', 'LT (Lube Truck)', 'WT (Water Truck)', 'TT (Trailer)', 'AT (Articulated Truck)'],
+                                            'PT (Plants)' : ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)'],
+                                            'CM (Construction Material)' : ['AG (Aggregates)', 'GT (Geotextile)', 'FN (Fencing Material)', 'LT (Lighting Equipment)', 'DR (Drainage Material)', 'CP (Chemical & Paints)', 'BR (Barriers']},
+                                    'SP (Spares)' : {'HE (Heavy Equipment)' : ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
+                                            'TK (Trucks)' : ['DT (Dump Truck)', 'AT (Articulated Truck)'],
+                                            'PT (Plants)' : ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)']},
+                                    'CN (Consumable)' : {'FL (Fuel)' : ['IH (Industrial HSD)', 'LH (SPBU HSD)', 'PR (Premium)'],
+                                            'LU (Lubes)' : [],
+                                            'CH (Chemical)' : ['CC (Cleaning Chemical)', 'LC (Lab Chemical)', 'OT (Others)'],
+                                            'CL (Cleaning Material)' : []},
+                                    'OE (Office Equipment)' : {'FR (Furniture)' : [],
+                                            'MI (Mechanical Installation)' : [],
+                                            'EI (Electrical Installation)' : [],
+                                            'ST (Stationary)' : []},
+                                    'TL (Tools & Tackles)' : {'HT (Hand Tools)' : [],
+                                            'PT (Power Tools)' : [],
+                                            'ST (Special Tools)' : [],
+                                            'LT (Lifting Tools)' : [],
+                                            'PG (Personal Gadget)' : []}
                                 };
                                 console.log(item_types);
                                 var $el = $("#code2");
@@ -96,10 +101,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">&nbsp;</label>
+                        <label for="code" class="col-md-4 control-label">Item Code</label>
                         <div class="col-md-6">
-                            <input type="text" name="item_no" id="item_no" value="10000" hidden>
-                            <p class="form-control-static" id="text_item_no">10000</p>
+                            <input type="text" name="item_no" id="item_no" value="1000" hidden>
+                            <p class="form-control-static" id="text_item_no">1000</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -133,7 +138,7 @@
                         <div class="col-md-6">
                         <div class="input-group">
                             <input id="shelf_life" type="text" class="form-control" name="shelf_life" required>
-                            <span class="input-group-addon">th</span>
+                            <span class="input-group-addon">Hari</span>
                         </div>
                         </div>
                     </div>
@@ -152,7 +157,10 @@
                     <div class="form-group">
                         <label for="warranty" class="col-md-4 control-label">Warranty</label>
                         <div class="col-md-6">
+                        <div class="input-group">
                             <input id="warranty" type="text" class="form-control" name="warranty" required>
+                            <span class="input-group-addon">Jam</span>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group">
