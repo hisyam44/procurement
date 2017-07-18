@@ -100,8 +100,28 @@
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">MOL</label>
                                 <div class="col-md-6">
-                                    <input id="mol" type="text" class="form-control" name="mol" required>
+                                    <input id="mol" type="text" name="mol" hidden required>
+                                    <div class="input-group">
+                                        <input id="mol_num" type="text" class="form-control" onkeyup="changeMolValue()" required>
+                                        <span class="input-group-addon">/</span>
+                                        <input id="mol_date" type="text" class="form-control" onchange="changeMolValue()" required>
+                                    </div>
                                 </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#mol_date').datetimepicker({
+                                            format: 'DD-MM-YYYY'
+                                        });
+                                        $("#mol_date").on("dp.change", function (e) {
+                                            changeMolValue();
+                                        });
+                                    });
+                                    function changeMolValue(){
+                                        var number = $('#mol_num').val();
+                                        var date = $('#mol_date').val();
+                                        $('#mol').val(number+"/"+date);
+                                    }
+                                </script>
                             </div>
                         </div>
                         </div>

@@ -145,7 +145,20 @@
                     <div class="form-group">
                         <label for="uom" class="col-md-4 control-label">UOM</label>
                         <div class="col-md-6">
-                            <input id="uom" type="text" class="form-control" name="uom" required>
+                            <select class="form-control" id="uom" name="uom" required>
+                                <option>Nos</option>
+                                <option>Kg</option>
+                                <option>g</option>
+                                <option>MT</option>
+                                <option>ltr</option>
+                                <option>kl</option>
+                                <option>ml</option>
+                                <option>Sqm</option>
+                                <option>m</option>
+                                <option>Lot</option>
+                                <option>Packet</option>
+                                <option>Set</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
