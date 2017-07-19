@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Purchase;
 use App\Unit;
+use App\Item;
 use PDF;
 
 class PurchaseController extends Controller
@@ -41,37 +42,33 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        //return response()->json($request->all());
         $purchase = new Purchase();
         $purchase->unit_id = $request->unit_id;
         $purchase->type = $request->type;
         $purchase->department = $request->department;
-
         $purchase->mol = $request->mol;
         $purchase->km_hm = $request->km_hm;
         $purchase->warehouse_manager = $request->warehouse_manager;
         $purchase->maintenance_manager = $request->maintenance_manager;
         $purchase->project_manager = $request->project_manager;
-
         $purchase->purpose = $request->purpose;
         $purchase->created_at = $request->created_at;
         $success = $purchase->save();
-        for($i=0;$i<count($request->no);$i++){
+        for($i=0;$i<count($request->item_id);$i++){
             $req = new \App\Request;
-            $req->no = $request->no[$i];
+            $req->item_id = $request->item_id[$i];
             $req->component = $request->component[$i];
             $req->description = $request->description[$i];
             $req->qty = $request->qty[$i];
-            $req->satuan = $request->satuan[$i];
             $req->model = $request->model[$i];
-
             $req->damage_description = $request->damage_description[$i];
-            $purchase->requests()->save($req);
+            $success = $purchase->requests()->save($req);
         }
         if($success){
             \Session::flash('message','Berhasil Menambahkan Data'); 
         }
         return redirect('/purchase');
-        //return response()->json($request->all());
     }
 
     /**
@@ -139,6 +136,21 @@ class PurchaseController extends Controller
             $value = array(
                 'id' => $location->id,
                 'value' => $location->code.'( '.$location->type.' )'
+            );
+            $results[] = $value;
+        }
+        return response()->json($results,200);
+    }
+
+    public function itemCompletion(Request $request){
+        $locations = Item::where('item_no','LIKE','%'.$request->term.'%')->get();
+        $results = [];
+        foreach($locations as $location){
+            $value = array(
+                'id' => $location->id,
+                'value' => $location->item_no,
+                'uom' => $location->uom,
+                'part_no' => $location->part_no
             );
             $results[] = $value;
         }

@@ -134,7 +134,8 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-md-3">
-                                            <input id="no" type="text" class="form-control" name="no[]" placeholder="Part No..." required>
+                                            <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required>
+                                            <input id="item_id" type="text" name="item_id[]" required hidden>
                                         </div>
                                         <div class="col-md-3">
                                             <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required>
@@ -150,7 +151,7 @@
                                             <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required>
                                         </div>
                                         <div class="col-md-2">
-                                            <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="UOM..." required>
+                                            <input id="satuan" type="text" class="form-control" placeholder="UOM..." required>
                                         </div>
                                         <div class="col-md-3">
                                             <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model...">
@@ -163,6 +164,34 @@
                             </div>
                         </div>
                         </div>
+                        <script type="text/javascript">
+                            function autoComplete(elem){
+                                $(elem).autocomplete({
+                                    source: function(request,response){
+                                        console.log(request.term);
+                                        $.ajax({
+                                            url: "{{ url('/item/completion') }}",
+                                            dataType: "json",
+                                            data: {
+                                                term: request.term
+                                            },
+                                            success: function(data){
+                                                console.log(data);
+                                                response(data);
+                                            }
+                                        });
+                                    },
+                                    minLength: 2,
+                                    select: function(event,ui){
+                                        $(this).next().val(ui.item.id);
+                                        var parentElem = $(this).parent().parent().parent().parent();
+                                        $(parentElem).find('#satuan').val(ui.item.uom);
+                                        $(parentElem).find('#component').val(ui.item.part_no);
+                                        console.log(parentElem);
+                                    }
+                                });
+                            }
+                        </script>
                         <div class="panel-body">
                             <a class="btn btn-success pull-right" onclick="appendNewFormRequest()">Add New Request</a>
                         </div>
@@ -188,7 +217,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" name="no[]" placeholder="Part No..." required> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" name="satuan[]" placeholder="UOM..." required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
+                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..." required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
                                 checkDepartment();
 
                             }
@@ -216,7 +245,7 @@
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Project Manager</label>
                                 <div class="col-md-6">
-                                    <input id="project_manager" type="text" class="form-control" name="project_manager" required>
+                                    <input id="project_manager" type="text" class="form-control" name="project_manager" value="Pak Veera" required>
                                 </div>
                             </div>
                             <div class="form-group">
