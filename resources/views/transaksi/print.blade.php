@@ -12,7 +12,7 @@
     		</td>
     	</tr>
         <tr style="font-weight: bold;text-align: center;">
-            <td>No</td>
+            <!-- <td>No</td>
             <td>Nama Project</td>
             <td>Kode Project</td>
             <td>Tipe</td>
@@ -22,13 +22,29 @@
             <td>Direksi</td>
             <td>Kepala Bagian</td>
             <td>Kasir</td>
-            <td>Penerima</td>
+            <td>Penerima</td> -->
+            <td>No Voucher</td>
+            <td>Tanggal</td>
+            <td>Category Accounting</td>
+            <td>Cost Type</td>
+            <td>Cost Code</td>
+            <td>Category Construction</td>
+            <td>Details</td>
+            <td>Debit</td>
+            <td>Kredit</td>
+            <td>Saldo</td>
+            <td>Ket</td>
         </tr>
     </thead>
     <tbody>
+        <?php
+            $total_saldo = 0;
+            $total_debet = 0;
+            $total_credit = 0;
+        ?>
         @foreach($transaksi as $index => $trans)
         <div id="transaksi">
-            <tr>
+            <!-- <tr>
                 <td>{{ sprintf('%06d',$trans->id) }}</td>
                 <td>{{ $trans->project_name }}</td>
                 <td>{{ $trans->project_code }}</td>
@@ -40,19 +56,35 @@
                 <td>{{ $trans->kepala_bagian }}</td>
                 <td>{{ $trans->kasir }}</td>
                 <td>{{ $trans->penerima }}</td>
-            </tr>
+            </tr> -->
             @foreach($trans->costs as $index => $cost)
-                    <tr style="background: #eee;">
-                        <td></td>
-                        <td>{{ $trans->created_at }}</td>
-                        <td>{{ strtoupper($cost->type) }}</td>
-                        <td colspan="2">Rekening Kode : {{ $cost->rekening_code }}</td>
-                        <td colspan="2">Cost Code : {{ $cost->code }}</td>
-                        <td>Rp.{{ $cost->amount }}</td>
-                        <td colspan="3">{{ $cost->description }}</td>
+                    <tr>
+                        <td>{{ sprintf('%06d',$trans->id) }}</td>
+                        <td>{{ $trans->created_at->format('d-M-Y') }}</td>
+                        <td>{{ $trans->category_accounting }}</td>
+                        <td>{{ $cost->cost_type }}</td>
+                        <td>{{ $cost->code }}</td>
+                        <td>{{ $trans->category_construction }}</td>
+                        <td>{{ $cost->description }}</td>
+                        <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
+                        <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
+                        <td>{{ $cost->saldo }}</td>
+                        <td>{{ $trans->keterangan }}</td>
+                        <?php
+                            $total_saldo = $cost->saldo;
+                            $cost->type=="debet"?$total_debet+=$cost->amount:$total_credit+=$cost->amount;
+                        ?>
                     </tr>
             @endforeach
         </div>
         @endforeach
+            <tr>
+                <td colspan="6">Total</td>
+                <td>Total</td>
+                <td>{{ $total_debet }}</td>
+                <td>{{ $total_credit }}</td>
+                <td>{{ $total_saldo }}</td>
+                <td></td>
+            </tr>
     </tbody>
 </table>

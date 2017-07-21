@@ -18,9 +18,10 @@ class CreateCostsTable extends Migration
             $table->foreign('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade');
             $table->enum('type',['debet','credit'])->default('debet');
             $table->string('code');
-            $table->string('rekening_code');
+            $table->enum('cost_type',['MT','LB','EQ','SC','OH'])->default('MT');
             $table->string('description');
             $table->string('amount');
+            $table->string('saldo');
             $table->timestamps();
         });
     }

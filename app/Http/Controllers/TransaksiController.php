@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Transaksi;  
+use App\Cost;  
 use App\Attachment;  
 use Excel;
 use PDF;
@@ -35,12 +36,12 @@ class TransaksiController extends Controller
                 $q->where('code','LIKE','%'.$cost_code.'%');
             });
         }
-        if($request->rekening_code != null){
+        /*if($request->rekening_code != null){
             $rekening_code = $request->rekening_code;
             $transaksi = $transaksi->whereHas('costs',function ($q) use($rekening_code){
                 $q->where('rekening_code','LIKE','%'.$rekening_code.'%');
             });
-        }
+        }*/
         if($request->cost_type != null){
             $cost_type = $request->cost_type;
             $transaksi = $transaksi->whereHas('costs',function ($q) use($cost_type){
@@ -73,7 +74,13 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        return view('transaksi.create');
+        $no_voucher = Transaksi::orderBy('id','DESC')->first();
+        if(count($no_voucher) === 0){
+            $no_voucher = 1;
+        }else{
+            $no_voucher = $no_voucher->id+1;
+        }
+        return view('transaksi.create',['no_voucher' => $no_voucher]);
     }
 
     /**
@@ -85,6 +92,8 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $transaksi = new Transaksi();
+        $transaksi->category_accounting = $request->category_accounting;
+        $transaksi->category_construction = $request->category_construction;
         $transaksi->type = $request->type_transaksi;
         $transaksi->created_at = $request->created_at;
         $transaksi->project_name = $request->project_name;
@@ -92,23 +101,36 @@ class TransaksiController extends Controller
         $transaksi->receiver = $request->receiver;
         $transaksi->receiver_rekening = $request->receiver_rekening;
         $transaksi->amount_total = $request->amount_total;
+        $transaksi->keterangan = $request->keterangan;
         $transaksi->direksi = $request->direksi;
         $transaksi->kepala_bagian = $request->kepala_bagian;
         $transaksi->kasir = $request->kasir;
         $transaksi->penerima = $request->penerima;
         $success = $transaksi->save();
         for($i=0;$i<count($request->type);$i++){
-            $cost = new \App\Cost();
+            $latest_saldo = Cost::orderBy('id','DESC')->first();
+            if(count($latest_saldo) === 0){
+                $latest_saldo = 0;
+            }else{
+                $latest_saldo = $latest_saldo->saldo;
+            }
+            $cost = new Cost();
             $cost->type = $request->type[$i];
             $cost->code = $request->code[$i];
-            $cost->rekening_code = $request->rekening_code[$i];
+            $cost->cost_type = $request->cost_type[$i];
             $cost->amount = $request->amount[$i];
             $cost->description = $request->description[$i];
+            if($request->type[$i] === "Debet"){
+                $cost->saldo = $latest_saldo+$request->amount[$i];
+            }else{
+                $cost->saldo = $latest_saldo-$request->amount[$i];
+            }
             $transaksi->costs()->save($cost);
         }
         if($success){
             \Session::flash('message','Berhasil Menambahkan Data');
         }
+        //return response()->json($request->all());
         return redirect('/transaksi/'.$transaksi->id.'/attachment');
     }
 

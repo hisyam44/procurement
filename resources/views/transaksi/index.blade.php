@@ -45,9 +45,9 @@
                         <div class="form-group">
                             <input class="form-control" type="text" name="cost_code" id="cost_code" placeholder="Cost Code..." value="{{ isset($_GET['cost_code'])?$_GET['cost_code']:'' }}"></input>
                         </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="rekening_code" id="rekening_code" placeholder="Rekening Code..." value="{{ isset($_GET['rekening_code'])?$_GET['rekening_code']:'' }}"></input>
-                        </div> 
+                       <!--  <div class="form-group">
+                            <input class="form-control" type="text" name="cost_type" id="cost_type" placeholder="Rekening Code..." value="{{ isset($_GET['rekening_code'])?$_GET['rekening_code']:'' }}"></input>
+                        </div>  -->
                         <div class="form-group">
                             <input class="form-control" type="text" id="start_date" name="start_date" placeholder="Dari Tanggal..." value="{{ isset($_GET['start_date'])?$_GET['start_date']:'' }}"></input>
                             <script type="text/javascript">
@@ -84,17 +84,19 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>No</td>
+                                <td>No Voucher</td>
+                                <td>Category Accounting</td>
+                                <td>Category Construction</td>
                                 <td>Nama Project</td>
                                 <td>Kode Project</td>
                                 <td>Tipe</td>
                                 <td>Kepada</td>
                                 <td>Rekening</td>
                                 <td>Jumlah Total</td>
-                                <td>Direksi</td>
+                                <!-- <td>Direksi</td>
                                 <td>Kepala Bagian</td>
                                 <td>Kasir</td>
-                                <td>Penerima</td>
+                                <td>Penerima</td> -->
                                 <td colspan="3">Actions</td>
                             </tr>
                         </thead>
@@ -103,16 +105,18 @@
                             <div id="transaksi">
                                 <tr>
                                     <td>{{ sprintf('%06d',$trans->id) }}</td>
+                                    <td>{{ $trans->category_accounting }}</td>
+                                    <td>{{ $trans->category_construction }}</td>
                                     <td>{{ $trans->project_name }}</td>
                                     <td>{{ $trans->project_code }}</td>
                                     <td>{{ strtoupper($trans->type) }}</td>
                                     <td>{{ $trans->receiver }}</td>
                                     <td>{{ $trans->receiver_rekening }}</td>
-                                    <td>Rp. {{ $trans->amount_total }}</td>
-                                    <td>{{ $trans->direksi }}</td>
+                                    <td>Rp.{{ $trans->amount_total }}</td>
+                                    <!-- <td>{{ $trans->direksi }}</td>
                                     <td>{{ $trans->kepala_bagian }}</td>
                                     <td>{{ $trans->kasir }}</td>
-                                    <td>{{ $trans->penerima }}</td>
+                                    <td>{{ $trans->penerima }}</td> -->
                                     <td>
                                        <a class="btn btn-info" onclick="ShowDetails(this)"><span class="glyphicon glyphicon-list"></span></a>
                                     </td>
@@ -137,7 +141,7 @@
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $trans->created_at }}</td>
                                             <td colspan="2">{{ strtoupper($cost->type) }}</td>
-                                            <td colspan="2">Rekening Kode : {{ $cost->rekening_code }}</td>
+                                            <td colspan="2">Cost Type : {{ $cost->cost_type }}</td>
                                             <td colspan="2">Cost Code : {{ $cost->code }}</td>
                                             <td colspan="2">Rp.{{ $cost->amount }}</td>
                                             <td colspan="2">{{ $cost->description }}</td>

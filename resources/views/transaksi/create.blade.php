@@ -7,6 +7,34 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/transaksi') }}">
                     {{ csrf_field() }}
                     <div class="row">
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="type_transaksi" class="col-md-4 control-label">No Voucher</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" value="{{ sprintf('%06d',$no_voucher) }}" readonly></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="type_transaksi" class="col-md-4 control-label">Category Accounting</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="category_accounting" required></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="type_transaksi" class="col-md-4 control-label">Category Construction</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="category_construction" required></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-body">
                         <div class="col-md-4">
@@ -37,13 +65,13 @@
                             <div class="form-group">
                                 <label for="project_name" class="col-md-4 control-label">Nama Project</label>
                                 <div class="col-md-6">
-                                    <input id="project_name" type="text" class="form-control" name="project_name" required>
+                                    <input id="project_name" type="text" class="form-control" value="Project PBTR Pekalongan" name="project_name" required readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="project_code" class="col-md-4 control-label">Kode Project</label>
                                 <div class="col-md-6">
-                                    <input id="project_code" type="text" class="form-control" name="project_code" required>
+                                    <input id="project_code" type="text" class="form-control" value="20-16-PB001" name="project_code" required readonly>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +105,13 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <input id="rekening_code[]" type="text" class="form-control" name="rekening_code[]" placeholder="Rekening Kode..." required>
+                                            <select id="cost_type[]" class="form-control" name="cost_type[]" required>
+                                                <option>MT</option>
+                                                <option>LB</option>
+                                                <option>EQ</option>
+                                                <option>SC</option>
+                                                <option>OH</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-2">
                                             <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required>
@@ -89,7 +123,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Keterangan..." required>
+                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required>
                                         </div>
                                         <div class="col-md-1">
                                             
@@ -101,7 +135,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="amount_total" class="col-md-4 control-label">Jumlah Total</label>
                                         <div class="col-md-6">
@@ -123,7 +157,15 @@
                                         </script>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Ket</label>
+                                        <div class="col-md-9">
+                                            <input id="keterangan" type="text" class="form-control" name="keterangan" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <a class="btn btn-success pull-right" onclick="appendNewFormRequest()">Add New Cost</a>
                                 </div>
                             </div>
@@ -139,7 +181,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <select class="form-control" id="type[]" name="type[]" required> <option>Debet</option> <option>Credit</option> </select> </div><div class="col-md-2"> <input id="rekening_code[]" type="text" class="form-control" name="rekening_code[]" placeholder="Rekening Kode..." required> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." onkeyup="jumlahTotal()" value="0" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Keterangan..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
+                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <select class="form-control" id="type[]" name="type[]" required> <option>Debet</option> <option>Credit</option> </select> </div><div class="col-md-2"> <select id="cost_type[]" class="form-control" name="cost_type[]" required> <option>MT</option> <option>LB</option> <option>EQ</option> <option>SC</option> <option>OH</option> </select> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." onkeyup="jumlahTotal()" value="0" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
                                 jumlahTotal();
                             }
                         </script>

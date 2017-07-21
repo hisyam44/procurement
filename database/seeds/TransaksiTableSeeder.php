@@ -13,43 +13,31 @@ class TransaksiTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<100;$i++){
             $transaksi = new Transaksi();
-            $type = ['kas','bank'];
-            $transaksi->type = $type[rand(0,1)];
-            $transaksi->project_name = "Project Name";
-            $transaksi->project_code = "PC124";
-            $transaksi->receiver = "Ahmad";
-            $transaksi->receiver_rekening = "56752652825642";
-            $transaksi->amount_total = "1200000";
-            $transaksi->direksi = "Bejo";
-            $transaksi->kepala_bagian = "Slamet";
-            $transaksi->kasir = "Siti";
-            $transaksi->penerima = "Ahmad";
-            $nn = rand(1,Carbon\Carbon::now()->day);
-            $transaksi->created_at = Carbon\Carbon::create(2017, 6, $nn, 0, 0, 0);
+            $transaksi->type = 'kas';
+            $transaksi->category_accounting = "";
+            $transaksi->category_construction = "";
+            $transaksi->project_name = "Project PBTR Pekalongan";
+            $transaksi->project_code = "20-16-PB001";
+            $transaksi->receiver = "";
+            $transaksi->receiver_rekening = "";
+            $transaksi->amount_total = "3000000";
+            $transaksi->direksi = "";
+            $transaksi->kepala_bagian = "";
+            $transaksi->kasir = "";
+            $transaksi->penerima = "";
+            $transaksi->keterangan = "";
+            $transaksi->created_at = Carbon\Carbon::now();
             $transaksi->save();
 
-            $type_cost = ['debet','credit'];
-            $cost_type = $type_cost[rand(0,1)];
-            $code = 'HL'.rand(1111,9999);
-            $rek_code = rand(1111111,9999999);
             $cost = new Cost();
-            $cost->type = $cost_type;
-            $cost->code = $code;
-            $cost->rekening_code = $rek_code;
-            $cost->description = "Lorem Ipsum Sit Dolor 1";
-            $cost->amount = "700000";
+            $cost->type = 'debet';
+            $cost->code = "";
+            $cost->cost_type = "";
+            $cost->description = "Saldo Awal";
+            $cost->amount = "3000000";
+            $cost->saldo = "3000000";
             $transaksi->costs()->save($cost);
-
-            $cost = new Cost();
-            $cost->type = $cost_type;
-            $cost->code = $code;
-            $cost->rekening_code = $rek_code;
-            $cost->description = "Lorem Ipsum Sit Dolor 2";
-            $cost->amount = "500000";
-            $transaksi->costs()->save($cost);
-        }
 
     }
 }
