@@ -143,14 +143,13 @@ class PurchaseController extends Controller
     }
 
     public function itemCompletion(Request $request){
-        $locations = Item::where('item_no','LIKE','%'.$request->term.'%')->get();
+        $locations = Item::where('part_no','LIKE','%'.$request->term.'%')->get();
         $results = [];
         foreach($locations as $location){
             $value = array(
                 'id' => $location->id,
-                'value' => $location->item_no,
-                'uom' => $location->uom,
-                'part_no' => $location->part_no
+                'value' => $location->part_no,
+                'uom' => $location->uom
             );
             $results[] = $value;
         }
