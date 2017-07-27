@@ -15,4 +15,8 @@ class Transaksi extends Model
     public function attachments(){
     	return $this->hasMany('App\Attachment');
     }
+
+    public function accounting(){
+    	return $this->belongsTo('App\Accounting');
+    }
 }

@@ -105,7 +105,7 @@
                             <div id="transaksi">
                                 <tr>
                                     <td>{{ sprintf('%06d',$trans->id) }}</td>
-                                    <td>{{ $trans->category_accounting }}</td>
+                                    <td>{{ $trans->accounting->name }}</td>
                                     <td>{{ $trans->category_construction }}</td>
                                     <td>{{ $trans->project_name }}</td>
                                     <td>{{ $trans->project_code }}</td>

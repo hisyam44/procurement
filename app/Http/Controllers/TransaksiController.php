@@ -92,7 +92,7 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $transaksi = new Transaksi();
-        $transaksi->category_accounting = $request->category_accounting;
+        $transaksi->accounting_id = $request->category_accounting;
         $transaksi->category_construction = $request->category_construction;
         $transaksi->type = $request->type_transaksi;
         $transaksi->created_at = $request->created_at;

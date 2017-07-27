@@ -20,8 +20,31 @@
                                 <div class="form-group">
                                     <label for="type_transaksi" class="col-md-4 control-label">Category Accounting</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="category_accounting" required></input>
+                                        <input type="text" id="category_accounting_id" name="category_accounting" required hidden></input>
+                                        <input type="text" class="form-control" id="category_accounting" required></input>
                                     </div>
+                                    <script type="text/javascript">
+                                        $("#category_accounting").autocomplete({
+                                            source: function(request,response){
+                                                console.log(request.term);
+                                                $.ajax({
+                                                    url: "{{ url('/accounting/completion') }}",
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: request.term
+                                                    },
+                                                    success: function(data){
+                                                        console.log(data);
+                                                        response(data);
+                                                    }
+                                                });
+                                            },
+                                            minLength: 2,
+                                            select: function(event,ui){
+                                                $("#category_accounting_id").val(ui.item.id);
+                                            }
+                                        });
+                                    </script>
                                 </div>
                             </div>
                             <div class="col-md-4">

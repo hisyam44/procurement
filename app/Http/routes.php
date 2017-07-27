@@ -26,5 +26,6 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::resource('transaksi','TransaksiController');
 	Route::get('purchase/{id}/print','PurchaseController@printPurchase');
 	Route::get('unit/completion','PurchaseController@unitCompletion');
+	Route::get('accounting/completion','PurchaseController@accountingCompletion');
 });
 //Route::get('/home', 'HomeController@index');

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2017 at 01:20 
+-- Generation Time: Jul 27, 2017 at 07:31 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,178 @@ SET time_zone = "+00:00";
 --
 -- Database: `procurement`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounting_category`
+--
+
+CREATE TABLE IF NOT EXISTS `accounting_category` (
+`id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `accounting_category`
+--
+
+INSERT INTO `accounting_category` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Aktiva Tidak Lancar', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Direct Expenses', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Direct Expenses Construction', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Biaya Administrasi Bank/konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Biaya Administrasi Leasing/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'Biaya Agency/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'Biaya Air PAM/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'Biaya Akuntan & Konsultan/ K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'Biaya Alat-Alat Tulis & Cetak/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'Biaya Alat/Inventaris Kantor/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 'Biaya Alat / Inventaris Lap.Kontruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 'Biaya APD/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 'Biaya Asuransi Konstruction', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 'Biaya Bahan Bakar AB Kosntruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 'Biaya Bahan Bakar Alat-Lap.Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 'Biaya Bahan Bakar Mobil/Motor/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, 'Biaya Bahan Bakar Truck Kosntruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, 'Biaya Balik Nama AB & Kendaraan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, 'Biaya Benda-Benda Pos/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, 'Biaya Bensin,Tol,Parkir/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, 'Biaya Bunga Bank U/LC/konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, 'Biaya Bunga Leasing K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, 'Biaya Bunga Pinjamn Bank/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, 'Biaya Cuci Kendaraan/Truck/AB/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, 'Biaya Denda/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, 'Biaya Gaji Staff Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, 'Biaya Gaji Supir (Use For DT) Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, 'Biaya Inklaring/EMKL', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, 'Biaya Instalasi / K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, 'Biaya Investasi Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, 'Biaya Iuran/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, 'Biaya Jamuan Tamu/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, 'Biaya Kantor Dan Lain-Lain/Konstruk', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, 'Biaya Kantor Di Pool', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, 'Biaya Kantor Di Proyek/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, 'Biaya Keamanan Proyek Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, 'Biaya Keperluan Mess Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, 'Biaya Kesejahteraan Kary/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, 'Biaya Kirim Paket /Dokumen Cosntr', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, 'Biaya Kirim Sparepart/k', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, 'Biaya Kompensasi Lahan & Tanah', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, 'Biaya Koordinasi Lap./K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, 'Biaya Laboratorium/Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, 'Biaya Lain-Lain AMP', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, 'Biaya Lain-Lain Proyek/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, 'Biaya Leasing Alat Bear/Truck Konstrusksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, 'Biaya Listrik,Air,Telp/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, 'Biaya Listrik/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, 'Biaya Makan Bersama/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, 'Biaya Material AMP Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, 'Biaya Material Aspal Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, 'Biaya Material Consumables/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, 'Biaya Material Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, 'Biaya Material Rindri', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, 'Biaya Material-S', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, 'Biaya Material Safety/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(57, 'Biaya Material - Survey (K)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(58, 'Biaya Mengurus Tagihan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(59, 'Biaya Minyak Bakar/MDF', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(60, 'Biaya Mobilisasi Alat Berat/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(61, 'Biaya Mobilisasi Kendaraan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(62, 'Biaya Mobilisasi Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(63, 'Biaya Notaris/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(64, 'Biaya Ongkos Angkut Material/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(65, 'Biaya Pakaian Seragam Const.', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(66, 'Biaya Pelumas Alat Berat/k', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(67, 'Biaya Pelumas Mobil/motor /K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(68, 'Biaya Pelumas Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(69, 'Biaya Pemakaian Alat Lapangan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(70, 'Biaya Pemakaian/Sewa Truck Dan Alat Berat', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(71, 'Biaya Pemasangan Iklan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(72, 'Biaya Pembuatan Sertifikat/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(73, 'Biaya Pemeliharaan Bangunan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(74, 'Biaya Pendidikan Karyawan/Kosntruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(75, 'Biaya Pengacara/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(76, 'Biaya Pengobatan Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(77, 'Biaya Pengurusan Alat/Barang Impor K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(78, 'Biaya Penyusutan Alat Berat/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(79, 'Biaya Penyusutan Inventaris Lapangan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(80, 'Biaya Penyusutan Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(81, 'Biaya Perijinan/k', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(82, 'Biaya Perjalanan Dinas,Akomodasi/Konstr', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(83, 'Biaya Pesangon Karyawan/k', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(84, 'Biaya Potong Pohon Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(85, 'Biaya Psikotest Kary.Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(86, 'Biaya Rangkaian Bunga/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(87, 'Biaya Recruitment/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(88, 'Biaya Ritasi Supir - Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(89, 'Biaya Rumah Tangga Kantor Konstr.', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(90, 'Biaya Safety K3L Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(91, 'Biaya Sarana Jalan Darurat', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(92, 'Biaya Sewa Alat Berat/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(93, 'Biaya Sewa Alat Lapangan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(94, 'Biaya Sewa Gedung / Rumah/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(95, 'Biaya Sewa Kapal/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(96, 'Biaya Sewa Kendaraan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(97, 'Biaya Sewa Lahan Di Proyek', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(98, 'Biaya Sewa Mesin Foto Copy/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(99, 'Biaya Sewa Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(100, 'Biaya Software Maintenence/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(101, 'Biaya Solar /k', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(102, 'Biaya Sparepart Alat Berat/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(103, 'Biaya Sparepart Alat Lapangan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(104, 'Biaya Sparepart AMP/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(105, 'Biaya Sparepart Mobil/Motor Proyek/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(106, 'Biaya Sparepart Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(107, 'Biaya SPO & FHO', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(108, 'Biaya Sub Kontraktor/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(109, 'Biaya Sumbangan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(110, 'Biaya Surat Alat-Alat Lapangan', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(111, 'Biaya Surat Kendaraan Mbl/Motor/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(112, 'Biaya Surat Kendaraan Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(113, 'Biaya Survey/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(114, 'Biaya System Aplikasi / K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(115, 'Biaya Tanah Galian Untuk Urugan', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(116, 'Biaya Telp/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(117, 'Biaya Tender & Promosi/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(118, 'Biaya Terjemahan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(119, 'Biaya Transport Di Pool', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(120, 'Biaya Transport Di Proyek/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(121, 'Biaya Transport Hotmix/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(122, 'Biaya Transport/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(123, 'Biaya Transport Solar/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(124, 'Biaya Tunjangan Transport/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(125, 'Biaya Uang Makan Karyawan Proyek Const.', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(126, 'Biaya Umum/lain2 (K)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(127, 'Biaya Upah Karyawan Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(128, 'Biaya Upah Lembur Karyawan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(129, 'Biaya Vsat and Internet/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(130, 'Bi.Gaji Operator (Use For Alat Berat) Konstr.', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(131, 'Bi.Perbaikan/Perawatan Alat Berat/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(132, 'Bi.Perbaikan/Perawatan Inventaris Kantor/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(133, 'Bi.Perbaikan/Perawatan Inventaris Lapangan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(134, 'Bi.Perbaikan/Perawatan Mobil/motor /K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(135, 'Bi.Perbaikan/Perawatan Truck/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(136, 'Bi.Perbaikan /Perwatan AMP/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(137, 'BPJS/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(138, 'BPJS Kesehatan K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(139, 'BPJS Ketenagakerjaan K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(140, 'Insentif/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(141, 'Jamsostek Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(142, 'Management Fee', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(143, 'Pajak Bumi & Bangunan/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(144, 'Potongan Lainnya/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(145, 'Potongan Pembelian/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(146, 'Potongan Premi Kehadiran/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(147, 'Selisih Kurs Atas Pembelian/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(148, 'Selisih Kurs Atas Transaksi K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(149, 'Selisih Kurs Tally/k', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(150, 'THR Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(151, 'Tunjangan Lainnya/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(152, '(Expenses (Direct))', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(153, '(Pengeluaran Lagsng Konstruksi)', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -51,15 +223,7 @@ CREATE TABLE IF NOT EXISTS `costs` (
   `saldo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `costs`
---
-
-INSERT INTO `costs` (`id`, `transaksi_id`, `type`, `code`, `cost_type`, `description`, `amount`, `saldo`, `created_at`, `updated_at`) VALUES
-(1, 1, 'debet', '', '', 'Saldo Awal', '3000000', '3000000', '2017-07-21 01:10:13', '2017-07-21 01:10:13'),
-(2, 2, 'credit', 'b2. 3', 'MT', ' Amat:Pembayaran Iuran sampah bulan May''17 utk kantor pekajangan,Mess deblakan kantor Gg.9,Mess depan kantor Gg.8 (3X60000) ', '50000', '2950000', '2017-07-21 01:19:20', '2017-07-21 01:19:20');
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -106,7 +270,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_06_09_233449_create_requests_table', 1),
 ('2017_06_19_152213_create_transaksi_table', 1),
 ('2017_06_19_152319_create_costs_table', 1),
-('2017_06_22_035015_create_attachments_table', 1);
+('2017_06_22_035015_create_attachments_table', 1),
+('2017_07_27_050642_create_accounting_category_table', 1);
 
 -- --------------------------------------------------------
 
@@ -168,8 +333,8 @@ CREATE TABLE IF NOT EXISTS `requests` (
 
 CREATE TABLE IF NOT EXISTS `transaksi` (
 `id` int(10) unsigned NOT NULL,
+  `accounting_id` int(10) unsigned NOT NULL,
   `type` enum('kas','bank') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'kas',
-  `category_accounting` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `category_construction` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `project_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `project_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -184,15 +349,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id`, `type`, `category_accounting`, `category_construction`, `project_name`, `project_code`, `receiver`, `receiver_rekening`, `amount_total`, `direksi`, `kepala_bagian`, `kasir`, `penerima`, `attachment`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 'kas', '', '', 'Project PBTR Pekalongan', '20-16-PB001', '', '', '3000000', '', '', '', '', '', '', '2017-07-21 01:10:13', '2017-07-21 01:10:13'),
-(2, 'kas', 'Rumah Tangga Kantor Konstruksi', 'Rumah tangga-kopi-aqua-gula,surat kabar,etc', 'Project PBTR Pekalongan', '20-16-PB001', 'lorem ipsum', '123456565678', '50000', 'Lorem Ipsum', 'Lorem Ipsum', 'Lorem Ipsum', 'lorem ipsum', '', ' Budget', '2017-07-20 17:00:00', '2017-07-21 01:19:19');
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -375,13 +532,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$M4FD7xbXRQVIOXedZ3rkZeECFu2xOIC1hxrEb0gBnziMNqb4bcNye', 'admin', NULL, '2017-07-21 01:10:13', '2017-07-21 01:10:13'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$TNItThEA6egPuK.xVnkGk.9EsD1OWOIcSvqVTjpOa6lQfT2VH8BLy', 'checker', NULL, '2017-07-21 01:10:13', '2017-07-21 01:10:13'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$rOk2iKjDWB7nrI0Fz9/kcehIeq2kh8YCLdTcolcFDTxq0v9DV3b2K', 'operator', NULL, '2017-07-21 01:10:13', '2017-07-21 01:10:13');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$IRomB2y7EG/EKpiPl7UV2.G69QzpdkSUvEcmaQDQth.qEsZahJPG2', 'admin', NULL, '2017-07-26 22:10:57', '2017-07-26 22:10:57'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$zN8Tty07Sl0d1klOv4XS1eJXL4xjOWf6C48qnCqKF5eGrRXTRiHoC', 'checker', NULL, '2017-07-26 22:10:57', '2017-07-26 22:10:57'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$PvsoMaUeLpbt88/yF3ehOeM0x5A5QG8WE8EgER3eTfxyecSLvuizy', 'operator', NULL, '2017-07-26 22:10:57', '2017-07-26 22:10:57');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounting_category`
+--
+ALTER TABLE `accounting_category`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `attachments`
@@ -442,6 +605,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `accounting_category`
+--
+ALTER TABLE `accounting_category`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
+--
 -- AUTO_INCREMENT for table `attachments`
 --
 ALTER TABLE `attachments`
@@ -450,7 +618,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `costs`
 --
 ALTER TABLE `costs`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `items`
 --
@@ -470,7 +638,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `units`
 --
