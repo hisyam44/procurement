@@ -51,8 +51,31 @@
                                 <div class="form-group">
                                     <label for="type_transaksi" class="col-md-4 control-label">Category Construction</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="category_construction" required></input>
+                                        <input type="text" id="category_construction" class="form-control" name="category_construction" required></input>
+                                        <input type="text" id="category_construction_id" name="construction_id" required hidden></input>
                                     </div>
+                                    <script type="text/javascript">
+                                        $("#category_construction").autocomplete({
+                                            source: function(request,response){
+                                                console.log(request.term);
+                                                $.ajax({
+                                                    url: "{{ url('/construction/completion') }}",
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: request.term
+                                                    },
+                                                    success: function(data){
+                                                        console.log(data);
+                                                        response(data);
+                                                    }
+                                                });
+                                            },
+                                            minLength: 2,
+                                            select: function(event,ui){
+                                                $("#category_construction_id").val(ui.item.id);
+                                            }
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +150,7 @@
                                                 <option>Credit</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <select id="cost_type[]" class="form-control" name="cost_type[]" required>
                                                 <option>MT</option>
                                                 <option>LB</option>
@@ -136,8 +159,20 @@
                                                 <option>OH</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-2">
-                                            <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required>
+                                        <div class="col-md-3">
+                                        <div class="input-group">
+                                            <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Costcode : lv1.lv2.lv3" onfocus="autoCompleteCost(this)" required>
+                                            <input type="text" name="code_id[]" required hidden="">
+                                            <span class="input-group-addon">.</span>
+                                            <select class="form-control" name="costcode_lv4_id[]" required>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="input-group">
@@ -146,7 +181,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required>
+                                            <input id="description" type="text" class="form-control" onfocus="autoComplete(this)" name="description[]" placeholder="Details..." required>
+                                            <input type="text" name="description_id[]" hidden>
                                         </div>
                                         <div class="col-md-1">
                                             
@@ -156,6 +192,60 @@
                             </div>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            function autoComplete(elem){
+                                var construction_id = $('#category_construction_id').val();
+                                $(elem).autocomplete({
+                                    source: function(request,response){
+                                        console.log(request.term);
+                                        $.ajax({
+                                            url: "{{ url('/constructdesc/completion') }}",
+                                            dataType: "json",
+                                            data: {
+                                                term: request.term,
+                                                construction_id: $('#category_construction_id').val()
+                                            },
+                                            success: function(data){
+                                                console.log(data);
+                                                response(data);
+                                            }
+                                        });
+                                    },
+                                    minLength: 2,
+                                    select: function(event,ui){
+                                        $(this).next().val(ui.item.id);
+                                        var parentElem = $(this).parent().parent().parent().parent();
+                                        //$(parentElem).find('#satuan').val(ui.item.uom);
+                                        console.log(parentElem);
+                                    }
+                                });
+                            }
+                            function autoCompleteCost(elem){
+                                $(elem).autocomplete({
+                                    source: function(request,response){
+                                        console.log(request.term);
+                                        $.ajax({
+                                            url: "{{ url('/costcode/completion') }}",
+                                            dataType: "json",
+                                            data: {
+                                                term: request.term,
+                                            },
+                                            success: function(data){
+                                                console.log(data);
+                                                response(data);
+                                            }
+                                        });
+                                    },
+                                    minLength: 2,
+                                    select: function(event,ui){
+                                        $(this).next().val(ui.item.id);
+                                        var parentElem = $(this).parent().parent().parent().parent();
+                                        //$(parentElem).find('#satuan').val(ui.item.uom);
+                                        console.log(parentElem);
+                                    }
+                                });
+                            }
+                        </script>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-5">
@@ -184,7 +274,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Ket</label>
                                         <div class="col-md-9">
-                                            <input id="keterangan" type="text" class="form-control" name="keterangan" required>
+                                            <input id="keterangan" type="text" class="form-control" name="keterangan"  required>
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +294,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <select class="form-control" id="type[]" name="type[]" required> <option>Debet</option> <option>Credit</option> </select> </div><div class="col-md-2"> <select id="cost_type[]" class="form-control" name="cost_type[]" required> <option>MT</option> <option>LB</option> <option>EQ</option> <option>SC</option> <option>OH</option> </select> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." onkeyup="jumlahTotal()" value="0" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
+                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <select class="form-control" id="type[]" name="type[]" required> <option>Debet</option> <option>Credit</option> </select> </div><div class="col-md-1"> <select id="cost_type[]" class="form-control" name="cost_type[]" required> <option>MT</option> <option>LB</option> <option>EQ</option> <option>SC</option> <option>OH</option> </select> </div><div class="col-md-3"><div class="input-group"> <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Costcode : lv1.lv2.lv3" onfocus="autoCompleteCost(this)" required> <input type="text" name="code_id[]" required hidden=""><span class="input-group-addon">.</span> <select class="form-control" name="costcode_lv4_id[]" required><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select> </div></div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." onkeyup="jumlahTotal()" value="0" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" onfocus="autoComplete(this)" name="description[]" placeholder="Details..." required> <input type="text" name="description_id[]" hidden> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
                                 jumlahTotal();
                             }
                         </script>
