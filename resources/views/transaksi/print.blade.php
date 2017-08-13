@@ -61,11 +61,11 @@
                     <tr>
                         <td>{{ sprintf('%06d',$trans->id) }}</td>
                         <td>{{ $trans->created_at->format('d-M-Y') }}</td>
-                        <td>{{ $trans->accounting->name }}</td>
+                        <td>{{ $trans->category_accounting }}</td>
                         <td>{{ $cost->cost_type }}</td>
-                        <td>{{ $cost->costcode->kode.".".$cost->costcodelv4->id." - ".$cost->costcode->name." ".$cost->costcodelv4->name }}</td>
-                        <td>{{ $trans->construction->name }}</td>
-                        <td>{{ $cost->description->name }}</td>
+                        <td>{{ $cost->code }}</td>
+                        <td>{{ $trans->category_construction }}</td>
+                        <td>{{ $cost->description }}</td>
                         <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
                         <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
                         <td>{{ $cost->saldo }}</td>
@@ -79,7 +79,8 @@
         </div>
         @endforeach
             <tr>
-                <td colspan="7">Total</td>
+                <td colspan="6">Total</td>
+                <td>Total</td>
                 <td>{{ $total_debet }}</td>
                 <td>{{ $total_credit }}</td>
                 <td>{{ $total_saldo }}</td>

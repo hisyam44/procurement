@@ -17,7 +17,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('/', function () {
 	    return view('welcome');
 	});
-	Route::get('item/completion','TransaksiController@itemCompletion');
+	Route::get('item/completion','PurchaseController@itemCompletion');
 	Route::resource('item','ItemController');
 	Route::resource('purchase','PurchaseController');
 	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
@@ -26,9 +26,5 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::resource('transaksi','TransaksiController');
 	Route::get('purchase/{id}/print','PurchaseController@printPurchase');
 	Route::get('unit/completion','PurchaseController@unitCompletion');
-	Route::get('accounting/completion','TransaksiController@accountingCompletion');
-	Route::get('construction/completion','TransaksiController@constructionCompletion');
-	Route::get('constructdesc/completion','TransaksiController@constructdescCompletion');
-	Route::get('costcode/completion','TransaksiController@costcodeCompletion');
 });
 //Route::get('/home', 'HomeController@index');

@@ -8,19 +8,11 @@ class Transaksi extends Model
 {
     protected $table = "transaksi";
 
-    public function construction(){
-        return $this->belongsTo('App\Construction');
-    }
-
     public function costs(){
     	return $this->hasMany('\App\Cost');
     }
 
     public function attachments(){
     	return $this->hasMany('App\Attachment');
-    }
-
-    public function accounting(){
-    	return $this->belongsTo('App\Accounting');
     }
 }

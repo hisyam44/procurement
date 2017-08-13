@@ -186,6 +186,7 @@
                                         $(this).next().val(ui.item.id);
                                         var parentElem = $(this).parent().parent().parent().parent();
                                         $(parentElem).find('#satuan').val(ui.item.uom);
+                                        $(parentElem).find('#component').val(ui.item.part_no);
                                         console.log(parentElem);
                                     }
                                 });

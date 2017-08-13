@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Transaksi;  
 use App\Cost;  
 use App\Attachment;  
-use App\ConstructDescript;  
 use Excel;
 use PDF;
 
@@ -92,10 +91,9 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //return response()->json($request->all());
         $transaksi = new Transaksi();
-        $transaksi->accounting_id = $request->category_accounting;
-        $transaksi->construction_id = $request->construction_id;
+        $transaksi->category_accounting = $request->category_accounting;
+        $transaksi->category_construction = $request->category_construction;
         $transaksi->type = $request->type_transaksi;
         $transaksi->created_at = $request->created_at;
         $transaksi->project_name = $request->project_name;
@@ -117,22 +115,11 @@ class TransaksiController extends Controller
                 $latest_saldo = $latest_saldo->saldo;
             }
             $cost = new Cost();
-            $cost->costcode_id = $request->code_id[$i];
-            $cost->costcode_lv4_id = $request->costcode_lv4_id[$i];
-            $construction_description = ConstructDescript::find($request->description_id);
-            //return $request;
-            if(count($construction_description) === 0){
-                $new_description = new ConstructDescript();
-                $new_description->construction_id = $request->construction_id;
-                $new_description->name = $request->description[$i];
-                $new_description->save();
-                $cost->construction_description_id = $new_description->id;
-            }else{
-                $cost->construction_description_id = $request->description_id[$i];
-            }
             $cost->type = $request->type[$i];
+            $cost->code = $request->code[$i];
             $cost->cost_type = $request->cost_type[$i];
             $cost->amount = $request->amount[$i];
+            $cost->description = $request->description[$i];
             if($request->type[$i] === "Debet"){
                 $cost->saldo = $latest_saldo+$request->amount[$i];
             }else{
@@ -243,71 +230,4 @@ class TransaksiController extends Controller
         }
         return redirect('/transaksi');
     }
-
-    public function itemCompletion(Request $request){
-        $locations = Item::where('part_no','LIKE','%'.$request->term.'%')->get();
-        $results = [];
-        foreach($locations as $location){
-            $value = array(
-                'id' => $location->id,
-                'value' => $location->part_no,
-                'uom' => $location->uom
-            );
-            $results[] = $value;
-        }
-        return response()->json($results,200);
-    }
-
-    public function accountingCompletion(Request $request){
-        $locations = \App\Accounting::where('name','LIKE','%'.$request->term.'%')->get();
-        $results = [];
-        foreach($locations as $location){
-            $value = array(
-                'id' => $location->id,
-                'value' => $location->name,
-            );
-            $results[] = $value;
-        }
-        return response()->json($results,200);
-    }
-
-    public function constructionCompletion(Request $request){
-        $locations = \App\Construction::where('name','LIKE','%'.$request->term.'%')->get();
-        $results = [];
-        foreach($locations as $location){
-            $value = array(
-                'id' => $location->id,
-                'value' => $location->name,
-            );
-            $results[] = $value;
-        }
-        return response()->json($results,200);
-    }
-
-    public function constructdescCompletion(Request $request){
-        $locations = \App\ConstructDescript::where('construction_id',$request->construction_id)->where('name','LIKE','%'.$request->term.'%')->get();
-        $results = [];
-        foreach($locations as $location){
-            $value = array(
-                'id' => $location->id,
-                'value' => $location->name,
-            );
-            $results[] = $value;
-        }
-        return response()->json($results,200);
-    }
-
-    public function costcodeCompletion(Request $request){
-        $locations = \App\Costcode::where('kode','LIKE','%'.$request->term.'%')->get();
-        $results = [];
-        foreach($locations as $location){
-            $value = array(
-                'id' => $location->id,
-                'value' => $location->kode." - ".$location->name,
-            );
-            $results[] = $value;
-        }
-        return response()->json($results,200);
-    }
-
 }

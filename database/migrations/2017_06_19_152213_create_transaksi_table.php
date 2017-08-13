@@ -14,9 +14,9 @@ class CreateTransaksiTable extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('accounting_id')->unsigned();
-            $table->integer('construction_id')->unsigned();
             $table->enum('type',['kas','bank'])->default('kas');
+            $table->string('category_accounting');
+            $table->string('category_construction');
             $table->string('project_name');
             $table->string('project_code');
             $table->string('receiver');

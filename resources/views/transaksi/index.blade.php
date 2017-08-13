@@ -105,8 +105,8 @@
                             <div id="transaksi">
                                 <tr>
                                     <td>{{ sprintf('%06d',$trans->id) }}</td>
-                                    <td>{{ $trans->accounting->name }}</td>
-                                    <td>{{ $trans->construction->name }}</td>
+                                    <td>{{ $trans->category_accounting }}</td>
+                                    <td>{{ $trans->category_construction }}</td>
                                     <td>{{ $trans->project_name }}</td>
                                     <td>{{ $trans->project_code }}</td>
                                     <td>{{ strtoupper($trans->type) }}</td>
@@ -142,9 +142,9 @@
                                             <td>{{ $trans->created_at }}</td>
                                             <td colspan="2">{{ strtoupper($cost->type) }}</td>
                                             <td colspan="2">Cost Type : {{ $cost->cost_type }}</td>
-                                            <td colspan="2">Cost Code : {{ $cost->costcode->kode.".".$cost->costcodelv4->id." - ".$cost->costcode->name." ".$cost->costcodelv4->name }}</td>
+                                            <td colspan="2">Cost Code : {{ $cost->code }}</td>
                                             <td colspan="2">Rp.{{ $cost->amount }}</td>
-                                            <td colspan="2">{{ $cost->description->name }}</td>
+                                            <td colspan="2">{{ $cost->description }}</td>
                                         </tr>
                                 @endforeach
                                     </table>

@@ -142,4 +142,19 @@ class PurchaseController extends Controller
         return response()->json($results,200);
     }
 
+    public function itemCompletion(Request $request){
+        $locations = Item::where('item_no','LIKE','%'.$request->term.'%')->get();
+        $results = [];
+        foreach($locations as $location){
+            $value = array(
+                'id' => $location->id,
+                'value' => $location->item_no,
+                'uom' => $location->uom,
+                'part_no' => $location->part_no
+            );
+            $results[] = $value;
+        }
+        return response()->json($results,200);
+    }
+
 }

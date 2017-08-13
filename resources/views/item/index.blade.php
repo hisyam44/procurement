@@ -46,8 +46,8 @@
                                 <td>{{ $item->weight }} Kilogram</td>
                                 <td>{{ $item->dimension }} Meter</td>
                                 <td>{{ $item->uom }}</td>
-                                <td>{{ $item->shelf_life }}</td>
-                                <td>{{ $item->warranty }}</td>
+                                <td>{{ $item->shelf_life }} Hari</td>
+                                <td>{{ $item->warranty }} Jam</td>
                                 <td>{{ $item->remark }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>

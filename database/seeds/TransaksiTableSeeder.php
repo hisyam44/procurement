@@ -15,8 +15,8 @@ class TransaksiTableSeeder extends Seeder
     {
             $transaksi = new Transaksi();
             $transaksi->type = 'kas';
-            $transaksi->accounting_id = 1;
-            $transaksi->construction_id = 1;
+            $transaksi->category_accounting = "";
+            $transaksi->category_construction = "";
             $transaksi->project_name = "Project PBTR Pekalongan";
             $transaksi->project_code = "20-16-PB001";
             $transaksi->receiver = "";
@@ -31,10 +31,10 @@ class TransaksiTableSeeder extends Seeder
             $transaksi->save();
 
             $cost = new Cost();
-            $cost->costcode_id = 1;
-            $cost->costcode_lv4_id = 1;
-            $cost->construction_description_id= 1;
             $cost->type = 'debet';
+            $cost->code = "";
+            $cost->cost_type = "";
+            $cost->description = "Saldo Awal";
             $cost->amount = "3000000";
             $cost->saldo = "3000000";
             $transaksi->costs()->save($cost);
