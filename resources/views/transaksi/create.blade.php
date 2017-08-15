@@ -47,14 +47,6 @@
                                     </script>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="type_transaksi" class="col-md-4 control-label">Category Construction</label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="category_construction" required></input>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -122,13 +114,13 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-md-2">
-                                            <select class="form-control" id="type[]" name="type[]" required>
+                                            <select class="form-control" id="type1" onchange="GantiTipe()" name="type[]" required>
                                                 <option>Debet</option>
                                                 <option>Credit</option>
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <select id="cost_type[]" class="form-control" name="cost_type[]" required>
+                                            <select id="cost_type1" class="form-control" onchange="GantiTipe()" name="cost_type[]" required>
                                                 <option>MT</option>
                                                 <option>LB</option>
                                                 <option>EQ</option>
@@ -137,7 +129,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required>
+                                            <input id="code[]" type="text" class="form-control" name="code[]" required>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="input-group">
@@ -153,9 +145,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            function GantiTipe(){
+                                var tipe = $('#type1').val();
+                                var cost_tipe = $('#cost_type1').val();
+                                $('.type').val(tipe);
+                                $('.cost_type').val(cost_tipe);
+                            }
+                        </script>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-5">
@@ -204,7 +205,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <select class="form-control" id="type[]" name="type[]" required> <option>Debet</option> <option>Credit</option> </select> </div><div class="col-md-2"> <select id="cost_type[]" class="form-control" name="cost_type[]" required> <option>MT</option> <option>LB</option> <option>EQ</option> <option>SC</option> <option>OH</option> </select> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" placeholder="Cost Code..." required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." onkeyup="jumlahTotal()" value="0" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
+                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <input class="form-control type" id="type[]" value="Debet" name="type[]" readonly required> </div><div class="col-md-2"> <input class="form-control cost_type" id="cost_type[]" name="cost_type[]" value="MT" readonly required> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." value="0" onkeyup="jumlahTotal()" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
                                 jumlahTotal();
                             }
                         </script>

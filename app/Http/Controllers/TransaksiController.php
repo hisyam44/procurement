@@ -93,7 +93,7 @@ class TransaksiController extends Controller
     {
         $transaksi = new Transaksi();
         $transaksi->accounting_id = $request->category_accounting;
-        $transaksi->category_construction = $request->category_construction;
+
         $transaksi->type = $request->type_transaksi;
         $transaksi->created_at = $request->created_at;
         $transaksi->project_name = $request->project_name;

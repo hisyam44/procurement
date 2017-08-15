@@ -43,8 +43,23 @@ class ItemController extends Controller
         $data['dimension'] = $dimen[0].' x '.$dimen[1];
         $count = Item::where('item_no','LIKE',$data['item_no'].'%')->count();
         $data['item_no'] .= str_pad($count+1, 4, "0", STR_PAD_LEFT);
-        $success = Item::create($data); 
+        //return response()->json($data);
+        $item = new Item();
+        $item->item_no = $data['item_no'];
+        $item->description = $data['description'];
+        $item->uom = $data['uom'];
+        $item->weight = $data['weight'];
+        $item->dimension = $data['dimension'];
+        $item->shelf_life = $data['shelf_life'];
+        $item->warranty = $data['warranty'];
+        $item->remark = $data['remark'];
+        $success = $item->save();
         if($success){
+            foreach($data['part_no'] as $part_no){
+                $part = new \App\PartNo;
+                $part->code = $part_no;
+                $item->part_no()->save($part);
+            }
             \Session::flash('message','Berhasil Menambahkan Data'); 
         }
         return redirect('/item');

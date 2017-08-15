@@ -7,7 +7,7 @@
 <table class="table table-striped">
     <thead>
     	<tr>
-    		<td colspan="11">
+    		<td colspan="10">
     			<h2 style="text-align: center;">Laporan Transaksi per tanggal {{ \Carbon\Carbon::now()->format('d-M-Y') }}</h2>
     		</td>
     	</tr>
@@ -28,7 +28,6 @@
             <td>Category Accounting</td>
             <td>Cost Type</td>
             <td>Cost Code</td>
-            <td>Category Construction</td>
             <td>Details</td>
             <td>Debit</td>
             <td>Kredit</td>
@@ -61,10 +60,9 @@
                     <tr>
                         <td>{{ sprintf('%06d',$trans->id) }}</td>
                         <td>{{ $trans->created_at->format('d-M-Y') }}</td>
-                        <td>{{ $trans->category_accounting }}</td>
+                        <td>{{ $trans->accounting->name }}</td>
                         <td>{{ $cost->cost_type }}</td>
                         <td>{{ $cost->code }}</td>
-                        <td>{{ $trans->category_construction }}</td>
                         <td>{{ $cost->description }}</td>
                         <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
                         <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
@@ -79,7 +77,7 @@
         </div>
         @endforeach
             <tr>
-                <td colspan="6">Total</td>
+                <td colspan="5">Total</td>
                 <td>Total</td>
                 <td>{{ $total_debet }}</td>
                 <td>{{ $total_credit }}</td>

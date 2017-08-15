@@ -36,11 +36,11 @@
                 @foreach($purchase->requests as $index => $request)
                 <tr>
                     <td>{{ $index+1 }}</td>
-                    <td colspan="2">{{ $request->item->item_no }}</td>
+                    <td colspan="2">{{ $request->part_no->code }}</td>
                     <td>{{ $request->component }}</td>
                     <td>{{ $request->description }}</td>
                     <td>{{ $request->qty }}</td>
-                    <td>{{ $request->item->uom }}</td>
+                    <td>{{ $request->part_no->item->uom }}</td>
                     <td>{{ $request->model }}</td>
                     <td>{{ $request->damage_description }}</td>
                 </tr>

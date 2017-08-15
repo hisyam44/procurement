@@ -42,7 +42,11 @@
                             @foreach($items as $index => $item)
                             <tr>
                                 <td>{{ $item->item_no }}</td>
-                                <td>{{ $item->part_no }}</td>
+                                <td>
+                                    @foreach($item->part_no as $index => $part_no)
+                                        {{ $part_no->code }}, 
+                                    @endforeach
+                                </td>
                                 <td>{{ $item->weight }} Kilogram</td>
                                 <td>{{ $item->dimension }} Meter</td>
                                 <td>{{ $item->uom }}</td>

@@ -57,7 +57,7 @@ class PurchaseController extends Controller
         $success = $purchase->save();
         for($i=0;$i<count($request->item_id);$i++){
             $req = new \App\Request;
-            $req->item_id = $request->item_id[$i];
+            $req->part_no_id = $request->item_id[$i];
             $req->component = $request->component[$i];
             $req->description = $request->description[$i];
             $req->qty = $request->qty[$i];
@@ -143,13 +143,13 @@ class PurchaseController extends Controller
     }
 
     public function itemCompletion(Request $request){
-        $locations = Item::where('part_no','LIKE','%'.$request->term.'%')->get();
+        $locations = \App\PartNo::where('code','LIKE','%'.$request->term.'%')->get();
         $results = [];
         foreach($locations as $location){
             $value = array(
                 'id' => $location->id,
-                'value' => $location->part_no,
-                'uom' => $location->uom
+                'value' => $location->code,
+                'uom' => $location->item->uom
             );
             $results[] = $value;
         }

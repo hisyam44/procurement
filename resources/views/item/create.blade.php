@@ -152,12 +152,27 @@
                             <input type="text" name="item_no" class="form-control" id="item_no" value="10000" readonly>
                         </div>
                     </div>
+                    <div id="part_no">
+                        <div class="form-group">
+                            <label for="part_no" class="col-md-4 control-label">Part No</label>
+                            <div class="col-md-6">
+                                <input id="part_no" type="text" class="form-control" name="part_no[]" required>
+                            </div>
+                        </div>
+                        
+                    </div>
                     <div class="form-group">
-                        <label for="part_no" class="col-md-4 control-label">Part No</label>
+                        <label for="part_no" class="col-md-4 control-label"></label>
                         <div class="col-md-6">
-                            <input id="part_no" type="text" class="form-control" name="part_no" required>
+                            <a class="btn btn-success pull-right" onclick="newPartNo()"><span class="glyphicon glyphicon-plus"></span> Tambah Part No</a>
                         </div>
                     </div>
+                    <script type="text/javascript">
+                        function newPartNo(){
+                            var part = $('#part_no');
+                            $('<div class="form-group"><label for="part_no" class="col-md-4 control-label"></label><div class="col-md-6"><input id="part_no" type="text" class="form-control" name="part_no[]" required></div></div>').appendTo(part);
+                        }
+                    </script>
                     <div class="form-group">
                         <label for="weight" class="col-md-4 control-label">Weight</label>
                         <div class="col-md-6">

@@ -16,8 +16,7 @@ class CreateRequestsTable extends Migration
             $table->increments('id');
             $table->integer('purchase_id')->unsigned();
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
-            $table->integer('item_id')->unsigned();
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->integer('part_no_id')->unsigned(); 
             $table->string('component');
             $table->string('description');
             $table->string('qty');

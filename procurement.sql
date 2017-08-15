@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 27, 2017 at 07:31 
+-- Generation Time: Aug 15, 2017 at 11:27 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -209,6 +209,65 @@ CREATE TABLE IF NOT EXISTS `attachments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `construction_category`
+--
+
+CREATE TABLE IF NOT EXISTS `construction_category` (
+`id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `construction_description`
+--
+
+CREATE TABLE IF NOT EXISTS `construction_description` (
+`id` int(10) unsigned NOT NULL,
+  `construction_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `costcodes`
+--
+
+CREATE TABLE IF NOT EXISTS `costcodes` (
+`id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lv1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lv2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lv3` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `kode` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `costcodes_lv4`
+--
+
+CREATE TABLE IF NOT EXISTS `costcodes_lv4` (
+`id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `costs`
 --
 
@@ -223,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `costs` (
   `saldo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -234,7 +293,6 @@ CREATE TABLE IF NOT EXISTS `costs` (
 CREATE TABLE IF NOT EXISTS `items` (
 `id` int(10) unsigned NOT NULL,
   `item_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `part_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `uom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `weight` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -242,6 +300,20 @@ CREATE TABLE IF NOT EXISTS `items` (
   `shelf_life` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `warranty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remark` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_part_no`
+--
+
+CREATE TABLE IF NOT EXISTS `item_part_no` (
+`id` int(10) unsigned NOT NULL,
+  `item_id` int(10) unsigned NOT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -271,7 +343,12 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_06_19_152213_create_transaksi_table', 1),
 ('2017_06_19_152319_create_costs_table', 1),
 ('2017_06_22_035015_create_attachments_table', 1),
-('2017_07_27_050642_create_accounting_category_table', 1);
+('2017_07_27_050642_create_accounting_category_table', 1),
+('2017_08_01_074740_create_construction_category_table', 1),
+('2017_08_01_074829_create_construction_description_table', 1),
+('2017_08_01_074903_create_costcodes_table', 1),
+('2017_08_01_075006_create_costcodes_lv4_table', 1),
+('2017_08_15_060204_create_item_part_no', 1);
 
 -- --------------------------------------------------------
 
@@ -315,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 CREATE TABLE IF NOT EXISTS `requests` (
 `id` int(10) unsigned NOT NULL,
   `purchase_id` int(10) unsigned NOT NULL,
-  `item_id` int(10) unsigned NOT NULL,
+  `part_no_id` int(10) unsigned NOT NULL,
   `component` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -335,7 +412,6 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
 `id` int(10) unsigned NOT NULL,
   `accounting_id` int(10) unsigned NOT NULL,
   `type` enum('kas','bank') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'kas',
-  `category_construction` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `project_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `project_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `receiver` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -349,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -532,9 +608,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$IRomB2y7EG/EKpiPl7UV2.G69QzpdkSUvEcmaQDQth.qEsZahJPG2', 'admin', NULL, '2017-07-26 22:10:57', '2017-07-26 22:10:57'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$zN8Tty07Sl0d1klOv4XS1eJXL4xjOWf6C48qnCqKF5eGrRXTRiHoC', 'checker', NULL, '2017-07-26 22:10:57', '2017-07-26 22:10:57'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$PvsoMaUeLpbt88/yF3ehOeM0x5A5QG8WE8EgER3eTfxyecSLvuizy', 'operator', NULL, '2017-07-26 22:10:57', '2017-07-26 22:10:57');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$cPNYihkCaMsrWcAFkdfq6.VNFEZffCbPCVj/n4mTI5qwOx6XSPHxi', 'admin', NULL, '2017-08-15 02:25:08', '2017-08-15 02:25:08'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$XTr84EDPNB4e0Xy1dJanh.ps.hRw/Wmq.Ezic7KkOt7bNCzun4aR.', 'checker', NULL, '2017-08-15 02:25:08', '2017-08-15 02:25:08'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$i8FHeBArOgcWo3OzBYqj9emOxHgBgg6e6txdd9hhfbxLY/ieb4VAS', 'operator', NULL, '2017-08-15 02:25:08', '2017-08-15 02:25:08');
 
 --
 -- Indexes for dumped tables
@@ -553,6 +629,30 @@ ALTER TABLE `attachments`
  ADD PRIMARY KEY (`id`), ADD KEY `attachments_transaksi_id_foreign` (`transaksi_id`);
 
 --
+-- Indexes for table `construction_category`
+--
+ALTER TABLE `construction_category`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `construction_description`
+--
+ALTER TABLE `construction_description`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `costcodes`
+--
+ALTER TABLE `costcodes`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `costcodes_lv4`
+--
+ALTER TABLE `costcodes_lv4`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `costs`
 --
 ALTER TABLE `costs`
@@ -563,6 +663,12 @@ ALTER TABLE `costs`
 --
 ALTER TABLE `items`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `items_item_no_unique` (`item_no`);
+
+--
+-- Indexes for table `item_part_no`
+--
+ALTER TABLE `item_part_no`
+ ADD PRIMARY KEY (`id`), ADD KEY `item_part_no_item_id_foreign` (`item_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -580,7 +686,7 @@ ALTER TABLE `purchases`
 -- Indexes for table `requests`
 --
 ALTER TABLE `requests`
- ADD PRIMARY KEY (`id`), ADD KEY `requests_purchase_id_foreign` (`purchase_id`), ADD KEY `requests_item_id_foreign` (`item_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `requests_purchase_id_foreign` (`purchase_id`);
 
 --
 -- Indexes for table `transaksi`
@@ -615,14 +721,39 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
 ALTER TABLE `attachments`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `construction_category`
+--
+ALTER TABLE `construction_category`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `construction_description`
+--
+ALTER TABLE `construction_description`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `costcodes`
+--
+ALTER TABLE `costcodes`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `costcodes_lv4`
+--
+ALTER TABLE `costcodes_lv4`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `costs`
 --
 ALTER TABLE `costs`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `item_part_no`
+--
+ALTER TABLE `item_part_no`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `purchases`
@@ -638,7 +769,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -666,10 +797,15 @@ ALTER TABLE `costs`
 ADD CONSTRAINT `costs_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `item_part_no`
+--
+ALTER TABLE `item_part_no`
+ADD CONSTRAINT `item_part_no_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `requests`
 --
 ALTER TABLE `requests`
-ADD CONSTRAINT `requests_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `requests_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
