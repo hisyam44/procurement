@@ -9,7 +9,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <!-- <label for="code" class="col-md-4 control-label">Item No</label> -->
-                        <div class="col-md-9 col-md-offset-2">
+                        <div class="col-md-10 col-md-offset-1">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 
@@ -27,18 +27,46 @@
                                 <select onChange="gantiCode4()" class="form-control codetype" id="code4">
                                     <option value="0">Other</option>
                                 </select>
+                                <select onChange="gantiCode5()" class="form-control codetype" id="code5">
+                                    <option value="0">Other</option>
+                                </select>
                             </div>
                             </div>
                         </div>
                             <script type="text/javascript">
                                 var item_types = {
-                                    'CG (Capital Good)' : {'HE (Heavy Equipment)' : ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
-                                            'TK (Trucks)' : ['DT (Dump Truck)', 'FT (Fuel Truck)', 'LT (Lube Truck)', 'WT (Water Truck)', 'TT (Trailer)', 'AT (Articulated Truck)'],
-                                            'PT (Plants)' : ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)'],
-                                            'CM (Construction Material)' : ['AG (Aggregates)', 'GT (Geotextile)', 'FN (Fencing Material)', 'LT (Lighting Equipment)', 'DR (Drainage Material)', 'CP (Chemical & Paints)', 'BR (Barriers']},
-                                    'SP (Spares)' : {'HE (Heavy Equipment)' : ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
-                                            'TK (Trucks)' : ['DT (Dump Truck)', 'AT (Articulated Truck)'],
-                                            'PT (Plants)' : ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)']},
+                                    'CG (Capital Good)' : 
+                                        {'HE (Heavy Equipment)' : 
+                                            ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
+                                        'TK (Trucks)' : 
+                                            ['DT (Dump Truck)', 'FT (Fuel Truck)', 'LT (Lube Truck)', 'WT (Water Truck)', 'TT (Trailer)', 'AT (Articulated Truck)'],
+                                        'PT (Plants)' : 
+                                            ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)'],
+                                        'CM (Construction Material)' : 
+                                            ['AG (Aggregates)', 'GT (Geotextile)', 'FN (Fencing Material)', 'LT (Lighting Equipment)', 'DR (Drainage Material)', 'CP (Chemical & Paints)', 'BR (Barriers']
+                                        },
+                                    'SP (Spares)' : 
+                                    {
+                                        'HE (Heavy Equipment)' : 
+                                        {
+                                            'EX (Excavator)' : ['GT (Ground Engaging Tools)','EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)'], 
+                                            'DZ (Bulldozer)' : ['GT (Ground Engaging Tools)','EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','PT (Power Train)'], 
+                                            'GD (Motor Grader)' : ['GT (Ground Engaging Tools)','EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)'], 
+                                            'CM (Compactor/Vibro)' : ['EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)'], 
+                                            'PV (Paver)' : ['EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)']
+                                        },
+                                        'TK (Trucks)' : 
+                                        {
+                                            'DT (Dump Truck)' : ['EN (Engine)','TI (Tires)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)','AT (Attachments)','CB (Cabin)','CH (Chassis)'], 
+                                            'AT (Articulated Truck)' : ['EN (Engine)','TI (Tires)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)','AT (Attachments)','CB (Cabin)','CH (Chassis)']
+                                        },
+                                        'PT (Plants)' : 
+                                        {
+                                            'SC (Stone Crusher)' : ['EE (Electrical)','CV (Conveyor System)'], 
+                                            'AM (Alphalt Mixing Plant)' : ['EE (Electrical)'], 
+                                            'BP (Concrete Batching Plant)' : ['EE (Electrical)']
+                                        }
+                                    },
                                     'CN (Consumable)' : {'FL (Fuel)' : ['IH (Industrial HSD)', 'LH (SPBU HSD)', 'PR (Premium)'],
                                             'LU (Lubes)' : [],
                                             'CH (Chemical)' : ['CC (Cleaning Chemical)', 'LC (Lab Chemical)', 'OT (Others)'],
@@ -65,9 +93,9 @@
                                     var code2 = $('#code2').val();
                                     var code3 = $('#code3').val();
                                     var code4 = $('#code4').val();
-                                    var code = code1+code2+code3+code4;
+                                    var code5 = $('#code5').val();
+                                    var code = code1+code2+code3+code4+code5;
                                     $('#item_no').val(code);
-                                    $('#text_item_no').text(code);
                                 }
                                 function gantiCode2(){
                                     gantiCode();
@@ -91,10 +119,28 @@
                                     var num = 0;
                                     $.each(item_types[code2][code3], function(key,value) {
                                         num++;
-                                        $el.append($("<option></option>").attr("value", num).text(value));
+                                        if(typeof value === "string"){
+                                            $el.append($("<option></option>").attr("value", num).text(value));
+                                        }else{
+                                            $el.append($("<option></option>").attr("value", num).text(key));
+                                        }
                                     });
                                 }
                                 function gantiCode4(){
+                                    gantiCode();
+                                    var code2 = $('#code2').find(":selected").text();
+                                    var code3 = $('#code3').find(":selected").text();
+                                    var code4 = $('#code4').find(":selected").text();
+                                    console.log(item_types[code2][code3][code4]);
+                                    var $el = $("#code5");
+                                    $('#code5 option:gt(0)').remove();
+                                    var num = 0;
+                                    $.each(item_types[code2][code3][code4], function(key,value) {
+                                        num++;
+                                        $el.append($("<option></option>").attr("value", num).text(value));
+                                    });
+                                }
+                                function gantiCode5(){
                                     gantiCode();
                                 }
                             </script>
@@ -103,8 +149,7 @@
                     <div class="form-group">
                         <label for="code" class="col-md-4 control-label">Item Code</label>
                         <div class="col-md-6">
-                            <input type="text" name="item_no" id="item_no" value="1000" hidden>
-                            <p class="form-control-static" id="text_item_no">1000</p>
+                            <input type="text" name="item_no" class="form-control" id="item_no" value="10000" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -137,8 +182,22 @@
                         <label for="shelf_life" class="col-md-4 control-label">Shelf Life</label>
                         <div class="col-md-6">
                         <div class="input-group">
-                            <input id="shelf_life" type="text" class="form-control" name="shelf_life" required>
-                            <span class="input-group-addon">Hari</span>
+                            <input id="shelf_life" type="text" name="shelf_life" hidden required>
+                            <input id="shelf_life_value" type="text" class="form-control" onkeyup="changeShelfLifeValue()" required>
+                            <span class="input-group-addon"></span>
+                            <select class="form-control" id="shelf_life_uom" onchange="changeShelfLifeValue()" required>
+                                <option>Jam</option>
+                                <option>Hari</option>
+                                <option>Bulan</option>
+                                <option>Tahun</option>
+                            </select>
+                                <script type="text/javascript">
+                                    function changeShelfLifeValue(){
+                                        var number = $('#shelf_life_value').val();
+                                        var date = $('#shelf_life_uom').val();
+                                        $('#shelf_life').val(number+" "+date);
+                                    }
+                                </script>
                         </div>
                         </div>
                     </div>
@@ -171,8 +230,22 @@
                         <label for="warranty" class="col-md-4 control-label">Warranty</label>
                         <div class="col-md-6">
                         <div class="input-group">
-                            <input id="warranty" type="text" class="form-control" name="warranty" required>
-                            <span class="input-group-addon">Jam</span>
+                            <input id="warranty" type="text" name="warranty" hidden required>
+                            <input id="warranty_value" type="text" class="form-control" onkeyup="changeWarrantyValue()" required>
+                            <span class="input-group-addon"></span>
+                            <select class="form-control" id="warranty_uom" onchange="changeWarrantyValue()" required>
+                                <option>Jam</option>
+                                <option>Hari</option>
+                                <option>Bulan</option>
+                                <option>Tahun</option>
+                            </select>
+                                <script type="text/javascript">
+                                    function changeWarrantyValue(){
+                                        var number = $('#warranty_value').val();
+                                        var date = $('#warranty_uom').val();
+                                        $('#warranty').val(number+" "+date);
+                                    }
+                                </script>
                         </div>
                         </div>
                     </div>
