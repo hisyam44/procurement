@@ -40,7 +40,7 @@ class ItemController extends Controller
     {
         $data = $request->all();
         $dimen = $data['dimension'];
-        $data['dimension'] = $dimen[0].' x '.$dimen[1];
+        $data['dimension'] = $dimen[0].' x '.$dimen[1].' x '.$dimen[2].' '.$dimen[3];
         $count = Item::where('item_no','LIKE',$data['item_no'].'%')->count();
         $data['item_no'] .= str_pad($count+1, 4, "0", STR_PAD_LEFT);
         //return response()->json($data);
@@ -53,6 +53,7 @@ class ItemController extends Controller
         $item->shelf_life = $data['shelf_life'];
         $item->warranty = $data['warranty'];
         $item->remark = $data['remark'];
+        $item->component = $data['component'];
         $success = $item->save();
         if($success){
             foreach($data['part_no'] as $part_no){

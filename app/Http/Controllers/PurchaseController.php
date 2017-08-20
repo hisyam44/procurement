@@ -135,7 +135,7 @@ class PurchaseController extends Controller
         foreach($locations as $location){
             $value = array(
                 'id' => $location->id,
-                'value' => $location->code.'( '.$location->type.' )'
+                'value' => $location->code
             );
             $results[] = $value;
         }
@@ -149,7 +149,9 @@ class PurchaseController extends Controller
             $value = array(
                 'id' => $location->id,
                 'value' => $location->code,
-                'uom' => $location->item->uom
+                'uom' => $location->item->uom,
+                'component' => $location->item->component,
+                'description' => $location->item->description
             );
             $results[] = $value;
         }

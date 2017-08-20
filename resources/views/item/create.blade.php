@@ -9,7 +9,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <!-- <label for="code" class="col-md-4 control-label">Item No</label> -->
-                        <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-9 col-md-offset-2">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 
@@ -27,46 +27,18 @@
                                 <select onChange="gantiCode4()" class="form-control codetype" id="code4">
                                     <option value="0">Other</option>
                                 </select>
-                                <select onChange="gantiCode5()" class="form-control codetype" id="code5">
-                                    <option value="0">Other</option>
-                                </select>
                             </div>
                             </div>
                         </div>
                             <script type="text/javascript">
                                 var item_types = {
-                                    'CG (Capital Good)' : 
-                                        {'HE (Heavy Equipment)' : 
-                                            ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
-                                        'TK (Trucks)' : 
-                                            ['DT (Dump Truck)', 'FT (Fuel Truck)', 'LT (Lube Truck)', 'WT (Water Truck)', 'TT (Trailer)', 'AT (Articulated Truck)'],
-                                        'PT (Plants)' : 
-                                            ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)'],
-                                        'CM (Construction Material)' : 
-                                            ['AG (Aggregates)', 'GT (Geotextile)', 'FN (Fencing Material)', 'LT (Lighting Equipment)', 'DR (Drainage Material)', 'CP (Chemical & Paints)', 'BR (Barriers']
-                                        },
-                                    'SP (Spares)' : 
-                                    {
-                                        'HE (Heavy Equipment)' : 
-                                        {
-                                            'EX (Excavator)' : ['GT (Ground Engaging Tools)','EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)'], 
-                                            'DZ (Bulldozer)' : ['GT (Ground Engaging Tools)','EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','PT (Power Train)'], 
-                                            'GD (Motor Grader)' : ['GT (Ground Engaging Tools)','EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)'], 
-                                            'CM (Compactor/Vibro)' : ['EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)'], 
-                                            'PV (Paver)' : ['EN (Engine)','WE (Work Equipment)','UC (Undercarriage)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)']
-                                        },
-                                        'TK (Trucks)' : 
-                                        {
-                                            'DT (Dump Truck)' : ['EN (Engine)','TI (Tires)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)','AT (Attachments)','CB (Cabin)','CH (Chassis)'], 
-                                            'AT (Articulated Truck)' : ['EN (Engine)','TI (Tires)','EE (Electrical)','HS (Hydraulic System)','TR (Transmission)','DF (Differential)','AT (Attachments)','CB (Cabin)','CH (Chassis)']
-                                        },
-                                        'PT (Plants)' : 
-                                        {
-                                            'SC (Stone Crusher)' : ['EE (Electrical)','CV (Conveyor System)'], 
-                                            'AM (Alphalt Mixing Plant)' : ['EE (Electrical)'], 
-                                            'BP (Concrete Batching Plant)' : ['EE (Electrical)']
-                                        }
-                                    },
+                                    'CG (Capital Good)' : {'HE (Heavy Equipment)' : ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
+                                            'TK (Trucks)' : ['DT (Dump Truck)', 'FT (Fuel Truck)', 'LT (Lube Truck)', 'WT (Water Truck)', 'TT (Trailer)', 'AT (Articulated Truck)'],
+                                            'PT (Plants)' : ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)'],
+                                            'CM (Construction Material)' : ['AG (Aggregates)', 'GT (Geotextile)', 'FN (Fencing Material)', 'LT (Lighting Equipment)', 'DR (Drainage Material)', 'CP (Chemical & Paints)', 'BR (Barriers']},
+                                    'SP (Spares)' : {'HE (Heavy Equipment)' : ['Ground Engaging Tools', 'Engine ', 'Work Equipment', 'Undercarriage', 'Electrical', 'Hydraulic System', 'Power Train', 'Tires', 'Transmission', 'Differential'],
+                                            'TK (Trucks)' : ['Engine ', 'Tires', 'Electrical', 'Hydraulic System', 'Transmission', 'Differential', 'Attachments', 'Cabin', 'Chassis'],
+                                            'PT (Plants)' : ['Electrical ', 'Conveyor System']},
                                     'CN (Consumable)' : {'FL (Fuel)' : ['IH (Industrial HSD)', 'LH (SPBU HSD)', 'PR (Premium)'],
                                             'LU (Lubes)' : [],
                                             'CH (Chemical)' : ['CC (Cleaning Chemical)', 'LC (Lab Chemical)', 'OT (Others)'],
@@ -93,9 +65,14 @@
                                     var code2 = $('#code2').val();
                                     var code3 = $('#code3').val();
                                     var code4 = $('#code4').val();
-                                    var code5 = $('#code5').val();
-                                    var code = code1+code2+code3+code4+code5;
+                                    var code = code1+code2+code3+code4;
                                     $('#item_no').val(code);
+                                    var item_last = $('#code4').find(":selected").text();
+                                    if(item_last == "Other"){
+                                        item_last = $('#code3').find(":selected").text();
+                                    }
+                                    $('#component').val(item_last);
+                                    $('#text_item_no').text(code);
                                 }
                                 function gantiCode2(){
                                     gantiCode();
@@ -119,28 +96,10 @@
                                     var num = 0;
                                     $.each(item_types[code2][code3], function(key,value) {
                                         num++;
-                                        if(typeof value === "string"){
-                                            $el.append($("<option></option>").attr("value", num).text(value));
-                                        }else{
-                                            $el.append($("<option></option>").attr("value", num).text(key));
-                                        }
-                                    });
-                                }
-                                function gantiCode4(){
-                                    gantiCode();
-                                    var code2 = $('#code2').find(":selected").text();
-                                    var code3 = $('#code3').find(":selected").text();
-                                    var code4 = $('#code4').find(":selected").text();
-                                    console.log(item_types[code2][code3][code4]);
-                                    var $el = $("#code5");
-                                    $('#code5 option:gt(0)').remove();
-                                    var num = 0;
-                                    $.each(item_types[code2][code3][code4], function(key,value) {
-                                        num++;
                                         $el.append($("<option></option>").attr("value", num).text(value));
                                     });
                                 }
-                                function gantiCode5(){
+                                function gantiCode4(){
                                     gantiCode();
                                 }
                             </script>
@@ -150,6 +109,12 @@
                         <label for="code" class="col-md-4 control-label">Item Code</label>
                         <div class="col-md-6">
                             <input type="text" name="item_no" class="form-control" id="item_no" value="10000" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="col-md-4 control-label"></label>
+                        <div class="col-md-6">
+                            <input type="text" name="component" id="component" value="Other" hidden required>
                         </div>
                     </div>
                     <div id="part_no">
@@ -177,8 +142,23 @@
                         <label for="weight" class="col-md-4 control-label">Weight</label>
                         <div class="col-md-6">
                         <div class="input-group">
-                            <input id="weight" type="text" class="form-control" name="weight" required>
-                            <span class="input-group-addon">Kilogram</span>
+                            <input id="weight" type="text" name="weight" hidden required>
+                            <input id="weight_value" type="text" onkeyup="changeWeightValue()" class="form-control" required>
+                            <span class="input-group-addon"></span>
+                            <select class="form-control" id="weight_uom" onchange="changeWeightValue()" required>
+                                <option>Kg</option>
+                                <option>gr</option>
+                                <option>Ons</option>
+                                <option>Mg</option>
+                                <option>Lbs</option>
+                            </select>
+                                <script type="text/javascript">
+                                    function changeWeightValue(){
+                                        var number = $('#weight_value').val();
+                                        var date = $('#weight_uom').val();
+                                        $('#weight').val(number+" "+date);
+                                    }
+                                </script>
                         </div>
                         </div>
                     </div>
@@ -189,7 +169,16 @@
                             <input id="dimension[]" type="text" class="form-control" name="dimension[]" required>
                             <span class="input-group-addon">x</span>
                             <input id="dimension[]" type="text" class="form-control" name="dimension[]" required>
-                            <span class="input-group-addon">Meter</span>
+                            <span class="input-group-addon">x</span>
+                            <input id="dimension[]" type="text" class="form-control" name="dimension[]" required>
+                            <span class="input-group-addon"></span>
+                            <select class="form-control" name="dimension[]" required>
+                                <option>M</option>
+                                <option>mm</option>
+                                <option>feet</option>
+                                <option>inch</option>
+                                <option>cm</option>
+                            </select>
                         </div>
                         </div>
                     </div>
@@ -265,7 +254,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-md-4 control-label">Material Description</label>
+                        <label for="description" class="col-md-4 control-label">Part Description</label>
                         <div class="col-md-6">
                             <textarea id="description" type="text" class="form-control" name="description" required></textarea>
                         </div>

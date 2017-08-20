@@ -138,10 +138,10 @@
                                             <input id="item_id" type="text" name="item_id[]" required hidden>
                                         </div>
                                         <div class="col-md-3">
-                                            <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required>
+                                            <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." readonly required>
                                         </div>
                                         <div class="col-md-6">
-                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." required>
+                                            <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." readonly required>
                                         </div>
                                     </div>
                                 </div>
@@ -186,6 +186,8 @@
                                         $(this).next().val(ui.item.id);
                                         var parentElem = $(this).parent().parent().parent().parent();
                                         $(parentElem).find('#satuan').val(ui.item.uom);
+                                        $(parentElem).find('#component').val(ui.item.component);
+                                        $(parentElem).find('#description').val(ui.item.description);
                                         console.log(parentElem);
                                     }
                                 });
@@ -216,7 +218,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..."  readonly required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
+                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." readonly required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." readonly required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..."  readonly required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
                                 checkDepartment();
 
                             }

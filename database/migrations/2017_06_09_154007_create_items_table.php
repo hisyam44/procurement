@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('shelf_life');
             $table->string('warranty');
             $table->string('remark');
+            $table->string('component');
             $table->timestamps();
         });
     }

@@ -47,8 +47,8 @@
                                         {{ $part_no->code }}, 
                                     @endforeach
                                 </td>
-                                <td>{{ $item->weight }} Kilogram</td>
-                                <td>{{ $item->dimension }} Meter</td>
+                                <td>{{ $item->weight }}</td>
+                                <td>{{ $item->dimension }}</td>
                                 <td>{{ $item->uom }}</td>
                                 <td>{{ $item->shelf_life }}</td>
                                 <td>{{ $item->warranty }}</td>
