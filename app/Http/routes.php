@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('item/completion','PurchaseController@itemCompletion');
 	Route::resource('item','ItemController');
 	Route::resource('purchase','PurchaseController');
+	Route::get('transaksi/pettycash','TransaksiController@pettyCash');
 	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
 	Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
 	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');

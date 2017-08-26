@@ -74,6 +74,7 @@
                     @if (!Auth::guest())
                         @if(strpos(Request::url(),"transaksi"))
                             <li><a href="{{ url('/transaksi') }}">Transaksi</a></li>
+                            <li><a href="{{ url('/transaksi/pettycash') }}">Petty Cash</a></li>
                         @elseif(strpos(Request::url(),"item"))
                             <li><a href="{{ url('/item') }}">Item Masters</a></li>
                             <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>

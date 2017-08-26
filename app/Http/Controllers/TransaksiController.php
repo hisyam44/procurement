@@ -230,4 +230,9 @@ class TransaksiController extends Controller
         }
         return redirect('/transaksi');
     }
+
+    public function pettyCash(){
+        return view('transaksi.petty');
+    }
+
 }
