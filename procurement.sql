@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 15, 2017 at 11:27 
+-- Generation Time: Aug 26, 2017 at 10:23 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -300,6 +300,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `shelf_life` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `warranty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remark` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `component` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -608,9 +609,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$cPNYihkCaMsrWcAFkdfq6.VNFEZffCbPCVj/n4mTI5qwOx6XSPHxi', 'admin', NULL, '2017-08-15 02:25:08', '2017-08-15 02:25:08'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$XTr84EDPNB4e0Xy1dJanh.ps.hRw/Wmq.Ezic7KkOt7bNCzun4aR.', 'checker', NULL, '2017-08-15 02:25:08', '2017-08-15 02:25:08'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$i8FHeBArOgcWo3OzBYqj9emOxHgBgg6e6txdd9hhfbxLY/ieb4VAS', 'operator', NULL, '2017-08-15 02:25:08', '2017-08-15 02:25:08');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$SYVeF.SCrlryKhLk8xI7S.uq7jFaMdnmuRHSZouJnoaPkKRx1h.Wu', 'admin', NULL, '2017-08-26 01:20:28', '2017-08-26 01:20:28'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$zzk6WHvySQfKdlptK6ox3ewotmAGeFxTnQivMiuqthsBb5fe6s7z.', 'checker', NULL, '2017-08-26 01:20:29', '2017-08-26 01:20:29'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$HqAGtJmVYyBa0DTCGD4MZOOnNwTmMR/kRtpggTgAjs2cMpR4KPfKu', 'operator', NULL, '2017-08-26 01:20:29', '2017-08-26 01:20:29');
 
 --
 -- Indexes for dumped tables
