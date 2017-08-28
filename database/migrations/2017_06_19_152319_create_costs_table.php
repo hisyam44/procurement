@@ -21,7 +21,6 @@ class CreateCostsTable extends Migration
             $table->enum('cost_type',['MT','LB','EQ','SC','OH'])->default('MT');
             $table->string('description');
             $table->string('amount');
-            $table->string('saldo');
             $table->timestamps();
         });
     }

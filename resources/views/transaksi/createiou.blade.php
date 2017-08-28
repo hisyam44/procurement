@@ -125,24 +125,7 @@
                             <div id="formRequest">
                                 <div class="row">
                                     <div class="form-group">
-                                        <div class="col-md-2">
-                                            <select class="form-control" id="type1" onchange="GantiTipe()" name="type[]" required>
-                                                <option>Debet</option>
-                                                <option>Credit</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <select id="cost_type1" class="form-control" onchange="GantiTipe()" name="cost_type[]" required>
-                                                <option>MT</option>
-                                                <option>LB</option>
-                                                <option>EQ</option>
-                                                <option>SC</option>
-                                                <option>OH</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input id="code[]" type="text" class="form-control" name="code[]" required>
-                                        </div>
+                                        <div class="col-md-6">&nbsp;</div>
                                         <div class="col-md-2">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
@@ -217,7 +200,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <input class="form-control type" id="type[]" value="Debet" name="type[]" readonly required> </div><div class="col-md-2"> <input class="form-control cost_type" id="cost_type[]" name="cost_type[]" value="MT" readonly required> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." value="0" onkeyup="jumlahTotal()" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
+                                $('<div class="row"> <div class="form-group"> <div class="col-md-6">&nbsp;</div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." value="0" onkeyup="jumlahTotal()" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
                                 jumlahTotal();
                             }
                         </script>

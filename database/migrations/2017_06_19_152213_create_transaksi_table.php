@@ -14,12 +14,15 @@ class CreateTransaksiTable extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('no_voucher');
             $table->integer('accounting_id')->unsigned();
-            $table->enum('type',['kas','bank'])->default('kas');
+            $table->enum('type',['cash','bank','iou','ious'])->default('cash');
             $table->string('project_name');
             $table->string('project_code');
             $table->string('receiver');
             $table->string('receiver_rekening');
+            $table->string('bank');
+            $table->string('bank_details');
             $table->string('amount_total');
             $table->string('direksi');
             $table->string('kepala_bagian');

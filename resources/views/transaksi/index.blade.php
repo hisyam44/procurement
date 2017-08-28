@@ -17,11 +17,11 @@
                 <a class="btn btn-success" href="{!! strpos(Request::fullUrl(),'?') ? Request::fullUrl().'&' : Request::fullUrl().'?' !!}print=true">Download Excel <span class="glyphicon glyphicon-print"></span></a>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-success btn-block" href="{{ url('transaksi/create') }}">Tambahkan Transaksi</a>
+                <a class="btn btn-success btn-block" href="{{ url('transaksi/'.substr(Request::url(),32).'/create') }}">Tambahkan  Transaksi</a>
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -45,9 +45,9 @@
                         <div class="form-group">
                             <input class="form-control" type="text" name="cost_code" id="cost_code" placeholder="Cost Code..." value="{{ isset($_GET['cost_code'])?$_GET['cost_code']:'' }}"></input>
                         </div>
-                       <!--  <div class="form-group">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="cost_type" id="cost_type" placeholder="Rekening Code..." value="{{ isset($_GET['rekening_code'])?$_GET['rekening_code']:'' }}"></input>
-                        </div>  -->
+                        </div> 
                         <div class="form-group">
                             <input class="form-control" type="text" id="start_date" name="start_date" placeholder="Dari Tanggal..." value="{{ isset($_GET['start_date'])?$_GET['start_date']:'' }}"></input>
                             <script type="text/javascript">
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -85,13 +85,17 @@
                         <thead>
                             <tr>
                                 <td>No Voucher</td>
-                                <td>Category Accounting</td>
-                                <td>Category Construction</td>
+                            @if(substr(Request::url(),32) != "bank")
                                 <td>Nama Project</td>
                                 <td>Kode Project</td>
-                                <td>Tipe</td>
-                                <td>Kepada</td>
-                                <td>Rekening</td>
+                            @endif
+                                <td>Category Accounting</td>
+                                <td>Atas Nama</td>
+                            @if(substr(Request::url(),32) === "bank")
+                                <td>No. Rek</td>
+                                <td>Bank</td>
+                                <td>Bank Details</td>
+                            @endif
                                 <td>Jumlah Total</td>
                                 <!-- <td>Direksi</td>
                                 <td>Kepala Bagian</td>
@@ -104,14 +108,19 @@
                             @foreach($transaksi as $index => $trans)
                             <div id="transaksi">
                                 <tr>
-                                    <td>{{ sprintf('%06d',$trans->id) }}</td>
-                                    <td>{{ $trans->accounting->name }}</td>
-                                    <td>{{ $trans->category_construction }}</td>
+                                    <td>{{ $trans->no_voucher }}</td>
+
+                            @if(substr(Request::url(),32) != "bank")
                                     <td>{{ $trans->project_name }}</td>
                                     <td>{{ $trans->project_code }}</td>
-                                    <td>{{ strtoupper($trans->type) }}</td>
+                            @endif
+                                    <td>{{ $trans->accounting->name }}</td>
                                     <td>{{ $trans->receiver }}</td>
+                            @if(substr(Request::url(),32) === "bank")
                                     <td>{{ $trans->receiver_rekening }}</td>
+                                    <td>{{ $trans->bank }}</td>
+                                    <td>{{ $trans->bank_details }}</td>
+                            @endif
                                     <td>Rp.{{ $trans->amount_total }}</td>
                                     <!-- <td>{{ $trans->direksi }}</td>
                                     <td>{{ $trans->kepala_bagian }}</td>
@@ -140,11 +149,16 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $trans->created_at }}</td>
+                                            @if(substr(Request::url(),32) === "iou")
+                                            <td colspan="2">Rp.{{ $cost->amount }}</td>
+                                            <td colspan="8">{{ $cost->description }}</td>
+
+                                            @else
                                             <td colspan="2">{{ strtoupper($cost->type) }}</td>
                                             <td colspan="2">Cost Type : {{ $cost->cost_type }}</td>
                                             <td colspan="2">Cost Code : {{ $cost->code }}</td>
-                                            <td colspan="2">Rp.{{ $cost->amount }}</td>
-                                            <td colspan="2">{{ $cost->description }}</td>
+
+                                            @endif
                                         </tr>
                                 @endforeach
                                     </table>

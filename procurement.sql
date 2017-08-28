@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 26, 2017 at 10:23 
+-- Generation Time: Aug 28, 2017 at 11:58 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -279,7 +279,6 @@ CREATE TABLE IF NOT EXISTS `costs` (
   `cost_type` enum('MT','LB','EQ','SC','OH') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'MT',
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `saldo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -411,12 +410,15 @@ CREATE TABLE IF NOT EXISTS `requests` (
 
 CREATE TABLE IF NOT EXISTS `transaksi` (
 `id` int(10) unsigned NOT NULL,
+  `no_voucher` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `accounting_id` int(10) unsigned NOT NULL,
-  `type` enum('kas','bank') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'kas',
+  `type` enum('cash','bank','iou','ious') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'cash',
   `project_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `project_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `receiver` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `receiver_rekening` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `bank` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_details` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `amount_total` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `direksi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `kepala_bagian` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -609,9 +611,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$SYVeF.SCrlryKhLk8xI7S.uq7jFaMdnmuRHSZouJnoaPkKRx1h.Wu', 'admin', NULL, '2017-08-26 01:20:28', '2017-08-26 01:20:28'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$zzk6WHvySQfKdlptK6ox3ewotmAGeFxTnQivMiuqthsBb5fe6s7z.', 'checker', NULL, '2017-08-26 01:20:29', '2017-08-26 01:20:29'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$HqAGtJmVYyBa0DTCGD4MZOOnNwTmMR/kRtpggTgAjs2cMpR4KPfKu', 'operator', NULL, '2017-08-26 01:20:29', '2017-08-26 01:20:29');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$TknQmQGi8Ohj6V/0PIgvbO5sK7qbonhDfkliLY.BaZYN.Cw7AQ2xC', 'admin', NULL, '2017-08-28 02:53:30', '2017-08-28 02:53:30'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$C1DTr4dbqx82bjBFVOO8w.NwR2EUny.xxSLHONpC66OCVZXAHI0qK', 'checker', NULL, '2017-08-28 02:53:30', '2017-08-28 02:53:30'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$JAafOXR3G25HuFq97d0D4Or4vq../JdPQjoWdaTPWoKqO7yEgD79S', 'operator', NULL, '2017-08-28 02:53:30', '2017-08-28 02:53:30');
 
 --
 -- Indexes for dumped tables

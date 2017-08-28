@@ -21,6 +21,14 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::resource('item','ItemController');
 	Route::resource('purchase','PurchaseController');
 	Route::get('transaksi/pettycash','TransaksiController@pettyCash');
+	Route::get('transaksi/cash','TransaksiController@indexCash');
+	Route::get('transaksi/cash/create','TransaksiController@createCash');
+	Route::get('transaksi/bank','TransaksiController@indexBank');
+	Route::get('transaksi/bank/create','TransaksiController@createBank');
+	Route::get('transaksi/iou','TransaksiController@indexIou');
+	Route::get('transaksi/iou/create','TransaksiController@createIou');
+	Route::get('transaksi/ious','TransaksiController@indexIous');
+	Route::get('transaksi/ious/create','TransaksiController@createIous');
 	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
 	Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
 	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');

@@ -7,7 +7,7 @@
 <table class="table table-striped">
     <thead>
     	<tr>
-    		<td colspan="10">
+    		<td colspan="11">
     			<h2 style="text-align: center;">Laporan Transaksi per tanggal {{ \Carbon\Carbon::now()->format('d-M-Y') }}</h2>
     		</td>
     	</tr>
@@ -26,12 +26,18 @@
             <td>No Voucher</td>
             <td>Tanggal</td>
             <td>Category Accounting</td>
+            <td>Atas Nama</td>
+        @if(substr(Request::url(),32) === "iou")
+            <td colspan="3">Details</td>
+            <td colspan="3">Jumlah</td>
+        @else
             <td>Cost Type</td>
             <td>Cost Code</td>
             <td>Details</td>
             <td>Debit</td>
             <td>Kredit</td>
             <td>Saldo</td>
+        @endif
             <td>Ket</td>
         </tr>
     </thead>
@@ -40,6 +46,7 @@
             $total_saldo = 0;
             $total_debet = 0;
             $total_credit = 0;
+            $saldo = 0;
         ?>
         @foreach($transaksi as $index => $trans)
         <div id="transaksi">
@@ -58,30 +65,39 @@
             </tr> -->
             @foreach($trans->costs as $index => $cost)
                     <tr>
-                        <td>{{ sprintf('%06d',$trans->id) }}</td>
-                        <td>{{ $trans->created_at->format('d-M-Y') }}</td>
-                        <td>{{ $trans->accounting->name }}</td>
-                        <td>{{ $cost->cost_type }}</td>
-                        <td>{{ $cost->code }}</td>
-                        <td>{{ $cost->description }}</td>
-                        <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
-                        <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
-                        <td>{{ $cost->saldo }}</td>
-                        <td>{{ $trans->keterangan }}</td>
                         <?php
-                            $total_saldo = $cost->saldo;
+                            $cost->type=="debet"?$saldo+=$cost->amount:$saldo-=$cost->amount;
+                            $total_saldo = $saldo;
                             $cost->type=="debet"?$total_debet+=$cost->amount:$total_credit+=$cost->amount;
                         ?>
+                        <td>{{ $trans->no_voucher }}</td>
+                        <td>{{ $trans->created_at->format('d-M-Y') }}</td>
+                        <td>{{ $trans->accounting->name }}</td>
+                        <td>{{ $trans->receiver }}</td>
+                    @if(substr(Request::url(),32) === "iou")
+                        <td colspan="3">{{ $cost->description }}</td>
+                        <td colspan="3">{{ $cost->amount }}</td>
+                    @else
+                        <td>{{ $cost->cost_type }}</td>
+                        <td>{{ $cost->code }}</td>
+                        <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
+                        <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
+                        <td>{{ $saldo }}</td>
+                    @endif
+                        <td>{{ $trans->keterangan }}</td>
                     </tr>
             @endforeach
         </div>
         @endforeach
             <tr>
-                <td colspan="5">Total</td>
-                <td>Total</td>
+                <td colspan="7">Total</td>
+            @if(substr(Request::url(),32) === "iou")
+                <td colspan="3">{{ $total_saldo }}</td>
+            @else
                 <td>{{ $total_debet }}</td>
                 <td>{{ $total_credit }}</td>
                 <td>{{ $total_saldo }}</td>
+            @endif
                 <td></td>
             </tr>
     </tbody>

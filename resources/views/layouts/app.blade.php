@@ -73,7 +73,11 @@
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
                         @if(strpos(Request::url(),"transaksi"))
-                            <li><a href="{{ url('/transaksi') }}">Transaksi</a></li>
+                            <!-- <li><a href="{{ url('/transaksi') }}">Transaksi</a></li> -->
+                            <li><a href="{{ url('/transaksi/cash') }}">Cash</a></li>
+                            <li><a href="{{ url('/transaksi/bank') }}">Bank</a></li>
+                            <li><a href="{{ url('/transaksi/iou') }}">IOU</a></li>
+                            <li><a href="{{ url('/transaksi/ious') }}">IOU Settlement</a></li>
                             <li><a href="{{ url('/transaksi/pettycash') }}">Petty Cash</a></li>
                         @elseif(strpos(Request::url(),"item"))
                             <li><a href="{{ url('/item') }}">Item Masters</a></li>
