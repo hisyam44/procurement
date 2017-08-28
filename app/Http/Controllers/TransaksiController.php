@@ -74,7 +74,7 @@ class TransaksiController extends Controller
             $view = "transaksi.print";
             $data = [];
             $data['transaksi'] = $transaksi;
-            return view('transaksi.print',$data);
+            //return view('transaksi.print',$data);
             $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
                 $excel->sheet('laporan', function($sheet) use($view,$data) {
                     $sheet->loadView($view,$data);
@@ -91,7 +91,7 @@ class TransaksiController extends Controller
             $view = "transaksi.print";
             $data = [];
             $data['transaksi'] = $transaksi;
-            return view('transaksi.print',$data);
+            //return view('transaksi.print',$data);
             $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
                 $excel->sheet('laporan', function($sheet) use($view,$data) {
                     $sheet->loadView($view,$data);
@@ -108,7 +108,7 @@ class TransaksiController extends Controller
             $view = "transaksi.print";
             $data = [];
             $data['transaksi'] = $transaksi;
-            return view('transaksi.print',$data);
+            //return view('transaksi.print',$data);
             $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
                 $excel->sheet('laporan', function($sheet) use($view,$data) {
                     $sheet->loadView($view,$data);
@@ -125,7 +125,7 @@ class TransaksiController extends Controller
             $view = "transaksi.print";
             $data = [];
             $data['transaksi'] = $transaksi;
-            return view('transaksi.print',$data);
+            //return view('transaksi.print',$data);
             $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
                 $excel->sheet('laporan', function($sheet) use($view,$data) {
                     $sheet->loadView($view,$data);
