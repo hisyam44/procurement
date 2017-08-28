@@ -149,15 +149,15 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $trans->created_at }}</td>
-                                            @if(substr(Request::url(),32) === "iou")
+                                            @if(substr(Request::url(),32) === "iou" || substr(Request::url(),32) === "ious")
                                             <td colspan="2">Rp.{{ $cost->amount }}</td>
                                             <td colspan="8">{{ $cost->description }}</td>
-
                                             @else
                                             <td colspan="2">{{ strtoupper($cost->type) }}</td>
                                             <td colspan="2">Cost Type : {{ $cost->cost_type }}</td>
                                             <td colspan="2">Cost Code : {{ $cost->code }}</td>
-
+                                            <td colspan="2">Rp.{{ $cost->amount }}</td>
+                                            <td colspan="2">{{ $cost->description }}</td>
                                             @endif
                                         </tr>
                                 @endforeach

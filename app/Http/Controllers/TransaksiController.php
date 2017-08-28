@@ -197,7 +197,7 @@ class TransaksiController extends Controller
             $no_voucher = $no_voucher->id+1;
         }
         $no_voucher = "IOU Settlement 4-".sprintf('%05d',$no_voucher);
-        return view('transaksi.create',['no_voucher' => $no_voucher,'type' => 'ious']);
+        return view('transaksi.createiou',['no_voucher' => $no_voucher,'type' => 'ious']);
     }
 
     /**
@@ -238,7 +238,7 @@ class TransaksiController extends Controller
                 $latest_saldo = $latest_saldo->saldo;
             }*/
             $cost = new Cost();
-            if($request->type_transaksi === "iou"){
+            if($request->type_transaksi === "iou" || $request->type_transaksi === "ious"){
                 $cost->type = "debet";
                 $cost->code = "";
                 $cost->cost_type = "OH";
