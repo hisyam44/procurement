@@ -3,6 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            @if(Session::has('message'))
+                <div class="alert alert-info">
+                  {{ Session::get('message') }}
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="row">
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/transaksi') }}">
                     {{ csrf_field() }}

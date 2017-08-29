@@ -68,8 +68,10 @@ class TransaksiController extends Controller
         return view('transaksi.index',['transaksi' => $transaksi]);
     }
 
-    public function indexCash(Request $request){
-        $transaksi = Transaksi::where('type','cash')->orderBy('created_at','desc')->get();
+    public function indexSingle(Request $request){
+        //return substr($request->path(),10);
+        $tipe = substr($request->path(),10);
+        $transaksi = Transaksi::where('type',$tipe)->orderBy('no_voucher','desc')->get();
         if($request->print){
             $view = "transaksi.print";
             $data = [];
@@ -235,6 +237,7 @@ class TransaksiController extends Controller
         $transaksi->kasir = $request->kasir;
         $transaksi->penerima = $request->penerima;
         $success = $transaksi->save();
+        $selisih = 0;
         for($i=0;$i<count($request->amount);$i++){
             /*$latest_saldo = Cost::orderBy('id','DESC')->first();
             if(count($latest_saldo) === 0){
@@ -254,7 +257,8 @@ class TransaksiController extends Controller
             }
             $cost->amount = $request->amount[$i];
             if($request->type_transaksi === "ious"){
-                $cost->description = "Selisih Realiasasi : Rp.".$request->amount_total-$request->amount[0];
+                $selisih = $request->amount_total-$request->amount[$i];
+                $cost->description = "Selisih Realiasasi Settlement : Rp.".$selisih;
             }else{
                 $cost->description = $request->description[$i];
             }
@@ -267,6 +271,14 @@ class TransaksiController extends Controller
         }
         if($success){
             \Session::flash('message','Berhasil Menambahkan Data');
+        }
+        if($selisih != 0){
+            if($selisih > 0){
+                \Session::flash('message','Jumlah Realisasi Settlement Kurang dari Jumlah IOU, Tambahkan Transaksi dengan Tipe "Debet".');
+            }else{
+                \Session::flash('message','Jumlah Realisasi Settlement Lebih dari Jumlah IOU, Tambahkan Transaksi dengan Tipe "Credit".');
+            }
+            return redirect('/transaksi/cash/create');
         }
         return redirect('/transaksi/'.$transaksi->id.'/attachment');
     }
