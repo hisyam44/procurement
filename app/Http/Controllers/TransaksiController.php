@@ -87,57 +87,6 @@ class TransaksiController extends Controller
         return view('transaksi.index',['transaksi' => $transaksi]);
     }
 
-    public function indexBank(Request $request){
-        $transaksi = Transaksi::where('type','bank')->orderBy('created_at','desc')->get();
-        if($request->print){
-            $view = "transaksi.print";
-            $data = [];
-            $data['transaksi'] = $transaksi;
-            //return view('transaksi.print',$data);
-            $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
-                $excel->sheet('laporan', function($sheet) use($view,$data) {
-                    $sheet->loadView($view,$data);
-                });
-            });
-            return $excel->export('xls');
-        }
-        return view('transaksi.index',['transaksi' => $transaksi]);
-    }
-
-    public function indexIou(Request $request){
-        $transaksi = Transaksi::where('type','iou')->orderBy('created_at','desc')->get();
-        if($request->print){
-            $view = "transaksi.print";
-            $data = [];
-            $data['transaksi'] = $transaksi;
-            //return view('transaksi.print',$data);
-            $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
-                $excel->sheet('laporan', function($sheet) use($view,$data) {
-                    $sheet->loadView($view,$data);
-                });
-            });
-            return $excel->export('xls');
-        }
-        return view('transaksi.index',['transaksi' => $transaksi]);
-    }
-
-    public function indexIous(Request $request){
-        $transaksi = Transaksi::where('type','ious')->orderBy('created_at','desc')->get();
-        if($request->print){
-            $view = "transaksi.print";
-            $data = [];
-            $data['transaksi'] = $transaksi;
-            //return view('transaksi.print',$data);
-            $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
-                $excel->sheet('laporan', function($sheet) use($view,$data) {
-                    $sheet->loadView($view,$data);
-                });
-            });
-            return $excel->export('xls');
-        }
-        return view('transaksi.index',['transaksi' => $transaksi]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
