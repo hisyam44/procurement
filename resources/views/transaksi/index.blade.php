@@ -17,7 +17,7 @@
                 <a class="btn btn-success" href="{!! strpos(Request::fullUrl(),'?') ? Request::fullUrl().'&' : Request::fullUrl().'?' !!}print=true">Download Excel <span class="glyphicon glyphicon-print"></span></a>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-success btn-block" href="{{ url('transaksi/'.substr(Request::url(),32).'/create') }}">Tambahkan  Transaksi</a>
+                <a class="btn btn-success btn-block" href="{{ url('transaksi/'.substr(Route::getCurrentRoute()->getPath(),10).'/create') }}">Tambahkan  Transaksi</a>
             </div>
         </div>
     </div>
@@ -85,18 +85,19 @@
                         <thead>
                             <tr>
                                 <td>No Voucher</td>
-                            @if(substr(Request::url(),32) != "bank")
+<!--                             @if(substr(Route::getCurrentRoute()->getPath(),10) != "bank")
                                 <td>Nama Project</td>
                                 <td>Kode Project</td>
-                            @endif
+                            @endif -->
                                 <td>Category Accounting</td>
                                 <td>Atas Nama</td>
-                            @if(substr(Request::url(),32) === "bank")
+                            @if(substr(Route::getCurrentRoute()->getPath(),10) === "bank")
                                 <td>No. Rek</td>
                                 <td>Bank</td>
                                 <td>Bank Details</td>
                             @endif
                                 <td>Jumlah Total</td>
+                                <td>Keterangan</td>
                                 <!-- <td>Direksi</td>
                                 <td>Kepala Bagian</td>
                                 <td>Kasir</td>
@@ -110,18 +111,19 @@
                                 <tr>
                                     <td>{{ $trans->no_voucher }}</td>
 
-                            @if(substr(Request::url(),32) != "bank")
+<!--                             @if(substr(Route::getCurrentRoute()->getPath(),10) != "bank")
                                     <td>{{ $trans->project_name }}</td>
                                     <td>{{ $trans->project_code }}</td>
-                            @endif
+                            @endif -->
                                     <td>{{ $trans->accounting->name }}</td>
                                     <td>{{ $trans->receiver }}</td>
-                            @if(substr(Request::url(),32) === "bank")
+                            @if(substr(Route::getCurrentRoute()->getPath(),10) === "bank")
                                     <td>{{ $trans->receiver_rekening }}</td>
                                     <td>{{ $trans->bank }}</td>
                                     <td>{{ $trans->bank_details }}</td>
                             @endif
                                     <td>Rp.{{ $trans->amount_total }}</td>
+                                    <td>{{ $trans->keterangan }}</td>
                                     <!-- <td>{{ $trans->direksi }}</td>
                                     <td>{{ $trans->kepala_bagian }}</td>
                                     <td>{{ $trans->kasir }}</td>
@@ -149,7 +151,7 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $trans->created_at }}</td>
-                                            @if(substr(Request::url(),32) === "iou" || substr(Request::url(),32) === "ious")
+                                            @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
                                             <td colspan="2">Rp.{{ $cost->amount }}</td>
                                             <td colspan="8">{{ $cost->description }}</td>
                                             @else

@@ -27,7 +27,7 @@
             <td>Tanggal</td>
             <td>Category Accounting</td>
             <td>Atas Nama</td>
-        @if(substr(Request::url(),32) === "iou" || substr(Request::url(),32) === "ious")
+        @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
             <td colspan="3">Details</td>
             <td colspan="3">Jumlah</td>
         @else
@@ -74,7 +74,7 @@
                         <td>{{ $trans->created_at->format('d-M-Y') }}</td>
                         <td>{{ $trans->accounting->name }}</td>
                         <td>{{ $trans->receiver }}</td>
-                    @if(substr(Request::url(),32) === "iou" || substr(Request::url(),32) === "ious")
+                    @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
                         <td colspan="3">{{ $cost->description }}</td>
                         <td colspan="3">{{ $cost->amount }}</td>
                     @else
@@ -92,7 +92,7 @@
         @endforeach
             <tr>
                 <td colspan="7">Total</td>
-            @if(substr(Request::url(),32) === "iou" || substr(Request::url(),32) === "ious")
+            @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
                 <td colspan="3">{{ $total_saldo }}</td>
             @else
                 <td>{{ $total_debet }}</td>

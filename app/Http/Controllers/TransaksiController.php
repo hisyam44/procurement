@@ -197,7 +197,7 @@ class TransaksiController extends Controller
             $no_voucher = $no_voucher->id+1;
         }
         $no_voucher = "IOU Settlement 4-".sprintf('%05d',$no_voucher);
-        return view('transaksi.createiou',['no_voucher' => $no_voucher,'type' => 'ious']);
+        return view('transaksi.createious',['no_voucher' => $no_voucher,'type' => 'ious']);
     }
 
     /**
@@ -223,8 +223,13 @@ class TransaksiController extends Controller
             $transaksi->bank = $request->bank;
             $transaksi->bank_details = $request->bank_details;
         }
-        $transaksi->amount_total = $request->amount_total;
-        $transaksi->keterangan = $request->keterangan;
+        if($request->type_transaksi === "ious"){
+            $transaksi->amount_total = $request->amount[0];
+            $transaksi->keterangan = "Realisasi ".$request->no_iou;
+        }else{
+            $transaksi->amount_total = $request->amount_total;
+            $transaksi->keterangan = $request->keterangan;
+        }
         $transaksi->direksi = $request->direksi;
         $transaksi->kepala_bagian = $request->kepala_bagian;
         $transaksi->kasir = $request->kasir;
@@ -248,7 +253,11 @@ class TransaksiController extends Controller
                 $cost->cost_type = $request->cost_type[$i];
             }
             $cost->amount = $request->amount[$i];
-            $cost->description = $request->description[$i];
+            if($request->type_transaksi === "ious"){
+                $cost->description = "Selisih Realiasasi : Rp.".$request->amount_total-$request->amount[0];
+            }else{
+                $cost->description = $request->description[$i];
+            }
             /*if($request->type[$i] === "Debet"){
                 $cost->saldo = $latest_saldo+$request->amount[$i];
             }else{
@@ -361,6 +370,28 @@ class TransaksiController extends Controller
 
     public function pettyCash(){
         return view('transaksi.petty');
+    }
+
+    public function iouCompletion(Request $request){
+        $locations = Transaksi::where('type','iou')->where('no_voucher','LIKE','%'.$request->term.'%')->get();
+        $results = [];
+        foreach($locations as $location){
+            $value = array(
+                'value' => $location->no_voucher,
+                'acc_id' => $location->accounting->id,
+                'acc_val' => $location->accounting->name,
+                'created_at' => date($location->created_at),
+                'receiver' => $location->receiver,
+                'amount_total' => $location->amount_total,
+                'keterangan' => $location->keterangan,
+                'direksi' => $location->direksi,
+                'kepala_bagian' => $location->kepala_bagian,
+                'kasir' => $location->kasir,
+                'penerima' => $location->penerima,
+            );
+            $results[] = $value;
+        }
+        return response()->json($results,200);
     }
 
 }

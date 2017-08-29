@@ -36,5 +36,6 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('purchase/{id}/print','PurchaseController@printPurchase');
 	Route::get('unit/completion','PurchaseController@unitCompletion');
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
+	Route::get('iou/completion','TransaksiController@iouCompletion');
 });
 //Route::get('/home', 'HomeController@index');
