@@ -80,11 +80,25 @@
                             <li><a href="{{ url('/transaksi/ious') }}">IOU Settlement</a></li>
                             <li><a href="{{ url('/transaksi/pettycash') }}">Petty Cash</a></li>
                         @elseif(strpos(Request::url(),"item"))
-                            <li><a href="{{ url('/item') }}">Item Masters</a></li>
+                            <li><a href="{{ url('/item') }}">Items</a></li>
                             <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
                         @elseif(strpos(Request::url(),"purchase"))
-                            <li><a href="{{ url('/item') }}">Item Masters</a></li>
+                            <li><a href="{{ url('/item') }}">Items</a></li>
                             <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
+                        @elseif(strpos(Request::url(),"supplier"))
+                            <li><a href="{{ url('/item') }}">Items</a></li>
+                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
+                        @elseif(strpos(Request::url(),"order"))
+                            <li><a href="{{ url('/item') }}">Items</a></li>
+                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
                         @else
 
                         @endif

@@ -37,5 +37,10 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('unit/completion','PurchaseController@unitCompletion');
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
 	Route::get('iou/completion','TransaksiController@iouCompletion');
+	//order
+	Route::resource('order','OrderController');
+	//supplier
+	Route::resource('supplier/completion','SupplierController@supplierCompletion');
+	Route::resource('supplier','SupplierController');
 });
 //Route::get('/home', 'HomeController@index');
