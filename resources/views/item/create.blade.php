@@ -65,6 +65,7 @@
                                     var code2 = $('#code2').val();
                                     var code3 = $('#code3').val();
                                     var code4 = $('#code4').val();
+                                    code4 = code4 == "10"?code4:"0"+code4;
                                     var code = code1+code2+code3+code4;
                                     $('#item_no').val(code);
                                     var item_last = $('#code4').find(":selected").text();
@@ -120,7 +121,7 @@
                     <div id="part_no">
                         <div class="form-group">
                             <label for="part_no" class="col-md-4 control-label">Part No</label>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <input id="part_no" type="text" class="form-control" name="part_no[]" required>
                             </div>
                         </div>
@@ -135,7 +136,11 @@
                     <script type="text/javascript">
                         function newPartNo(){
                             var part = $('#part_no');
-                            $('<div class="form-group"><label for="part_no" class="col-md-4 control-label"></label><div class="col-md-6"><input id="part_no" type="text" class="form-control" name="part_no[]" required></div></div>').appendTo(part);
+                            $('<div class="form-group"><label for="part_no" class="col-md-4 control-label"></label><div class="col-md-5"><input id="part_no" type="text" class="form-control" name="part_no[]" required></div><div class="col-md-1"><div class="btn btn-danger" onclick="deletePartNo(this)"><span class="glyphicon glyphicon-remove"></span></div></div></div>').appendTo(part);
+                        }
+                        function deletePartNo(elem){
+                            var partNo = $(elem).parent().parent();
+                            partNo.remove();
                         }
                     </script>
                     <div class="form-group">
