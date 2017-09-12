@@ -43,7 +43,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('supplier.create');
     }
 
     /**
@@ -54,7 +54,18 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return response()->json($request->all());
+        $supplier = new Supplier();
+        $supplier->no = $request->no;
+        $supplier->name = $request->name;
+        $supplier->address = $request->address;
+        $supplier->phone = $request->phone;
+        $supplier->attn = $request->attn;
+        $success = $supplier->save();
+         if($success){
+            \Session::flash('message','Berhasil Menambahkan Data'); 
+        }
+        return redirect('/supplier');
     }
 
     /**
@@ -99,6 +110,11 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $purchase = Supplier::findOrFail($id);
+        $success = $purchase->delete();
+         if($success){
+            \Session::flash('message','Berhasil Menghapus Data'); 
+        }
+        return redirect('/supplier');
     }
 }

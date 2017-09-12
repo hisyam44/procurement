@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('supplier_id')->unsigned();
             $table->enum('type',['ho','local'])->default('ho');
+            $table->string('no');
             $table->string('address');
             $table->string('reference_no');
             $table->string('dispatch_to');
@@ -23,8 +24,8 @@ class CreateOrdersTable extends Migration
             $table->string('dispatch_name');
             $table->string('payment_term');
             $table->string('incoterms');
-            $table->string('delivery_date');
-            $table->string('subtotal');
+            $table->date('delivery_date');
+            $table->string('sub_total');
             $table->string('tax');
             $table->string('total');
             $table->string('warranty');

@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth']],function(){
 	    return view('welcome');
 	});
 	Route::get('item/completion','PurchaseController@itemCompletion');
+	Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
 	Route::resource('item','ItemController');
 	Route::resource('purchase','PurchaseController');
 	Route::get('transaksi/pettycash','TransaksiController@pettyCash');

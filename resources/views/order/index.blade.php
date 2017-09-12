@@ -26,25 +26,41 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>No. order</td>
-                                <td>Nama order</td>
-                                <td>Alamat</td>
-                                <td>Atas Nama</td>
-                                <td>Aksi</td>
+                                <td>No. PO</td>
+                                <td>Tipe</td>
+                                <td>Reference No</td>
+                                <td>Supplier</td>
+                                <td>Dispatch To</td>
+                                <td>Payment Term</td>
+                                <td>Incoterms</td>
+                                <td>Delivery Date</td>
+                                <td>Total</td>
+                                <td colspan="3">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($orders as $index => $order)
                             <tr>
-                                <td>{{ $order->no }}</td>
-                                <td>{{ $order->name }}</td>
-                                <td>{{ $order->address }}</td>
-                                <td>{{ $order->attn }}</td>
+                                <td>{{ $order->no.sprintf('%03d',$order->id) }}</td>
+                                <td>{{ strtoupper($order->type) }}</td>
+                                <td>{{ $order->reference_no }}</td>
+                                <td>{{ $order->supplier->name }}</td>
+                                <td>{{ $order->dispatch_to }}</td>
+                                <td>{{ $order->payment_term }}</td>
+                                <td>{{ $order->incoterms }}</td>
+                                <td>{{ $order->delivery_date }}</td>
+                                <td>Rp.{{ $order->total }}</td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ url('order/'.$order->id) }}"><span class="glyphicon glyphicon-search"></span></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ url('order/'.$order->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                </td>
                                 <td>
                                     <form method="post" action="{{ url('order/'.$order->id) }}">
                                         {{ csrf_field() }}
                                         <input type="text" name="_method" value="delete" hidden>
-                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
                             </tr>

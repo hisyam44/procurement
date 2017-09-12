@@ -26,10 +26,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>No. Supplier</td>
+                                <td>Supplier ID</td>
                                 <td>Nama Supplier</td>
                                 <td>Alamat</td>
                                 <td>Atas Nama</td>
+                                <td>No. Telp</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
@@ -40,6 +41,7 @@
                                 <td>{{ $supplier->name }}</td>
                                 <td>{{ $supplier->address }}</td>
                                 <td>{{ $supplier->attn }}</td>
+                                <td>{{ $supplier->phone }}</td>
                                 <td>
                                     <form method="post" action="{{ url('supplier/'.$supplier->id) }}">
                                         {{ csrf_field() }}

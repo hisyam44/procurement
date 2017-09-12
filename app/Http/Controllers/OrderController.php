@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Order;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -16,7 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at','desc')->get();
+        $orders = Order::orderBy('created_at','desc')->with('orderitem')->get();
+        //return response()->json($orders);
         return view('order.index',['orders' => $orders]);
     }
 
@@ -38,7 +40,35 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = new Order();
+        $order->supplier_id = $request->supplier_id;
+        $order->type = $request->type;
+        $order->no = $request->type=='HO'?'HO : 1-':'Local : 2-';
+        $order->address = '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com';
+        $order->reference_no = $request->reference_no;
+        $order->dispatch_to = $request->dispacth_to;
+        $order->dispatch_address = $request->dispacth_address;
+        $order->dispatch_name = $request->dispacth_name;
+        $order->payment_term = $request->payment_term;
+        $order->incoterms = $request->incoterms;
+        $order->delivery_date = $request->delivery_date;
+        $order->sub_total = $request->sub_total;
+        $order->tax = $request->tax;
+        $order->total = $request->total;
+        $order->warranty = $request->warranty;
+        $order->author = $request->author;
+        $order->diketahui = $request->diketahui;
+        $order->created_at = $request->created_at;
+        $order->save();
+        for($i=0;$i<count($request->qty);$i++){
+            $order_item = new \App\OrderItem();
+            $order_item->item_id = $request->item_code[$i];
+            $order_item->qty = $request->qty[$i];
+            $order_item->unit_price = $request->unit_price[$i];
+            $order_item->description = $request->description[$i];
+            $order->orderitem()->save($order_item);
+        }
+        return response()->json($request->all());
     }
 
     /**
@@ -47,9 +77,14 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        $order = Order::findOrFail($id);
+        $pdf = PDF::loadView('order.details',['order' => $order]);
+        if($request->print === "1"){
+            return $pdf->setPaper('a4', 'landscape')->download('PurchaseOrder'.sprintf('%05d',$order->id).'.pdf');
+        }
+        return view('order.details',['order' => $order]);
     }
 
     /**
@@ -83,6 +118,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $purchase = Order::findOrFail($id);
+        $success = $purchase->delete();
+         if($success){
+            \Session::flash('message','Berhasil Menghapus Data'); 
+        }
+        return redirect('/order');
     }
 }

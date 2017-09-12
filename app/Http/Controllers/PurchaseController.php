@@ -158,6 +158,19 @@ class PurchaseController extends Controller
         return response()->json($results,200);
     }
 
+    public function itemCodeCompletion(Request $request){
+        $locations = \App\Item::where('item_no','LIKE','%'.$request->term.'%')->get();
+        $results = [];
+        foreach($locations as $location){
+            $value = array(
+                'id' => $location->id,
+                'value' => $location->item_no
+            );
+            $results[] = $value;
+        }
+        return response()->json($results,200);
+    }
+
     public function accountingCompletion(Request $request){
         $locations = \App\Accounting::where('name','LIKE','%'.$request->term.'%')->get();
         $results = [];

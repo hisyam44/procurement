@@ -18,7 +18,7 @@ class CreateOrderItemTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->string('qty');
             $table->string('unit_price');
-            $table->string('decription');
+            $table->string('description');
             $table->timestamps();
         });
     }
