@@ -29,7 +29,7 @@ class OrderItemTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
-                'item_id' => 1,
+                'item_id' => 2,
                 'order_id' => 1,
                 'qty' => '1',
                 'unit_price' => '1100000',

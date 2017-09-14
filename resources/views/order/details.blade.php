@@ -22,7 +22,7 @@
                     <td rowspan="4" width="20%"></td>
                     <td width="20%"></td>
                     <td class="bold">P.O. NO.</td>
-                    <td width="20%">{{ $order->no.sprintf('%03d',$order->id) }}</td>
+                    <td width="20%">{{ $order->no }}</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -90,8 +90,8 @@
                             @foreach($order->orderitem as $itemorder)
                             <tr>
                                 <td>{{ $itemorder->qty }}</td>
-                                <td>{{ $itemorder->item->item_no }}</td>
-                                <td></td>
+                                <td>{{ $itemorder->item->item->item_no }}</td>
+                                <td>{{ $itemorder->item->code }}</td>
                                 <td>{{ $itemorder->description }}</td>
                                 <td width="20%">Rp. {{ $itemorder->unit_price }}</td>
                                 <td width="20%">Rp. {{ $itemorder->unit_price*$itemorder->qty }}</td>

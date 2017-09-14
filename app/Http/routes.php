@@ -39,9 +39,11 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
 	Route::get('iou/completion','TransaksiController@iouCompletion');
 	//order
+	Route::get('order/completion','OrderController@orderCompletion');
 	Route::resource('order','OrderController');
 	//supplier
-	Route::resource('supplier/completion','SupplierController@supplierCompletion');
+	Route::get('supplier/completion','SupplierController@supplierCompletion');
 	Route::resource('supplier','SupplierController');
+	Route::resource('material','MaterialController');
 });
 //Route::get('/home', 'HomeController@index');

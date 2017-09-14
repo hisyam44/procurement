@@ -6,6 +6,7 @@
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/order') }}">
                     {{ csrf_field() }}
+                    <input type="text" name="no" value="{{ $no_voucher }}" hidden>
                     <div class="row">
                     <div class="panel panel-default">
                     <div class="panel-body">
@@ -189,10 +190,13 @@
                                     <input id="qty" type="text" class="form-control qty" placeholder="qty.." onkeyup="changeValue()" name="qty[]" value="1" required>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Item Code..">
-                                    <input id="item_code[]" type="text" class="item_code" placeholder="Item Code.." name="item_code[]" hidden required>
+                                    <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Part No..">
+                                    <input id="" type="text" class="item_code" placeholder="Item Code.." name="item_code[]" hidden required>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
+                                    <input id="item_code" type="text" class="form-control" placeholder="Item Code.." required readonly>
+                                </div>
+                                <div class="col-md-2">
                                     <input id="description[]" type="text" class="form-control description" placeholder="Description.." name="description[]" required>
                                 </div>
                                 <div class="col-md-2">
@@ -225,7 +229,7 @@
                                     source: function(request,response){
                                         console.log(request.term);
                                         $.ajax({
-                                            url: "{{ url('/item-code/completion') }}",
+                                            url: "{{ url('/item/completion') }}",
                                             dataType: "json",
                                             data: {
                                                 term: request.term
@@ -239,6 +243,8 @@
                                     minLength: 2,
                                     select: function(event,ui){
                                         $(this).next().val(ui.item.id);
+                                        var parentElem = $(this).parent().parent().parent().parent();
+                                        $(parentElem).find('#item_code').val(ui.item.item_code);
                                     }
                                 });
                             }
@@ -249,7 +255,7 @@
                         <script type="text/javascript">
                             function appendNewFormItem(){
                                 var formRequest = $('#formItem');
-                                $('<div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="text" class="form-control qty" placeholder="qty.." onkeyup="changeValue()" name="qty[]" value="1" required> </div><div class="col-md-2"> <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Item Code.."> <input id="item_code[]" type="text" class="item_code" placeholder="Item Code.." name="item_code[]" hidden required> </div><div class="col-md-4"> <input id="description[]" type="text" class="form-control description" placeholder="Description.." name="description[]" required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp</span> <input id="unit_price" type="text" class="form-control unit_price" onkeyup="changeValue()" placeholder="Unit Price.." value="0" name="unit_price[]" required> </div></div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp</span> <input id="line_total" type="text" class="form-control line_total" placeholder="Line Total.." name="line_total[]" required readonly> </div></div><div class="col-md-1"> <a class="btn btn-danger" onclick="deleteItem(this)">Delete</a> </div></div></div></div>').appendTo(formRequest);
+                                $('<div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="text" class="form-control qty" placeholder="qty.." onkeyup="changeValue()" name="qty[]" value="1" required> </div><div class="col-md-2"> <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Part No.."> <input type="text" class="item_code" placeholder="Part No.." name="item_code[]" hidden required> </div><div class="col-md-2"><input id="item_code" type="text" class="form-control" placeholder="Item Code.." required readonly></div><div class="col-md-2"> <input id="description[]" type="text" class="form-control description" placeholder="Description.." name="description[]" required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp</span> <input id="unit_price" type="text" class="form-control unit_price" onkeyup="changeValue()" placeholder="Unit Price.." value="0" name="unit_price[]" required> </div></div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp</span> <input id="line_total" type="text" class="form-control line_total" placeholder="Line Total.." name="line_total[]" required readonly> </div></div><div class="col-md-1"> <a class="btn btn-danger" onclick="deleteItem(this)">Delete</a> </div></div></div></div>').appendTo(formRequest);
                                 changeValue();
                             }
                         </script>

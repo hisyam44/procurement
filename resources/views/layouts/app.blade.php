@@ -56,15 +56,15 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
+                @if(Route::getCurrentRoute()->getPath() === "/")
+                    Laravel
+                @else
                     @if(strpos(Request::url(),"transaksi"))
                         FINANCE
-                    @elseif(strpos(Request::url(),"item"))
-                        PROCUREMENT & WAREHOUSE
-                    @elseif(strpos(Request::url(),"purchase"))
-                        PROCUREMENT & WAREHOUSE
                     @else
-                        LaravelApp
+                        PROCUREMENT & WAREHOUSE
                     @endif
+                @endif
                 </a>
             </div>
 
@@ -72,6 +72,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
+                        @if(Route::getCurrentRoute()->getPath() === "/")
+                        @else
                         @if(strpos(Request::url(),"transaksi"))
                             <!-- <li><a href="{{ url('/transaksi') }}">Transaksi</a></li> -->
                             <li><a href="{{ url('/transaksi/cash') }}">Cash</a></li>
@@ -79,28 +81,13 @@
                             <li><a href="{{ url('/transaksi/iou') }}">IOU</a></li>
                             <li><a href="{{ url('/transaksi/ious') }}">IOU Settlement</a></li>
                             <li><a href="{{ url('/transaksi/pettycash') }}">Petty Cash</a></li>
-                        @elseif(strpos(Request::url(),"item"))
-                            <li><a href="{{ url('/item') }}">Items</a></li>
-                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
-                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
-                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
-                        @elseif(strpos(Request::url(),"purchase"))
-                            <li><a href="{{ url('/item') }}">Items</a></li>
-                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
-                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
-                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
-                        @elseif(strpos(Request::url(),"supplier"))
-                            <li><a href="{{ url('/item') }}">Items</a></li>
-                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
-                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
-                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
-                        @elseif(strpos(Request::url(),"order"))
-                            <li><a href="{{ url('/item') }}">Items</a></li>
-                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
-                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
-                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
                         @else
-
+                            <li><a href="{{ url('/item') }}">Items</a></li>
+                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
+                            <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+                            <li><a href="{{ url('/order') }}">Purchase Order</a></li>
+                            <li><a href="{{ url('/material') }}">Material Receipt</a></li>
+                        @endif
                         @endif
                     @endif
                 </ul>

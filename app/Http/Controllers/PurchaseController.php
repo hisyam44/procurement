@@ -151,7 +151,8 @@ class PurchaseController extends Controller
                 'value' => $location->code,
                 'uom' => $location->item->uom,
                 'component' => $location->item->component,
-                'description' => $location->item->description
+                'description' => $location->item->description,
+                'item_code' => $location->item->item_no
             );
             $results[] = $value;
         }

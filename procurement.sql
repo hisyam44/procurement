@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 12, 2017 at 11:46 
+-- Generation Time: Sep 12, 2017 at 09:24 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -323,6 +323,26 @@ CREATE TABLE IF NOT EXISTS `item_part_no` (
   `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `item_part_no`
+--
+
+INSERT INTO `item_part_no` (`id`, `item_id`, `code`, `created_at`, `updated_at`) VALUES
+(1, 1, 'GH125415', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'HH1237612', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `materials`
+--
+
+CREATE TABLE IF NOT EXISTS `materials` (
+`id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -358,7 +378,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_08_15_060204_create_item_part_no', 1),
 ('2017_09_04_120838_create_orders_table', 1),
 ('2017_09_04_120923_create_suppliers_table', 1),
-('2017_09_04_121018_create_order_item_table', 1);
+('2017_09_04_121018_create_order_item_table', 1),
+('2017_09_12_172813_create_materials_table', 1);
 
 -- --------------------------------------------------------
 
@@ -394,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`id`, `supplier_id`, `type`, `no`, `address`, `reference_no`, `dispatch_to`, `dispatch_address`, `dispatch_name`, `payment_term`, `incoterms`, `delivery_date`, `sub_total`, `tax`, `total`, `warranty`, `author`, `diketahui`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ho', 'HO : 1-', '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com', 'GPR 01111 dt. 20082017', 'PT Sumber Mitra Jaya', 'Gudang Base Camp Jl Raya Bojong Kajen Wangandowo, Jawa Tengah 51156', 'Mawardi', 'Wangandowo', 'DDP', '2017-09-11', '7600000', '0', '7600000', ' 2 Years from date of install ', 'Slamet', 'Siti', '2017-09-10 17:00:00', '2017-09-11 03:42:41');
+(1, 1, 'ho', 'HO 1-001', '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com', 'GPR 01111 dt. 20082017', 'PT Sumber Mitra Jaya', 'Gudang Base Camp Jl Raya Bojong Kajen Wangandowo, Jawa Tengah 51156', 'Mawardi', 'Wangandowo', 'DDP', '2017-09-11', '7600000', '0', '7600000', ' 2 Years from date of install ', 'Slamet', 'Siti', '2017-09-10 17:00:00', '2017-09-11 03:42:41');
 
 -- --------------------------------------------------------
 
@@ -419,7 +440,7 @@ CREATE TABLE IF NOT EXISTS `order_item` (
 
 INSERT INTO `order_item` (`id`, `item_id`, `order_id`, `qty`, `unit_price`, `description`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '1', '6500000', 'Server', '2017-09-11 03:42:41', '2017-09-11 03:42:41'),
-(2, 1, 1, '1', '1100000', 'LED LG 20" 20MP48 IPS Panel', '2017-09-11 03:42:41', '2017-09-11 03:42:41');
+(2, 2, 1, '1', '1100000', 'LED LG 20" 20MP48 IPS Panel', '2017-09-11 03:42:41', '2017-09-11 03:42:41');
 
 -- --------------------------------------------------------
 
@@ -706,9 +727,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$w1dPVnp0opCQIsup3bbv7uMtrxRiXazmhPb/3843M1xJ3gjP5qBVa', 'admin', NULL, '2017-09-12 02:44:55', '2017-09-12 02:44:55'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$cLwB.hfK8xXiSVMz4/zWWuBCE8P41B53.7/u68ukZ9QZTQkPiPxfm', 'checker', NULL, '2017-09-12 02:44:55', '2017-09-12 02:44:55'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$CEjLcoZCl.jyTkYv0fFjwOMfBdjm/CzAQlFRxdwm0tOY7fYZnY/8a', 'operator', NULL, '2017-09-12 02:44:55', '2017-09-12 02:44:55');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$/p8DBFeEwSi.on53BGmhZOU4Hbsi01bx/K69.FSOjENuQMaVXQX/2', 'admin', NULL, '2017-09-12 12:22:16', '2017-09-12 12:22:16'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$X/IXU1l9TKVaI7/JEmbxf.M9jDxpWeB0D3QImNxy04xkpH48TBI/O', 'checker', NULL, '2017-09-12 12:22:16', '2017-09-12 12:22:16'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$2pP2LVLFDnzX28KLWbWmgeuDlMtUKtsKorloysdE35VJP8d/b4/Ka', 'operator', NULL, '2017-09-12 12:22:17', '2017-09-12 12:22:17');
 
 --
 -- Indexes for dumped tables
@@ -767,6 +788,12 @@ ALTER TABLE `items`
 --
 ALTER TABLE `item_part_no`
  ADD PRIMARY KEY (`id`), ADD KEY `item_part_no_item_id_foreign` (`item_id`);
+
+--
+-- Indexes for table `materials`
+--
+ALTER TABLE `materials`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -870,6 +897,11 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `item_part_no`
 --
 ALTER TABLE `item_part_no`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `materials`
+--
+ALTER TABLE `materials`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orders`

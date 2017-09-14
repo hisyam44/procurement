@@ -9,7 +9,7 @@ class OrderItem extends Model
     protected $table = "order_item";
 
     public function item(){
-    	return $this->belongsto('App\Item');
+    	return $this->belongsto('App\PartNo');
     }
 
     public function order(){
