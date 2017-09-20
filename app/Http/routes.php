@@ -45,5 +45,6 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('supplier/completion','SupplierController@supplierCompletion');
 	Route::resource('supplier','SupplierController');
 	Route::resource('material','MaterialController');
+	Route::resource('unit','UnitController');
 });
 //Route::get('/home', 'HomeController@index');

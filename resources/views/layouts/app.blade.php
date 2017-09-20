@@ -83,8 +83,9 @@
                             <li><a href="{{ url('/transaksi/pettycash') }}">Petty Cash</a></li>
                         @else
                             <li><a href="{{ url('/item') }}">Items</a></li>
-                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
                             <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
+                            <li><a href="{{ url('/unit') }}">Equipments</a></li>
+                            <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
                             <li><a href="{{ url('/order') }}">Purchase Order</a></li>
                             <li><a href="{{ url('/material') }}">Material Receipt</a></li>
                         @endif
