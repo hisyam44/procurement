@@ -75,6 +75,7 @@ class OrderController extends Controller
         $order->delivery_date = $request->delivery_date;
         $order->sub_total = $request->sub_total;
         $order->tax = $request->tax;
+        $order->diskon = $request->diskon;
         $order->total = $request->total;
         $order->warranty = $request->warranty;
         $order->author = $request->author;

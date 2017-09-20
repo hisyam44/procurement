@@ -28,9 +28,12 @@
                             <tr>
                                 <td>Supplier ID</td>
                                 <td>Nama Supplier</td>
+                                <td>Tipe</td>
                                 <td>Alamat</td>
                                 <td>Atas Nama</td>
+                                <td>Email</td>
                                 <td>No. Telp</td>
+                                <td>Keterangan</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
@@ -39,9 +42,12 @@
                             <tr>
                                 <td>{{ $supplier->no }}</td>
                                 <td>{{ $supplier->name }}</td>
+                                <td>{{ $supplier->type }}</td>
                                 <td>{{ $supplier->address }}</td>
                                 <td>{{ $supplier->attn }}</td>
+                                <td>{{ $supplier->email }}</td>
                                 <td>{{ $supplier->phone }}</td>
+                                <td>{{ $supplier->description }}</td>
                                 <td>
                                     <form method="post" action="{{ url('supplier/'.$supplier->id) }}">
                                         {{ csrf_field() }}

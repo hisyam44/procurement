@@ -27,7 +27,7 @@
                                     </div>
                                 </div> -->
                                 <div class="form-group">
-                                    <label for="part_no" class="col-md-4 control-label">Supplier ID</label>
+                                    <label for="part_no" class="col-md-4 control-label">Supplier</label>
                                     <div class="col-md-6">
                                         <input id="supplier_id" type="text" name="supplier_id" hidden>
                                         <input id="supplier_code" type="text" class="form-control" required>
@@ -51,7 +51,7 @@
                                             minLength: 2,
                                             select: function(event,ui){
                                                 $("#supplier_id").val(ui.item.id);
-                                                $("#supplier_name").val(ui.item.name);
+                                                $("#supplier_name").val(ui.item.no);
                                                 $("#supplier_address").val(ui.item.address);
                                                 $("#supplier_attn").val(ui.item.attn);
                                             }
@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="part_no" class="col-md-4 control-label">Supplier</label>
+                                    <label for="part_no" class="col-md-4 control-label">Supplier ID</label>
                                     <div class="col-md-6">
                                         <input id="supplier_name" type="text" class="form-control" required readonly>
                                     </div>
@@ -163,6 +163,7 @@
                             var line_total = $('.line_total');
                             var sub_total = parseInt($('#sub_total').val());
                             var tax = parseInt($('#tax').val());
+                            var diskon = parseInt($('#diskon').val());
                             var total = parseInt($('#total').val());
 
                             sub_total = 0;
@@ -177,6 +178,7 @@
                             }
 
                             total = sub_total-tax;
+                            total = total-diskon;
                             $('#sub_total').val(sub_total);
                             $('#total').val(total);
                         }
@@ -289,6 +291,15 @@
                                     <div class="input-group">
                                     <span class="input-group-addon">Rp</span> 
                                         <input id="sub_total" type="text" class="form-control" name="sub_total" readonly required>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="part_no" class="col-md-4 control-label">Diskon</label>
+                                    <div class="col-md-8">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Rp</span> 
+                                        <input id="diskon" type="text" class="form-control" onkeyup="changeValue()" value="0" name="diskon" required>
                                     </div>
                                     </div>
                                 </div>

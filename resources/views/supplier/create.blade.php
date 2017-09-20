@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <label for="code" class="col-md-4 control-label">Supplier ID</label>
                         <div class="col-md-6">
-                            <input type="text" name="no" class="form-control" id="no" required>
+                            <input type="text" name="no" class="form-control" id="no" value="{{ $no }}" readonly required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -20,9 +20,31 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="code" class="col-md-4 control-label">Tipe</label>
+                        <div class="col-md-6">
+                            <select name="type" class="form-control" id="type" required>
+                                <option>Pers Perorangan</option>
+                                <option>Perseroan Komanditer(CV)</option>
+                                <option>Firma(FA)</option>
+                                <option>Pers Terbatas Negara</option>
+                                <option>Pers Negara Umum</option>
+                                <option>PMA</option>
+                                <option>PMDN</option>
+                                <option>Persekutuan Pedeta</option>
+                                <option>Perusahaan Umum</option>
+                                <option>Perusahaan Jawatan</option>
+                                <option>PT</option>
+                                <option>PT TBK</option>
+                                <option>UD</option>
+                                <option>Yayasan</option>
+                                <option>Koperasi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="code" class="col-md-4 control-label">Alamat</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" name="address" id="address" rows="4" required></textarea>
+                            <textarea class="form-control" name="address" id="address" rows="3" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -32,9 +54,27 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Attn</label>
+                        <label for="code" class="col-md-4 control-label">Email</label>
+                        <div class="col-md-6">
+                            <input type="text" name="email" class="form-control" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="col-md-4 control-label">Nama Kontak</label>
                         <div class="col-md-6">
                             <input type="text" name="attn" class="form-control" id="attn" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="col-md-4 control-label">No. Telp Kontak</label>
+                        <div class="col-md-6">
+                            <input type="text" name="contact" class="form-control" id="contact" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="col-md-4 control-label">Keterangan Lainnya</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">

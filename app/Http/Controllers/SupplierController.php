@@ -21,15 +21,16 @@ class SupplierController extends Controller
     }
 
     public function supplierCompletion(Request $request){
-        $locations = Supplier::where('no','LIKE','%'.$request->term.'%')->get();
+        $locations = Supplier::where('name','LIKE','%'.$request->term.'%')->get();
         $results = [];
         foreach($locations as $location){
             $value = array(
-                'value' => $location->no,
+                'value' => $location->name,
                 'id' => $location->id,
                 'name' => $location->name,
                 'address' => $location->address,
                 'attn' => $location->attn,
+                'no' => $location->no
             );
             $results[] = $value;
         }
@@ -43,7 +44,14 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('supplier.create');
+        $no_voucher = Supplier::orderBy('id','DESC')->first();
+        if(count($no_voucher) === 0){
+            $no_voucher = 1;
+        }else{
+            $no_voucher = $no_voucher->id+1;
+        }
+        $no_voucher = \Carbon\Carbon::now()->year." - ".sprintf('%04d',$no_voucher);
+        return view('supplier.create',['no' => $no_voucher]);
     }
 
     /**
@@ -57,10 +65,14 @@ class SupplierController extends Controller
         //return response()->json($request->all());
         $supplier = new Supplier();
         $supplier->no = $request->no;
+        $supplier->type = $request->type;
         $supplier->name = $request->name;
         $supplier->address = $request->address;
         $supplier->phone = $request->phone;
         $supplier->attn = $request->attn;
+        $supplier->email = $request->email;
+        $supplier->contact = $request->contact;
+        $supplier->description = $request->description;
         $success = $supplier->save();
          if($success){
             \Session::flash('message','Berhasil Menambahkan Data'); 

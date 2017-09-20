@@ -108,6 +108,13 @@
                     <td>Rp. {{ $order->sub_total }}</td>
                 </tr>
                 <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="bold">Diskon</td>
+                    <td>Rp. {{ $order->diskon }}</td>
+                </tr>
+                <tr>
                     <td class="bold">Additonal Terms & Conditions: </td>
                     <td></td>
                     <td></td>

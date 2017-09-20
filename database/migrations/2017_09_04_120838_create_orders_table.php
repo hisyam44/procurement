@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->date('delivery_date');
             $table->string('sub_total');
             $table->string('tax');
+            $table->string('diskon');
             $table->string('total');
             $table->string('warranty');
             $table->string('author');
