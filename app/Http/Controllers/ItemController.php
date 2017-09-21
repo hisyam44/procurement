@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Item;
+use Excel;
 
 class ItemController extends Controller
 {
@@ -115,4 +116,53 @@ class ItemController extends Controller
         }
         return redirect('/item');
     }
+
+    public function importExcel(Request $request){
+        if($request->hasFile('import_file')){
+            $file = $request->file('import_file')->getRealPath();
+            $excel = Excel::load($file, function($reader){
+
+            })->get();
+            $count = 0;
+            if(count($excel) > 0){
+                foreach ($excel as $key => $value) {
+                    $data = $value->toArray();
+
+                    $item = new Item();
+                    $item->item_no = $data['item_no'];
+                    $item->description = $data['description'];
+                    $item->uom = $data['uom'];
+                    $item->weight = $data['weight'];
+                    $item->dimension = $data['dimension'];
+                    $item->shelf_life = $data['shelf_life'];
+                    $item->warranty = $data['warranty'];
+                    $item->remark = $data['remark'];
+                    $item->component = $data['component'];
+                    $success = $item->save();
+
+                    //$item_part = $value->toArray();
+                    $part_no = [];
+                    if(strpos($data['part_no'],';')){
+                        $part_no = explode(';',$data['part_no']);
+                    }else{
+                        $part_no[0] = $data['part_no'];
+                    }
+                        
+                    if($success){
+                        foreach($part_no as $partno){
+                            $part = new \App\PartNo;
+                            $part->code = $partno;
+                            $item->part_no()->save($part);
+                        }
+                        $count++;
+                    }
+
+                    print_r($part_no);
+                }
+                \Session::flash('message','Berhasil Menambahkan '.$count.' Data');
+            }
+        }
+        return redirect('/item');
+    }
+
 }

@@ -18,7 +18,7 @@
             {{ $units->render() }}
             </div>
             <div class="col-md-3">
-                <a class="btn btn-success btn-block" href="{{ url('unit/create') }}">New Equipment</a>
+                <!-- <a class="btn btn-success btn-block" href="{{ url('unit/create') }}">New Equipment</a> -->
             </div>
         </div>
     </div>

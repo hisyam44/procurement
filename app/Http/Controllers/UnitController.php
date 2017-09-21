@@ -83,6 +83,11 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $unit = Unit::findOrFail($id);
+        $success = $unit->delete();
+        if($success){
+            \Session::flash('message','Berhasil Menghapus Data');
+        }
+        return redirect('/unit');
     }
 }
