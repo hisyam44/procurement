@@ -15,7 +15,7 @@
         <div class="panel-body"> 
             <div class="col-md-9">&nbsp;</div>
             <div class="col-md-3">
-                <a class="btn btn-success btn-block" href="{{ url('material/create') }}">New Material Receipt</a>
+                <a class="btn btn-success btn-block" href="{{ url('issue/create') }}">New Store Issue</a>
             </div>
         </div>
     </div>
@@ -26,36 +26,38 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <td>No</td>
                                 <td>Unit Code</td>
                                 <td>Lokasi</td>
-                                <td>Supplier</td>
-                                <td>No. PO</td>
-                                <td>Delivery Man</td>
+                                <td>S/N</td>
+                                <td>H/M</td>
                                 <td>Tanggal</td>
-                                <td>Mengetahui</td>
+                                <td>Diketahui</td>
                                 <td>Diterima</td>
-                                <td colspan="3">Actions</td>
+                                <td>Diserahkan</td>
+                                <td colspan="3">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($materials as $index => $material)
+                            @foreach($issues as $index => $issue)
                             <tr>
-                                <td>{{ $material->unit->code }}</td>
-                                <td>{{ $material->lokasi }}</td>
-                                <td>{{ $material->order->supplier->name }}</td>
-                                <td>{{ $material->order->no }}</td>
-                                <td>{{ $material->deliveryman }}</td>
-                                <td>{{ $material->created_at }}</td>
-                                <td>{{ $material->diketahui }}</td>
-                                <td>{{ $material->diterima }}</td>
+                                <td>{{ $issue->no }}</td>
+                                <td>{{ $issue->unit->code }}</td>
+                                <td>{{ $issue->lokasi }}</td>
+                                <td>{{ $issue->sn }}</td>
+                                <td>{{ $issue->hm }}</td>
+                                <td>{{ $issue->created_at }}</td>
+                                <td>{{ $issue->diketahui }}</td>
+                                <td>{{ $issue->diterima }}</td>
+                                <td>{{ $issue->diserahkan }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ url('material/'.$material->id) }}"><span class="glyphicon glyphicon-search"></span></a>
+                                    <a class="btn btn-info" href="{{ url('issue/'.$issue->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="{{ url('material/'.$material->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a class="btn btn-success" href="{{ url('issue/'.$issue->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
                                 <td>
-                                    <form method="post" action="{{ url('material/'.$material->id) }}">
+                                    <form method="post" action="{{ url('issue/'.$issue->id) }}">
                                         {{ csrf_field() }}
                                         <input type="text" name="_method" value="delete" hidden>
                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
@@ -67,7 +69,7 @@
                     </table>
                 </div>
             </div>
-            {{ $materials->render() }}
+            {{ $issues->render() }}
         </div>
     </div>
 </div>

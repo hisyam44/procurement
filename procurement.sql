@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 20, 2017 at 01:27 
+-- Generation Time: Sep 24, 2017 at 02:21 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -286,6 +286,43 @@ CREATE TABLE IF NOT EXISTS `costs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `issues`
+--
+
+CREATE TABLE IF NOT EXISTS `issues` (
+`id` int(10) unsigned NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lokasi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `hm` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `diketahui` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `diterima` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `diserahkan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `issue_item`
+--
+
+CREATE TABLE IF NOT EXISTS `issue_item` (
+`id` int(10) unsigned NOT NULL,
+  `issue_id` int(11) NOT NULL,
+  `part_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `items`
 --
 
@@ -404,7 +441,9 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_09_04_120923_create_suppliers_table', 1),
 ('2017_09_04_121018_create_order_item_table', 1),
 ('2017_09_12_172813_create_materials_table', 1),
-('2017_09_13_123823_create_material_item_table', 1);
+('2017_09_13_123823_create_material_item_table', 1),
+('2017_09_21_201600_create_issues_table', 1),
+('2017_09_21_202042_create_issue_item_table', 1);
 
 -- --------------------------------------------------------
 
@@ -797,9 +836,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$U7UATk3tQgUZdN0foq7wmOkMZKa1VtT8z0N0X4BdHtCIf0hKEuZTK', 'admin', NULL, '2017-09-20 04:12:30', '2017-09-20 04:12:30'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$3A5wq.7ZHMIodeTmfCtbOO6/k2DAypvyZDstTUeBWP8VwbfiMm3rm', 'checker', NULL, '2017-09-20 04:12:31', '2017-09-20 04:12:31'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$XWv.7ATVjK5xbVj0zfOyrOGDVbVEjuAKIzJmpmVF9TgPAvkWH3gWm', 'operator', NULL, '2017-09-20 04:12:31', '2017-09-20 04:12:31');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$XZsOJ49alPGBvsbb9f.gxeOExNGVH5eIpXJ7V3vwBTTjOG/4o9vwu', 'admin', NULL, '2017-09-24 05:20:58', '2017-09-24 05:20:58'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$nTS1AfK2SxgtUjAsNRA17u0HE.FRTc.a/32jB6Mjms64ZWuY/JuWO', 'checker', NULL, '2017-09-24 05:20:58', '2017-09-24 05:20:58'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$L.M3LhqC0gtnJdqvEgqpT.shwAxzfyCm07nx2nzwMSt6aW7JRHRSy', 'operator', NULL, '2017-09-24 05:20:59', '2017-09-24 05:20:59');
 
 --
 -- Indexes for dumped tables
@@ -846,6 +885,18 @@ ALTER TABLE `costcodes_lv4`
 --
 ALTER TABLE `costs`
  ADD PRIMARY KEY (`id`), ADD KEY `costs_transaksi_id_foreign` (`transaksi_id`);
+
+--
+-- Indexes for table `issues`
+--
+ALTER TABLE `issues`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `issue_item`
+--
+ALTER TABLE `issue_item`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `items`
@@ -963,6 +1014,16 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `costs`
 --
 ALTER TABLE `costs`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `issues`
+--
+ALTER TABLE `issues`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `issue_item`
+--
+ALTER TABLE `issue_item`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `items`
