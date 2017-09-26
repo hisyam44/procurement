@@ -13,14 +13,14 @@
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">P.O. No.</label>
                                     <div class="col-md-6">
-                                        <input id="order_text" type="text" class="form-control" required>
-                                        <input id="order_id" type="text" name="order_id" required hidden>
+                                        <input id="order_text" type="text" class="form-control" value="{{ $order->no }}" readonly required>
+                                        <input id="order_id" type="text" name="order_id" value="{{ $order->id }}" required hidden>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Supplier</label>
                                     <div class="col-md-6">
-                                        <input id="supplier" type="text" class="form-control" required readonly>
+                                        <input id="supplier" type="text" class="form-control" value="{{ $order->supplier->name }}" required readonly>
                                     </div>
                                 </div>
                                 <script type="text/javascript">
@@ -53,8 +53,8 @@
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Unit Code</label>
                                     <div class="col-md-6">
-                                        <input id="unit_text" type="text" class="form-control" readonly required>
-                                        <input id="unit_id" type="text" name="unit_id" required hidden>
+                                        <input id="unit_text" type="text" class="form-control" value="{{ $order->purchase->unit->code }}" readonly required>
+                                        <input id="unit_id" type="text" name="unit_id" value="{{ $order->purchase->unit->id }}" required hidden>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -91,34 +91,36 @@
                     </div>
                     <div class="row">
                         <div id="formItem">
+                        @foreach($order->orderitem as $index => $value)
                         <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="col-md-2">
-                                    <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Part No.." readonly>
-                                    <input id="" type="text" class="item_code" placeholder="Item Code.." name="partno_id[]" hidden required>
+                                    <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Part No.." value="{{ $value->item->code }}" readonly>
+                                    <input id="" type="text" class="item_code" placeholder="Item Code.." name="partno_id[]" value="{{ $value->item->id }}" hidden required>
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="part_name" type="text" class="form-control" placeholder="Part Name.." name="part_name[]" required>
+                                    <input id="part_name" type="text" class="form-control" placeholder="Part Name.." value="{{ $value->item->item->component }}" name="part_name[]" required>
                                 </div>
                                 <div class="col-md-1">
-                                    <input id="qty" type="text" class="form-control" placeholder="QTY.." name="qty[]" required>
+                                    <input id="qty" type="text" class="form-control" placeholder="QTY.." value="{{ $value->qty }}" name="qty[]" required>
                                 </div>
                                 <div class="col-md-1">
-                                    <input id="btl" type="text" class="form-control" placeholder="BTL.." required readonly>
+                                    <input id="btl" type="text" class="form-control" placeholder="BTL.." value="{{ $value->item->item->uom }}" required readonly>
                                 </div>
                                 <div class="col-md-1">
                                     <input id="net" type="text" class="form-control" placeholder="NET.." name="net[]" required>
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="description[]" type="text" class="form-control description" placeholder="Description.." name="description[]" required>
+                                    <input id="description[]" type="text" class="form-control description" placeholder="Description.." value="{{ $value->description }}" name="description[]" required>
                                 </div>
                                 <div class="col-md-1">
-                                   
+                                   <a class="btn btn-danger" onclick="deleteItem(this)">Delete</a>
                                 </div>
                             </div>
                         </div>
                         </div>
+                        @endforeach
                         </div>
                         <script type="text/javascript">
                             function deleteItem(elem){

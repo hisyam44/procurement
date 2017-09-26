@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('supplier_id')->unsigned();
+            $table->integer('purchase_id')->unsigned();
             $table->enum('type',['ho','local'])->default('ho');
             $table->string('no');
             $table->string('address');
@@ -24,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->string('dispatch_name');
             $table->string('payment_term');
             $table->string('incoterms');
+            $table->string('ship_by');
             $table->date('delivery_date');
             $table->string('sub_total');
             $table->string('tax');

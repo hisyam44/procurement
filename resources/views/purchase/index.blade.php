@@ -26,21 +26,23 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <td>No. PR</td>
                                 <td>Unit Code</td>
                                 <td>Type</td>
                                 <td>MOL</td>
                                 <td>KM/HM</td>
-                                <td>Warehouse Manager</td>
+                                <td>Warehouse in Charge</td>
                                 <td>Maintenance Manager</td>
                                 <td>Project Manager</td>
                                 <td>Purpose</td>
                                 <td>Date</td>
-                                <td colspan="2">Actions</td>
+                                <td colspan="3">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($purchases as $index => $purchase)
                             <tr>
+                                <td>{{ $purchase->no }}</td>
                                 <td>{{ $purchase->unit->code }}</td>
                                 <td>{{ $purchase->type }}</td>
                                 <td>{{ $purchase->mol }}</td>
@@ -49,15 +51,18 @@
                                 <td>{{ $purchase->maintenance_manager }}</td>
                                 <td>{{ $purchase->project_manager }}</td>
                                 <td>{{ $purchase->purpose }}</td>
-                                <td>{{ $purchase->created_at }}</td>
+                                <td>{{ $purchase->created_at->format('d-m-Y') }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ url('purchase/'.$purchase->id) }}">Details</a>
+                                    <a class="btn btn-info" href="{{ url('purchase/'.$purchase->id) }}"><span class="glyphicon glyphicon-search"></span></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ url('purchase/'.$purchase->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
                                 <td>
                                     <form method="post" action="{{ url('purchase/'.$purchase->id) }}">
                                         {{ csrf_field() }}
                                         <input type="text" name="_method" value="delete" hidden>
-                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
                             </tr>

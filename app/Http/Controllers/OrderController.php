@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at','desc')->with('orderitem')->paginate(15);
+        $orders = Order::orderBy('reference_no','asc')->with('orderitem')->paginate(15);
         //return response()->json($orders);
         return view('order.index',['orders' => $orders]);
     }
@@ -41,7 +41,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $no_voucher = Order::orderBy('id','DESC')->first();
         if(count($no_voucher) === 0){
@@ -50,6 +50,10 @@ class OrderController extends Controller
             $no_voucher = $no_voucher->id+1;
         }
         $no_voucher = " 1-".sprintf('%03d',$no_voucher);
+        if(isset($request->pr)){
+            $purchase = \App\Purchase::findOrFail($request->pr);
+            return view('order.create2',['no_voucher' => $no_voucher,'purchase' => $purchase]);
+        }
         return view('order.create',['no_voucher' => $no_voucher]);
     }
 
@@ -61,8 +65,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        //return response()->json($request->all());
         $order = new Order();
         $order->supplier_id = $request->supplier_id;
+        $order->purchase_id = $request->purchase_id;
         $order->type = $request->type;
         $order->no = $request->type.$request->no;
         $order->address = '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com';
@@ -72,6 +78,7 @@ class OrderController extends Controller
         $order->dispatch_name = $request->dispacth_name;
         $order->payment_term = $request->payment_term;
         $order->incoterms = $request->incoterms;
+        $order->ship_by  = $request->ship_by;
         $order->delivery_date = $request->delivery_date;
         $order->sub_total = $request->sub_total;
         $order->tax = $request->tax;
@@ -91,10 +98,9 @@ class OrderController extends Controller
             $success = $order->orderitem()->save($order_item);
         }
         if($success){
-            \Session::flash('message','Berhasil Menambahkan Data'); 
+            \Session::flash('message','Successfully Added Data'); 
         }
         return redirect('/order');
-        return response()->json($request->all());
     }
 
     /**
@@ -147,7 +153,7 @@ class OrderController extends Controller
         $purchase = Order::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Berhasil Menghapus Data'); 
+            \Session::flash('message','Successfully Erased Data'); 
         }
         return redirect('/order');
     }

@@ -219,7 +219,7 @@ class TransaksiController extends Controller
             $transaksi->costs()->save($cost);
         }
         if($success){
-            \Session::flash('message','Berhasil Menambahkan Data');
+            \Session::flash('message','Successfully Added Data');
         }
         if($selisih != 0){
             if($selisih > 0){
@@ -275,7 +275,7 @@ class TransaksiController extends Controller
         $attachment->delete();
         $success = unlink(substr($attachment->filename,1));
         if($success){
-            \Session::flash('message','Berhasil Menghapus Data');
+            \Session::flash('message','Successfully Erased Data');
         }
         return redirect('transaksi/'.$transaksi_id.'/attachment');
     }
@@ -324,7 +324,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         $success = $transaksi->delete();
         if($success){
-            \Session::flash('message','Berhasil Menghapus Data');
+            \Session::flash('message','Successfully Erased Data');
         }
         return redirect('/transaksi');
     }

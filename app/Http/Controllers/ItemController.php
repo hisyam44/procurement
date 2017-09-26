@@ -62,7 +62,7 @@ class ItemController extends Controller
                 $part->code = $part_no;
                 $item->part_no()->save($part);
             }
-            \Session::flash('message','Berhasil Menambahkan Data'); 
+            \Session::flash('message','Successfully Added Data'); 
         }
         return redirect('/item');
     }
@@ -75,7 +75,6 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -86,7 +85,8 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        return view('item.edit',['item' => $item]);
     }
 
     /**
@@ -98,7 +98,27 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Item::findOrFail($id);
+        $data = $request->all();
+        $item->item_no = $data['item_no'];
+        $item->description = $data['description'];
+        $item->uom = $data['uom'];
+        $item->weight = $data['weight'];
+        $item->dimension = $data['dimension'];
+        $item->shelf_life = $data['shelf_life'];
+        $item->warranty = $data['warranty'];
+        $item->remark = $data['remark'];
+        $item->component = $data['component'];
+        $success = $item->save();
+        if($success){
+            foreach($item->part_no as $index => $part){
+                $part->code = $data['part_no'][$index];
+                $part->save();
+            }
+            \Session::flash('message','Successfully Edited Data'); 
+        }
+        //return response()->json($data);
+        return redirect('/item');
     }
 
     /**
@@ -112,7 +132,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $success = $item->delete();
         if($success){
-            \Session::flash('message','Berhasil Menghapus Data'); 
+            \Session::flash('message','Successfully Erased Data'); 
         }
         return redirect('/item');
     }
@@ -159,7 +179,7 @@ class ItemController extends Controller
 
                     print_r($part_no);
                 }
-                \Session::flash('message','Berhasil Menambahkan '.$count.' Data');
+                \Session::flash('message','Successfully Added '.$count.' Data');
             }
         }
         return redirect('/item');

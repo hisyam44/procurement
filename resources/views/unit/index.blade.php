@@ -18,7 +18,7 @@
             {{ $units->render() }}
             </div>
             <div class="col-md-3">
-                <!-- <a class="btn btn-success btn-block" href="{{ url('unit/create') }}">New Equipment</a> -->
+                <a class="btn btn-success btn-block" href="{{ url('unit/create') }}">New Equipment</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                         <thead>
                             <tr>
                                 <td>Code</td>
-                                <td>Tipe</td>
+                                <td>Type</td>
                                 <td>Date @Site</td>
                                 <td>Make</td>
                                 <td>Model</td>
@@ -41,7 +41,7 @@
                                 <td>Capacity</td>
                                 <td>YOM</td>
                                 <td>Remarks</td>
-                                <td>Action</td>
+                                <td colspan="2">Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,6 +59,7 @@
                                 <td>{{ $unit->capacity }}</td>
                                 <td>{{ $unit->yom }}</td>
                                 <td>{{ $unit->remarks }}</td>
+                                <td><a class="btn btn-success" href="{{ url('unit/'.$unit->id.'/edit') }}"><span class="glyphicon glyphicon-edit"></a></td>
                                 <td>
                                     <form method="post" action="{{ url('unit/'.$unit->id) }}">
                                         {{ csrf_field() }}

@@ -12,4 +12,10 @@ class Order extends Model
     public function orderitem(){
     	return $this->hasMany('App\OrderItem');
     }
+    public function purchase(){
+    	return $this->belongsTo('App\Purchase');
+    }
+    public function materials(){
+    	return $this->hasMany('App\Material');
+    }
 }

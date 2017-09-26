@@ -1,7 +1,7 @@
 
 <style type="text/css">
-    *{
-        font-size: 10;
+    .page-break{
+        page-break-after: always;
     }
     table > tbody > tr > td{
         padding: 1px 5px;
@@ -10,7 +10,7 @@
         font-weight: bold;
     }
 </style>
-<table class="table table-bordered" id="tableData" style="margin: 0 auto;width: 100%;">
+        <table class="table table-bordered" id="tableData" style="margin: 0 auto;width: 100%;font-size: 10;">
             <tbody>
                 <tr>
                     <td colspan="5">
@@ -21,8 +21,13 @@
                     <td rowspan="4" width="20%">{{ $order->address }}</td>
                     <td rowspan="4" width="20%"></td>
                     <td width="20%"></td>
-                    <td class="bold">P.O. NO.</td>
+                    <td class="bold">P.O. No.</td>
                     <td width="20%">{{ $order->no }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="bold">P.R. No.</td>
+                    <td>{{ $order->reference_no }}</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -35,15 +40,10 @@
                     <td>{{ $order->supplier->no }}</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td class="bold">Reference No</td>
-                    <td>{{ $order->reference_no }}</td>
-                </tr>
-                <tr>
                     <td class="bold">Supplier</td>
                     <td class="bold">{{ $order->supplier->name }}</td>
                     <td></td>
-                    <td class="bold">Dispacth To</td>
+                    <td class="bold">Dispatch To</td>
                     <td class="bold">{{ $order->dispatch_to }}</td>
                 </tr>
                 <tr>
@@ -62,15 +62,17 @@
                 </tr>
                 <tr>
                     <td colspan="5">
-                        <table style="width: 100%" border="1">
+                        <table style="width: 100%;font-size: 10;" border="1">
                             <tr class="bold" style="background: #ddd">
                                 <td>Payment Term</td>
                                 <td>Incoterms</td>
+                                <td>Shipped By</td>
                                 <td>Delivery Date</td>
                             </tr>
                             <tr>
                                 <td>{{ $order->payment_term }}</td>
                                 <td>{{ $order->incoterms }}</td>
+                                <td>{{ strtoupper($order->ship_by) }}</td>
                                 <td>{{ $order->delivery_date }}</td>
                             </tr>
                         </table>
@@ -78,7 +80,7 @@
                 </tr>
                 <tr>
                     <td colspan="5">
-                        <table style="width: 100%" border="1">
+                        <table style="width: 100%;font-size: 10;" border="1">
                             <tr class="bold" style="background: #ddd">
                                 <td>QTY</td>
                                 <td>Item Code</td>
@@ -93,8 +95,8 @@
                                 <td>{{ $itemorder->item->item->item_no }}</td>
                                 <td>{{ $itemorder->item->code }}</td>
                                 <td>{{ $itemorder->description }}</td>
-                                <td width="20%">Rp. {{ $itemorder->unit_price }}</td>
-                                <td width="20%">Rp. {{ $itemorder->unit_price*$itemorder->qty }}</td>
+                                <td width="20%">Rp. <span>{{ number_format($itemorder->unit_price) }}</span></td>
+                                <td width="20%">Rp. <span style="float:right">{{ number_format($itemorder->unit_price*$itemorder->qty) }}</span></td>
                             </tr>
                             @endforeach
                         </table>
@@ -105,27 +107,27 @@
                     <td></td>
                     <td></td>
                     <td class="bold">Sub Total</td>
-                    <td>Rp. {{ $order->sub_total }}</td>
+                    <td>Rp. <span style="float:right;padding:0px 7px;">{{ number_format($order->sub_total) }}</span></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="bold">Diskon</td>
-                    <td>Rp. {{ $order->diskon }}</td>
+                    <td class="bold">Discount</td>
+                    <td>Rp. <span style="float:right;padding:0px 7px;">{{ number_format($order->diskon) }}</span></td>
                 </tr>
                 <tr>
                     <td class="bold">Additonal Terms & Conditions: </td>
                     <td></td>
                     <td></td>
                     <td class="bold">Tax</td>
-                    <td>Rp. {{ $order->tax }}</td>
+                    <td>Rp. <span style="float:right;padding:0px 7px;">{{ number_format($order->tax) }}</span></td>
                 </tr>
                 <tr>
                     <td colspan="2"><b>Warranty : </b>{{ $order->warranty }}</td>
                     <td></td>
                     <td class="bold">Total</td>
-                    <td class="bold">Rp. {{ $order->total }}</td>
+                    <td class="bold">Rp. <span style="float:right;padding:0px 7px;">{{ number_format($order->total) }}</span></td>
                 </tr>
                 <tr style="border-top:1px solid #000;">
                     <td colspan="5" class="bold"><hr>Instructions :</td>
@@ -156,3 +158,69 @@
                 </tr>
             </tbody>
         </table>
+        @foreach($order->materials as $material)
+        <div class="page-break"></div>
+        <table class="table table-bordered" id="tableData" style="margin: 0 auto;width: 100%;">
+            <tbody>
+                <tr>
+                    <td colspan="5">
+                        <h3 style="text-align: center;">Material Receipt</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">Date</td>
+                    <td>{{ $material->created_at->format('d-m-Y') }}</td>
+                    <td></td>
+                    <td class="bold">P.O. No.</td>
+                    <td>{{ $material->order->no }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">Location</td>
+                    <td>{{ $material->lokasi }}</td>
+                    <td></td>
+                    <td class="bold">Supplier</td>
+                    <td>{{ $material->order->supplier->name }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">Type / Code Unit</td>
+                    <td>{{ $material->unit->code }}</td>
+                    <td></td>
+                    <td class="bold">Delivered By</td>
+                    <td>{{ $material->deliveryman }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table style="width: 100%" border="1">
+                            <tr class="bold" style="background: #ddd">
+                                <td>No.</td>
+                                <td>Part Number</td>
+                                <td>Part Name</td>
+                                <td>QTY</td>
+                                <td>BTL</td>
+                                <td>NET</td>
+                                <td>Description</td>
+                            </tr>
+                            @foreach($material->items as $index => $item)
+                            <tr>
+                                <td>{{ $index+1 }}</td>
+                                <td>{{ $item->partno->code }}</td>
+                                <td>{{ $item->part_name }}</td>
+                                <td>{{ $item->qty }}</td>
+                                <td>{{ $item->partno->item->uom }}</td>
+                                <td>{{ $item->net }}</td>
+                                <td>{{ $item->description }}</td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">Acknowledged By,<br><br><br>{{ $material->diketahui }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="bold">Accepted By,<br><br><br>{{ $material->diterima }}</td>
+                </tr>
+            </tbody>
+        </table>
+        @endforeach

@@ -88,7 +88,7 @@
                             <li><a href="{{ url('/purchase') }}">Purchase Request</a></li>
                             <li><a href="{{ url('/order') }}">Purchase Order</a></li>
                             <li><a href="{{ url('/material') }}">Material Receipt</a></li>
-                            <li><a href="{{ url('/issue') }}">Store Issue</a></li>
+                           <!-- jjjjjjjjjjjjjjjjjjjj -->
                         @endif
                         @endif
                     @endif

@@ -18,7 +18,7 @@
                 <form class="form form-inline" action="{{ url('/importExcel') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input class="form-control" type="file" name="import_file" required></input>
-                    <button class="btn btn-success" type="submit">Import Dari Excel</button>
+                    <button class="btn btn-success" type="submit">Import From Excel</button>
                 </form>
             </div>
             </div>
@@ -36,6 +36,7 @@
                             <tr>
                                 <td>Item No</td>
                                 <td>Part No</td>
+                                <td>Component</td>
                                 <td>Weight</td>
                                 <td>Dimension</td>
                                 <td>UOM</td>
@@ -43,7 +44,7 @@
                                 <td>Warranty</td>
                                 <td>Remark</td>
                                 <td>Description</td>
-                                <td>Actions</td>
+                                <td colspan="2">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,6 +56,7 @@
                                         {{ $part_no->code }}, 
                                     @endforeach
                                 </td>
+                                <td>{{ $item->component }}</td>
                                 <td>{{ $item->weight }}</td>
                                 <td>{{ $item->dimension }}</td>
                                 <td>{{ $item->uom }}</td>
@@ -62,6 +64,7 @@
                                 <td>{{ $item->warranty }}</td>
                                 <td>{{ $item->remark }}</td>
                                 <td>{{ $item->description }}</td>
+                                <td><a class="btn btn-success" href="{{ url('item/'.$item->id.'/edit') }}">Edit</a></td>
                                 <td>
                                     <form method="post" action="{{ url('item/'.$item->id) }}">
                                         {{ csrf_field() }}

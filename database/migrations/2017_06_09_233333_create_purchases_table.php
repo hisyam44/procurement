@@ -15,6 +15,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('unit_id')->unsigned();
+            $table->string('no');
             $table->string('type');
             $table->string('department');
             $table->string('mol');

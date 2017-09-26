@@ -5,10 +5,10 @@
     <div class="row">
          <div class="col-md-12">
             <div class="panel-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/item') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/item/'.$item->id) }}">
                     {{ csrf_field() }}
-                    <div class="form-group">
-                        <!-- <label for="code" class="col-md-4 control-label">Item No</label> -->
+                    <input type="text" name="_method" value="put" hidden>
+                    <!-- <div class="form-group">
                         <div class="col-md-9 col-md-offset-2">
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -113,35 +113,36 @@
                                 }
                             </script>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="code" class="col-md-4 control-label">Item Code</label>
                         <div class="col-md-6">
-                            <input type="text" name="item_no" class="form-control" id="item_no" value="10000" readonly>
+                            <input type="text" name="item_no" class="form-control" id="item_no" value="{{ $item->item_no }}" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="code" class="col-md-4 control-label"></label>
                         <div class="col-md-6">
-                            <input type="text" name="component" id="component" value="Other" hidden required>
+                            <input type="text" name="component" id="component" value="{{ $item->component }}" hidden required>
                         </div>
                     </div>
                     <div id="part_no">
+                        @foreach($item->part_no as $index => $part)
                         <div class="form-group">
-                            <label for="part_no" class="col-md-4 control-label">Part No</label>
-                            <div class="col-md-5">
-                                <input id="part_no" type="text" class="form-control" name="part_no[]" required>
+                            <label for="part_no" class="col-md-4 control-label">{{ $index==0?'Part No':'' }}</label>
+                            <div class="col-md-6">
+                                <input id="part_no" type="text" class="form-control" name="part_no[]" value="{{ $part->code }}" required>
                             </div>
                         </div>
-                        
+                        @endforeach
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="part_no" class="col-md-4 control-label"></label>
                         <div class="col-md-6">
                             <a class="btn btn-success pull-right" onclick="newPartNo()"><span class="glyphicon glyphicon-plus"></span> Add Part No</a>
                         </div>
                     </div>
-                    <script type="text/javascript">
+ -->                    <script type="text/javascript">
                         function newPartNo(){
                             var part = $('#part_no');
                             $('<div class="form-group"><label for="part_no" class="col-md-4 control-label"></label><div class="col-md-5"><input id="part_no" type="text" class="form-control" name="part_no[]" required></div><div class="col-md-1"><div class="btn btn-danger" onclick="deletePartNo(this)"><span class="glyphicon glyphicon-remove"></span></div></div></div>').appendTo(part);
@@ -154,9 +155,9 @@
                     <div class="form-group">
                         <label for="weight" class="col-md-4 control-label">Weight</label>
                         <div class="col-md-6">
+                            <input id="weight" type="text" name="weight" class="form-control" value="{{ $item->weight }}" required>
                         <div class="input-group">
-                            <input id="weight" type="text" name="weight" hidden required>
-                            <input id="weight_value" type="text" onkeyup="changeWeightValue()" class="form-control" required>
+                            <!-- <input id="weight_value" type="text" onkeyup="changeWeightValue()" class="form-control" required>
                             <span class="input-group-addon"></span>
                             <select class="form-control" id="weight_uom" onchange="changeWeightValue()" required>
                                 <option>Kg</option>
@@ -171,14 +172,15 @@
                                         var date = $('#weight_uom').val();
                                         $('#weight').val(number+" "+date);
                                     }
-                                </script>
+                                </script> -->
                         </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="dimension" class="col-md-4 control-label">Dimension</label>
                         <div class="col-md-6">
-                        <div class="input-group">
+                            <input id="dimension" type="text" class="form-control" name="dimension" value="{{ $item->dimension }}" required>
+                        <!-- <div class="input-group">
                             <input id="dimension[]" type="text" class="form-control" name="dimension[]" required>
                             <span class="input-group-addon">x</span>
                             <input id="dimension[]" type="text" class="form-control" name="dimension[]" required>
@@ -192,14 +194,14 @@
                                 <option>inch</option>
                                 <option>cm</option>
                             </select>
-                        </div>
+                        </div> -->
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="shelf_life" class="col-md-4 control-label">Shelf Life</label>
                         <div class="col-md-6">
-                        <div class="input-group">
-                            <input id="shelf_life" type="text" name="shelf_life" hidden required>
+                            <input id="shelf_life" type="text" name="shelf_life" class="form-control" value="{{ $item->shelf_life }}" required>
+                        <!-- <div class="input-group">
                             <input id="shelf_life_value" type="text" class="form-control" onkeyup="changeShelfLifeValue()" required>
                             <span class="input-group-addon"></span>
                             <select class="form-control" id="shelf_life_uom" onchange="changeShelfLifeValue()" required>
@@ -215,13 +217,14 @@
                                         $('#shelf_life').val(number+" "+date);
                                     }
                                 </script>
-                        </div>
+                        </div> -->
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="uom" class="col-md-4 control-label">UOM</label>
                         <div class="col-md-6">
                             <select class="form-control" id="uom" name="uom" required>
+                                <option>{{ $item->uom }}</option>
                                 <option>Nos</option>
                                 <option>Kg</option>
                                 <option>g</option>
@@ -240,14 +243,14 @@
                     <div class="form-group">
                         <label for="remark" class="col-md-4 control-label">Remark</label>
                         <div class="col-md-6">
-                            <input id="remark" type="text" class="form-control" name="remark" required>
+                            <input id="remark" type="text" class="form-control" name="remark" value="{{ $item->remark }}" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="warranty" class="col-md-4 control-label">Warranty</label>
                         <div class="col-md-6">
-                        <div class="input-group">
-                            <input id="warranty" type="text" name="warranty" hidden required>
+                            <input id="warranty" type="text" name="warranty" class="form-control" value="{{ $item->warranty }}" required>
+                        <!-- <div class="input-group">
                             <input id="warranty_value" type="text" class="form-control" onkeyup="changeWarrantyValue()" required>
                             <span class="input-group-addon"></span>
                             <select class="form-control" id="warranty_uom" onchange="changeWarrantyValue()" required>
@@ -263,19 +266,19 @@
                                         $('#warranty').val(number+" "+date);
                                     }
                                 </script>
-                        </div>
+                        </div> -->
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="description" class="col-md-4 control-label">Part Description</label>
                         <div class="col-md-6">
-                            <textarea id="description" type="text" class="form-control" name="description" required></textarea>
+                            <textarea id="description" type="text" class="form-control" name="description" required>{{ $item->description }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                Add
+                                Edit
                             </button>
                         </div>
                     </div>

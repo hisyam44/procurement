@@ -27,7 +27,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('error');
     }
 
     /**
@@ -38,6 +38,7 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
+        return view('error');
         //
     }
 
@@ -49,6 +50,7 @@ class UnitController extends Controller
      */
     public function show($id)
     {
+        return view('error');
         //
     }
 
@@ -61,6 +63,7 @@ class UnitController extends Controller
     public function edit($id)
     {
         //
+        return view('error');
     }
 
     /**
@@ -73,6 +76,7 @@ class UnitController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return view('error');
     }
 
     /**
@@ -86,7 +90,7 @@ class UnitController extends Controller
         $unit = Unit::findOrFail($id);
         $success = $unit->delete();
         if($success){
-            \Session::flash('message','Berhasil Menghapus Data');
+            \Session::flash('message','Successfully Erased Data');
         }
         return redirect('/unit');
     }

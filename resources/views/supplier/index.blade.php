@@ -27,14 +27,14 @@
                         <thead>
                             <tr>
                                 <td>Supplier ID</td>
-                                <td>Nama Supplier</td>
-                                <td>Tipe</td>
-                                <td>Alamat</td>
-                                <td>Atas Nama</td>
+                                <td>Supplier Name</td>
+                                <td>Type</td>
+                                <td>Address</td>
+                                <td>Contact Name</td>
                                 <td>Email</td>
-                                <td>No. Telp</td>
-                                <td>Keterangan</td>
-                                <td>Aksi</td>
+                                <td>Phone</td>
+                                <td>Description</td>
+                                <td colspan="2">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +48,7 @@
                                 <td>{{ $supplier->email }}</td>
                                 <td>{{ $supplier->phone }}</td>
                                 <td>{{ $supplier->description }}</td>
+                                <td><a class="btn btn-success" href="{{ url('supplier/'.$supplier->id.'/edit') }}">Edit</a></td>
                                 <td>
                                     <form method="post" action="{{ url('supplier/'.$supplier->id) }}">
                                         {{ csrf_field() }}

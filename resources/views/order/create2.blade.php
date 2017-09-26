@@ -14,7 +14,8 @@
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">PR Number</label>
                                     <div class="col-md-6">
-                                        <input id="reference_no" type="text" class="form-control" name="reference_no" required>
+                                        <input type="text" name="purchase_id" value="{{ $purchase->id }}" hidden required>
+                                        <input id="reference_no" type="text" class="form-control" name="reference_no" value="{{ $purchase->no }}" required>
                                     </div>
                                     <script type="text/javascript">
                                         $("#reference_no").autocomplete({
@@ -95,7 +96,8 @@
                                     <script type="text/javascript">
                                         $(function () {
                                             $('#created_at').datetimepicker({
-                                                format: 'YYYY-MM-DD'
+                                                format: 'YYYY-MM-DD',
+                                                defaultDate: new Date
                                             });
                                         });
                                     </script>
@@ -174,15 +176,20 @@
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Delivery Date</label>
                                     <div class="col-md-6">
-                                        <input id="delivery_date" type="text" class="form-control" name="delivery_date" required>
+                                        <select class="form-control" name="delivery_date" required>
+                                        @foreach($purchase->requests as $request)
+                                            <option>{{ $request->model }}</option>
+                                        @endforeach
+                                        </select>
                                     </div>
-                                    <script type="text/javascript">
+                                    <!-- <script type="text/javascript">
                                         $(function () {
                                             $('#delivery_date').datetimepicker({
-                                                format: 'YYYY-MM-DD'
+                                                format: 'YYYY-MM-DD',
+                                                defaultDate: new Date
                                             });
                                         });
-                                    </script>
+                                    </script> -->
                                 </div>
                             </div>
                         </div>
@@ -207,30 +214,34 @@
                                 line_total_temp.val(total_temp);
                                 sub_total += total_temp;
                             }
+                            diskon = sub_total*diskon/100;
+                            $('#diskon_real').val(diskon);
+                            total = sub_total-diskon;
+                            total = total-tax;
 
-                            total = sub_total-tax;
-                            total = total-diskon;
+                            //total = total-diskon;
                             $('#sub_total').val(sub_total);
                             $('#total').val(total);
                         }
                     </script>
                     <div class="row">
                         <div id="formItem">
+                        @foreach($purchase->requests as $request)
                         <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="col-md-1">
-                                    <input id="qty" type="text" class="form-control qty" placeholder="qty.." onkeyup="changeValue()" name="qty[]" value="1" required>
+                                    <input id="qty" type="text" class="form-control qty" placeholder="qty.." onkeyup="changeValue()" value="{{ $request->qty }}" name="qty[]" value="1" required>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" onfocus="autoComplete(this)" class="form-control" placeholder="Part No..">
-                                    <input id="" type="text" class="item_code" placeholder="Item Code.." name="item_code[]" hidden required>
+                                    <input type="text" onfocus="autoComplete(this)" class="form-control" value="{{ $request->part_no->code }}" placeholder="Part No..">
+                                    <input id="" type="text" class="item_code" placeholder="Item Code.." name="item_code[]" value="{{ $request->part_no->id }}" hidden required>
                                 </div>
                                 <div class="col-md-2">
-                                    <input id="item_code" type="text" class="form-control" placeholder="Item Code.." required readonly>
+                                    <input id="item_code" type="text" class="form-control" placeholder="Item Code.." value="{{ $request->part_no->item->item_no }}" required readonly>
                                 </div>
                                 <div class="col-md-2">
-                                    <input id="description[]" type="text" class="form-control description" placeholder="Description.." name="description[]" required>
+                                    <input id="description[]" type="text" class="form-control description" placeholder="Description.." name="description[]" value="{{ $request->damage_description }}" required>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="input-group">
@@ -245,11 +256,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                   
+                                   <a class="btn btn-danger" onclick="deleteItem(this)">Delete</a>
                                 </div>
                             </div>
                         </div>
                         </div>
+                        @endforeach
                         </div>
                         <script type="text/javascript">
                             function deleteItem(elem){
@@ -329,8 +341,10 @@
                                     <label for="part_no" class="col-md-4 control-label">Discount</label>
                                     <div class="col-md-8">
                                     <div class="input-group">
-                                    <span class="input-group-addon">Rp</span> 
-                                        <input id="diskon" type="text" class="form-control" onkeyup="changeValue()" value="0" name="diskon" required>
+                                        <span class="input-group-addon">Rp</span> 
+                                        <input id="diskon" type="text" class="form-control" onkeyup="changeValue()" value="0" required>
+                                        <input id="diskon_real" value="0" name="diskon" hidden required>
+                                        <span class="input-group-addon">%</span> 
                                     </div>
                                     </div>
                                 </div>

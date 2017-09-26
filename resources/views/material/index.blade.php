@@ -26,26 +26,28 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>Unit Code</td>
-                                <td>Lokasi</td>
-                                <td>Supplier</td>
+                                <td>No. PR</td>
                                 <td>No. PO</td>
-                                <td>Delivery Man</td>
-                                <td>Tanggal</td>
-                                <td>Mengetahui</td>
-                                <td>Diterima</td>
+                                <td>Unit Code</td>
+                                <td>Location</td>
+                                <td>Supplier</td>
+                                <td>Delivered By</td>
+                                <td>Date</td>
+                                <td>Acknowledged By</td>
+                                <td>Accepted By</td>
                                 <td colspan="3">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($materials as $index => $material)
                             <tr>
+                                <td>{{ $material->order->purchase->no }}</td>
+                                <td>{{ $material->order->no }}</td>
                                 <td>{{ $material->unit->code }}</td>
                                 <td>{{ $material->lokasi }}</td>
                                 <td>{{ $material->order->supplier->name }}</td>
-                                <td>{{ $material->order->no }}</td>
                                 <td>{{ $material->deliveryman }}</td>
-                                <td>{{ $material->created_at }}</td>
+                                <td>{{ $material->created_at->format('d-m-Y') }}</td>
                                 <td>{{ $material->diketahui }}</td>
                                 <td>{{ $material->diterima }}</td>
                                 <td>

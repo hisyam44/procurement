@@ -62,7 +62,8 @@
                                 <script type="text/javascript">
                                     $(function () {
                                         $('#created_at').datetimepicker({
-                                            format: 'YYYY-MM-DD'
+                                            format: 'YYYY-MM-DD',
+                                            defaultDate: new Date()
                                         });
                                     });
                                 </script>
@@ -110,7 +111,8 @@
                                 <script type="text/javascript">
                                     $(function () {
                                         $('#mol_date').datetimepicker({
-                                            format: 'DD-MM-YYYY'
+                                            format: 'MM-YYYY',
+                                            defaultDate: new Date()
                                         });
                                         $("#mol_date").on("dp.change", function (e) {
                                             changeMolValue();
@@ -154,7 +156,7 @@
                                             <input id="satuan" type="text" class="form-control" placeholder="UOM..." readonly required>
                                         </div>
                                         <div class="col-md-3">
-                                            <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model...">
+                                            <input id="model" type="text" class="form-control model" name="model[]" value="{{ \Carbon\Carbon::now() }}" placeholder="">
                                         </div>
                                         <div class="col-md-6">
                                             <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required>
@@ -212,13 +214,19 @@
                                     $('.model').parent().hide();    
                                     //$('.device_code').parent().hide();
                                 }
+                                $(function () {
+                                    $('.model').datetimepicker({
+                                        format: 'YYYY-MM-DD',
+                                        defaultDate: new Date()
+                                    });
+                                });
                             }
                             checkDepartment();
                         </script>
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." readonly required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." readonly required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..."  readonly required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
+                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." readonly required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." readonly required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..."  readonly required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" value="{{ \Carbon\Carbon::now() }}" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
                                 checkDepartment();
 
                             }
@@ -230,7 +238,7 @@
                             
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="part_no" class="col-md-4 control-label">Warehouse Manager</label>
+                                <label for="part_no" class="col-md-4 control-label">Warehouse in Charge</label>
                                 <div class="col-md-6">
                                     <input id="warehouse_manager" type="text" class="form-control" name="warehouse_manager" required>
                                 </div>
@@ -246,7 +254,7 @@
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Project Manager</label>
                                 <div class="col-md-6">
-                                    <input id="project_manager" type="text" class="form-control" name="project_manager" value="Pak Veera" required>
+                                    <input id="project_manager" type="text" class="form-control" name="project_manager" value="Veera" required>
                                 </div>
                             </div>
                             <div class="form-group">

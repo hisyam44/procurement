@@ -14,13 +14,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Nama Supplier</label>
+                        <label for="code" class="col-md-4 control-label">Supplier Name</label>
                         <div class="col-md-6">
                             <input type="text" name="name" class="form-control" id="name" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Tipe</label>
+                        <label for="code" class="col-md-4 control-label">Type</label>
                         <div class="col-md-6">
                             <select name="type" class="form-control" id="type" required>
                                 <option>Pers Perorangan</option>
@@ -42,13 +42,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Alamat</label>
+                        <label for="code" class="col-md-4 control-label">Address</label>
                         <div class="col-md-6">
                             <textarea class="form-control" name="address" id="address" rows="3" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">No. Telp</label>
+                        <label for="code" class="col-md-4 control-label">Phone</label>
                         <div class="col-md-6">
                             <input type="text" name="phone" class="form-control" id="phone" required>
                         </div>
@@ -60,19 +60,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Nama Kontak</label>
+                        <label for="code" class="col-md-4 control-label">Contact Name</label>
                         <div class="col-md-6">
                             <input type="text" name="attn" class="form-control" id="attn" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">No. Telp Kontak</label>
+                        <label for="code" class="col-md-4 control-label">Contact Phone</label>
                         <div class="col-md-6">
                             <input type="text" name="contact" class="form-control" id="contact" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="code" class="col-md-4 control-label">Keterangan Lainnya</label>
+                        <label for="code" class="col-md-4 control-label">Other Informations</label>
                         <div class="col-md-6">
                             <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
                         </div>
@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-user"></i> Tambahkan
+                                Add
                             </button>
                         </div>
                     </div>

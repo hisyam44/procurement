@@ -26,8 +26,12 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if(isset($request->po)){
+            $order = \App\Order::findOrFail($request->po);
+            return view('material.create2',['order' => $order]);
+        }
         return view('material.create');
     }
 
@@ -59,7 +63,7 @@ class MaterialController extends Controller
             $success = $material->items()->save($materialitem);
         }
         if($success){
-            \Session::flash('message','Berhasil Menambahkan Data'); 
+            \Session::flash('message','Successfully Added Data'); 
         }
         return redirect('/material');
 
@@ -76,7 +80,7 @@ class MaterialController extends Controller
         $material = Material::findOrFail($id);
         $pdf = PDF::loadView('material.details',['material' => $material]);
         if($request->print === "1"){
-            return $pdf->setPaper('a4', 'portait')->download('MaterialReceipt'.sprintf('%05d',$material->id).'.pdf');
+            return $pdf->setPaper('a4', 'landscape')->download('MaterialReceipt'.sprintf('%05d',$material->id).'.pdf');
         }
         return view('material.details',['material' => $material]);
     }
@@ -115,7 +119,7 @@ class MaterialController extends Controller
         $purchase = Material::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Berhasil Menghapus Data'); 
+            \Session::flash('message','Successfully Erased Data'); 
         }
         return redirect('/material');
     }

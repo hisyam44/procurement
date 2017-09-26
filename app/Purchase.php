@@ -13,4 +13,9 @@ class Purchase extends Model
     public function requests(){
     	return $this->hasMany('\App\Request');
     }
+
+    public function orders(){
+    	return $this->hasMany('\App\Order','purchase_id');
+    }
+
 }

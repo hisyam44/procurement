@@ -43,8 +43,17 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         //return response()->json($request->all());
+        $no_voucher = Purchase::orderBy('id','DESC')->first();
+        if(count($no_voucher) === 0){
+            $no_voucher = 1;
+        }else{
+            $no_voucher = $no_voucher->id+1;
+        }
+        $no_voucher = sprintf('%05d',$no_voucher);
+
         $purchase = new Purchase();
         $purchase->unit_id = $request->unit_id;
+        $purchase->no = $no_voucher;
         $purchase->type = $request->type;
         $purchase->department = $request->department;
         $purchase->mol = $request->mol;
@@ -66,7 +75,7 @@ class PurchaseController extends Controller
             $success = $purchase->requests()->save($req);
         }
         if($success){
-            \Session::flash('message','Berhasil Menambahkan Data'); 
+            \Session::flash('message','Successfully Added Data'); 
         }
         return redirect('/purchase');
     }
@@ -77,10 +86,15 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $purchase = Purchase::findOrFail($id);
-        return view('purchase.details',['purchase' => $purchase]);
+        $pdf = PDF::loadView('purchase.details2',['purchase' => $purchase]);
+        if($request->print === "1"){
+            return $pdf->setPaper('a4', 'landscape')->download('PurchaseRequest'.sprintf('%05d',$purchase->id).'.pdf');
+        }
+        //return response()->json($purchase->orders);
+        return view('purchase.details2',['purchase' => $purchase]);
     }
 
     public function printPurchase($id){
@@ -88,6 +102,19 @@ class PurchaseController extends Controller
         $pdf = PDF::loadView('purchase.details2',['purchase' => $purchase]);
         //return view('purchase.details2',['purchase' => $purchase]);
         return $pdf->setPaper('a4', 'landscape')->download('PurchaseRequest'.sprintf('%05d',$purchase->id).'.pdf');
+    }
+
+    public function purchaseCompletion(Request $request){
+        $locations = Purchase::where('no','LIKE','%'.$request->term.'%')->get();
+        $results = [];
+        foreach($locations as $location){
+            $value = array(
+                'value' => $location->no,
+                'id' => $location->id,
+            );
+            $results[] = $value;
+        }
+        return response()->json($results,200);
     }
 
     /**
@@ -124,7 +151,7 @@ class PurchaseController extends Controller
         $purchase = Purchase::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Berhasil Menghapus Data'); 
+            \Session::flash('message','Successfully Erased Data'); 
         }
         return redirect('/purchase');
     }

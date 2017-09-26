@@ -20,7 +20,10 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('item/completion','PurchaseController@itemCompletion');
 	Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
 	Route::resource('item','ItemController');
+
+	Route::get('purchase/completion','PurchaseController@purchaseCompletion');
 	Route::resource('purchase','PurchaseController');
+
 	Route::get('transaksi/pettycash','TransaksiController@pettyCash');
 	Route::get('transaksi/cash','TransaksiController@indexSingle');
 	Route::get('transaksi/cash/create','TransaksiController@createCash');
@@ -32,10 +35,9 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('transaksi/ious/create','TransaksiController@createIous');
 	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
 	Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
-	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');
 	Route::resource('transaksi','TransaksiController');
-	Route::get('purchase/{id}/print','PurchaseController@printPurchase');
-	Route::get('unit/completion','PurchaseController@unitCompletion');
+	
+	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
 	Route::get('iou/completion','TransaksiController@iouCompletion');
 	//order
@@ -44,9 +46,14 @@ Route::group(['middleware' => ['auth']],function(){
 	//supplier
 	Route::get('supplier/completion','SupplierController@supplierCompletion');
 	Route::resource('supplier','SupplierController');
+	
 	Route::resource('material','MaterialController');
+
+	Route::get('unit/completion','PurchaseController@unitCompletion');
 	Route::resource('unit','UnitController');
+
 	Route::post('importExcel','ItemController@importExcel');
+	
 	Route::resource('issue','IssueController');
 });
 //Route::get('/home', 'HomeController@index');

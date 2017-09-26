@@ -75,7 +75,7 @@ class SupplierController extends Controller
         $supplier->description = $request->description;
         $success = $supplier->save();
          if($success){
-            \Session::flash('message','Berhasil Menambahkan Data'); 
+            \Session::flash('message','Successfully Added Data'); 
         }
         return redirect('/supplier');
     }
@@ -89,6 +89,7 @@ class SupplierController extends Controller
     public function show($id)
     {
         //
+        return view('error');
     }
 
     /**
@@ -99,7 +100,7 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('error');
     }
 
     /**
@@ -112,6 +113,7 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return view('error');
     }
 
     /**
@@ -125,7 +127,7 @@ class SupplierController extends Controller
         $purchase = Supplier::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Berhasil Menghapus Data'); 
+            \Session::flash('message','Successfully Erased Data'); 
         }
         return redirect('/supplier');
     }

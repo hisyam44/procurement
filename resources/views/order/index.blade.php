@@ -19,6 +19,44 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Enter The Purchase Request Number</h4>
+                </div>
+                <div class="modal-body">
+                    <input id="reference_no" type="text" class="form-control" name="reference_no" required>
+                    <script type="text/javascript">
+                        $("#reference_no").autocomplete({
+                            source: function(request,response){
+                                console.log(request.term);
+                                $.ajax({
+                                    url: "{{ url('/purchase/completion') }}",
+                                    dataType: "json",
+                                    data: {
+                                        term: request.term
+                                    },
+                                    success: function(data){
+                                        console.log(data);
+                                        response(data);
+                                    }
+                                });
+                            },
+                            minLength: 2,
+                            select: function(event,ui){
+                                window.location.href = "{{ url('purchase') }}";
+                            }
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -26,30 +64,30 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <td>No. PR</td>
                                 <td>No. PO</td>
-                                <td>Tipe</td>
-                                <td>Reference No</td>
+                                <td>Type</td>
                                 <td>Supplier</td>
                                 <td>Dispatch To</td>
                                 <td>Payment Term</td>
                                 <td>Incoterms</td>
                                 <td>Delivery Date</td>
                                 <td>Total</td>
-                                <td colspan="3">Aksi</td>
+                                <td colspan="3">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($orders as $index => $order)
                             <tr>
+                                <td>{{ $order->reference_no }}</td>
                                 <td>{{ $order->no }}</td>
                                 <td>{{ strtoupper($order->type) }}</td>
-                                <td>{{ $order->reference_no }}</td>
                                 <td>{{ $order->supplier->name }}</td>
                                 <td>{{ $order->dispatch_to }}</td>
                                 <td>{{ $order->payment_term }}</td>
                                 <td>{{ $order->incoterms }}</td>
                                 <td>{{ $order->delivery_date }}</td>
-                                <td>Rp.{{ $order->total }}</td>
+                                <td>Rp.{{ number_format($order->total) }}</td>
                                 <td>
                                     <a class="btn btn-info" href="{{ url('order/'.$order->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>

@@ -1,8 +1,5 @@
 
 <style type="text/css">
-    *{
-        font-size: 10;
-    }
     table > tbody > tr > td{
         padding: 1px 5px;
     }
@@ -18,14 +15,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="bold">Tanggal</td>
-                    <td>{{ $material->created_at }}</td>
+                    <td class="bold">Date</td>
+                    <td>{{ $material->created_at->format('d-m-Y') }}</td>
                     <td></td>
-                    <td class="bold">Nomor P.O</td>
+                    <td class="bold">P.O. No.</td>
                     <td>{{ $material->order->no }}</td>
                 </tr>
                 <tr>
-                    <td class="bold">Lokasi</td>
+                    <td class="bold">Location</td>
                     <td>{{ $material->lokasi }}</td>
                     <td></td>
                     <td class="bold">Supplier</td>
@@ -35,7 +32,7 @@
                     <td class="bold">Type / Code Unit</td>
                     <td>{{ $material->unit->code }}</td>
                     <td></td>
-                    <td class="bold">Delivery Man</td>
+                    <td class="bold">Delivered By</td>
                     <td>{{ $material->deliveryman }}</td>
                 </tr>
                 <tr>
@@ -48,7 +45,7 @@
                                 <td>QTY</td>
                                 <td>BTL</td>
                                 <td>NET</td>
-                                <td>Keterangan</td>
+                                <td>Description</td>
                             </tr>
                             @foreach($material->items as $index => $item)
                             <tr>
@@ -65,11 +62,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="bold">Mengetahui,<br><br><br>{{ $material->diketahui }}</td>
+                    <td class="bold">Acknowledged By,<br><br><br>{{ $material->diketahui }}</td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="bold">Diterima,<br><br><br>{{ $material->diterima }}</td>
+                    <td class="bold">Accepted By,<br><br><br>{{ $material->diterima }}</td>
                 </tr>
             </tbody>
         </table>
