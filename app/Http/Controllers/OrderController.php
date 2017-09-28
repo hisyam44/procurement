@@ -98,7 +98,7 @@ class OrderController extends Controller
             $success = $order->orderitem()->save($order_item);
         }
         if($success){
-            \Session::flash('message','Data Has Been Added'); 
+            \Session::flash('message','Added New Data'); 
         }
         return redirect('/order');
     }

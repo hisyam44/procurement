@@ -75,7 +75,7 @@ class PurchaseController extends Controller
             $success = $purchase->requests()->save($req);
         }
         if($success){
-            \Session::flash('message','Data Has Been Added'); 
+            \Session::flash('message','Added New Data'); 
         }
         return redirect('/purchase');
     }

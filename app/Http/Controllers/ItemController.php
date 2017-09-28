@@ -62,7 +62,7 @@ class ItemController extends Controller
                 $part->code = $part_no;
                 $item->part_no()->save($part);
             }
-            \Session::flash('message','Data Has Been Added'); 
+            \Session::flash('message','Added New Data'); 
         }
         return redirect('/item');
     }

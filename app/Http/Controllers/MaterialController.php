@@ -63,7 +63,7 @@ class MaterialController extends Controller
             $success = $material->items()->save($materialitem);
         }
         if($success){
-            \Session::flash('message','Data Has Been Added'); 
+            \Session::flash('message','Added New Data'); 
         }
         return redirect('/material');
 

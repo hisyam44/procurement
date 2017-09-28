@@ -48,7 +48,7 @@ class IssueController extends Controller
    			$success = $issue->items()->save($item);
    		}
    		if($success){
-            \Session::flash('message','Data Has Been Added'); 
+            \Session::flash('message','Added New Data'); 
         }
         return redirect('/issue');
     }

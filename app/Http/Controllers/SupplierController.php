@@ -75,7 +75,7 @@ class SupplierController extends Controller
         $supplier->description = $request->description;
         $success = $supplier->save();
          if($success){
-            \Session::flash('message','Data Has Been Added'); 
+            \Session::flash('message','Added New Data'); 
         }
         return redirect('/supplier');
     }

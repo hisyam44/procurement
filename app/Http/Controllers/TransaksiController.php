@@ -219,7 +219,7 @@ class TransaksiController extends Controller
             $transaksi->costs()->save($cost);
         }
         if($success){
-            \Session::flash('message','Data Has Been Added');
+            \Session::flash('message','Added New Data');
         }
         if($selisih != 0){
             if($selisih > 0){
