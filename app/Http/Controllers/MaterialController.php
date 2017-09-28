@@ -63,7 +63,7 @@ class MaterialController extends Controller
             $success = $material->items()->save($materialitem);
         }
         if($success){
-            \Session::flash('message','Successfully Added Data'); 
+            \Session::flash('message','Data Has Been Added'); 
         }
         return redirect('/material');
 
@@ -93,7 +93,8 @@ class MaterialController extends Controller
      */
     public function edit($id)
     {
-        //
+        $material = Material::findOrFail($id);
+        return view('material.edit',['material' => $material]);
     }
 
     /**
@@ -105,7 +106,28 @@ class MaterialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return response()->json($request->all());
+        $material = Material::findOrFail($id);
+        $material->unit_id = $request->unit_id;
+        $material->order_id = $request->order_id;
+        $material->deliveryman = $request->deliveryman;
+        $material->lokasi = $request->lokasi;
+        $material->diketahui = $request->diketahui;
+        $material->diterima = $request->diterima;
+        $material->created_at = $request->created_at;
+        $success = $material->save();
+        foreach($material->items as $i => $materialitem){
+            $materialitem->partno_id = $request->partno_id[$i];
+            $materialitem->part_name = $request->part_name[$i];
+            $materialitem->qty = $request->qty[$i];
+            $materialitem->net = $request->net[$i];
+            $materialitem->description = $request->description[$i];
+            $success = $materialitem->save();
+        }
+        if($success){
+            \Session::flash('message','Data Has Been Changed'); 
+        }
+        return redirect('/material');
     }
 
     /**
@@ -119,7 +141,7 @@ class MaterialController extends Controller
         $purchase = Material::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Successfully Erased Data'); 
+            \Session::flash('message','Data Has Been Erased'); 
         }
         return redirect('/material');
     }

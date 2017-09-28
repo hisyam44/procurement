@@ -35,7 +35,7 @@
                                 <td>Date</td>
                                 <td>Acknowledged By</td>
                                 <td>Accepted By</td>
-                                <td colspan="3">Actions</td>
+                                <td colspan="4">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +54,10 @@
                                     <a class="btn btn-info" href="{{ url('material/'.$material->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="{{ url('material/'.$material->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a class="btn btn-default" href="{{ url('material/'.$material->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ url('material/'.$material->id.'/edit') }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 </td>
                                 <td>
                                     <form method="post" action="{{ url('material/'.$material->id) }}">

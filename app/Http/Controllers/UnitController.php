@@ -90,7 +90,7 @@ class UnitController extends Controller
         $unit = Unit::findOrFail($id);
         $success = $unit->delete();
         if($success){
-            \Session::flash('message','Successfully Erased Data');
+            \Session::flash('message','Data Has Been Erased');
         }
         return redirect('/unit');
     }

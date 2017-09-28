@@ -73,7 +73,7 @@
                                 <td>Incoterms</td>
                                 <td>Delivery Date</td>
                                 <td>Total</td>
-                                <td colspan="3">Actions</td>
+                                <td colspan="4">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,7 +92,10 @@
                                     <a class="btn btn-info" href="{{ url('order/'.$order->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="{{ url('order/'.$order->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a class="btn btn-default" href="{{ url('order/'.$order->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ url('order/'.$order->id.'/edit') }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 </td>
                                 <td>
                                     <form method="post" action="{{ url('order/'.$order->id) }}">

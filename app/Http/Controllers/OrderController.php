@@ -98,7 +98,7 @@ class OrderController extends Controller
             $success = $order->orderitem()->save($order_item);
         }
         if($success){
-            \Session::flash('message','Successfully Added Data'); 
+            \Session::flash('message','Data Has Been Added'); 
         }
         return redirect('/order');
     }
@@ -127,7 +127,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('order.edit',['order' => $order]);
     }
 
     /**
@@ -139,7 +140,41 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return response()->json($request->all());
+        $order = Order::findOrFail($id);
+        $order->supplier_id = $request->supplier_id;
+        $order->purchase_id = $request->purchase_id;
+        $order->type = $request->type;
+        $order->no = $request->no;
+        //$order->address = '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com';
+        $order->reference_no = $request->reference_no;
+        $order->dispatch_to = $request->dispacth_to;
+        $order->dispatch_address = $request->dispacth_address;
+        $order->dispatch_name = $request->dispacth_name;
+        $order->payment_term = $request->payment_term;
+        $order->incoterms = $request->incoterms;
+        $order->ship_by  = $request->ship_by;
+        $order->delivery_date = $request->delivery_date;
+        $order->sub_total = $request->sub_total;
+        $order->tax = $request->tax;
+        $order->diskon = $request->diskon;
+        $order->total = $request->total;
+        $order->warranty = $request->warranty;
+        $order->author = $request->author;
+        $order->diketahui = $request->diketahui;
+        $order->created_at = $request->created_at;
+        $success = $order->save();
+        foreach($order->orderitem as $i => $order_item){
+            $order_item->item_id = $request->item_code[$i];
+            $order_item->qty = $request->qty[$i];
+            $order_item->unit_price = $request->unit_price[$i];
+            $order_item->description = $request->description[$i];
+            $success = $order_item->save();
+        }
+        if($success){
+            \Session::flash('message','Data Has Been Changed'); 
+        }
+        return redirect('/order');
     }
 
     /**
@@ -153,7 +188,7 @@ class OrderController extends Controller
         $purchase = Order::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Successfully Erased Data'); 
+            \Session::flash('message','Data Has Been Erased'); 
         }
         return redirect('/order');
     }

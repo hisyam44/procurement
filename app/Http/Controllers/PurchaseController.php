@@ -75,7 +75,7 @@ class PurchaseController extends Controller
             $success = $purchase->requests()->save($req);
         }
         if($success){
-            \Session::flash('message','Successfully Added Data'); 
+            \Session::flash('message','Data Has Been Added'); 
         }
         return redirect('/purchase');
     }
@@ -125,7 +125,8 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $purchase = Purchase::findOrFail($id);
+        return view('purchase.edit',['purchase' => $purchase]);
     }
 
     /**
@@ -137,7 +138,33 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return response()->json($request->all());
+        $purchase = Purchase::findOrFail($id);
+        $purchase->unit_id = $request->unit_id;
+        $purchase->no = $request->no;
+        $purchase->type = $request->type;
+        $purchase->department = $request->department;
+        $purchase->mol = $request->mol;
+        $purchase->km_hm = $request->km_hm;
+        $purchase->warehouse_manager = $request->warehouse_manager;
+        $purchase->maintenance_manager = $request->maintenance_manager;
+        $purchase->project_manager = $request->project_manager;
+        $purchase->purpose = $request->purpose;
+        $purchase->created_at = $request->created_at;
+        $success = $purchase->save();
+        foreach($purchase->requests as $i => $req){
+            $req->part_no_id = $request->item_id[$i];
+            $req->component = $request->component[$i];
+            $req->description = $request->description[$i];
+            $req->qty = $request->qty[$i];
+            $req->model = $request->model[$i];
+            $req->damage_description = $request->damage_description[$i];
+            $success = $req->save();
+        }
+        if($success){
+            \Session::flash('message','Data Has Been Changed'); 
+        }
+        return redirect('/purchase');
     }
 
     /**
@@ -151,7 +178,7 @@ class PurchaseController extends Controller
         $purchase = Purchase::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Successfully Erased Data'); 
+            \Session::flash('message','Data Has Been Erased'); 
         }
         return redirect('/purchase');
     }

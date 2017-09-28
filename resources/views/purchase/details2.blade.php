@@ -18,31 +18,31 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">Department </td> 
+                    <td colspan="2" class="bold">Department </td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->department }}</td>
-                    <td colspan="2">Type </td> 
+                    <td colspan="2" class="bold">Type </td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->type }} </td>
                 </tr>
                 <tr>
-                    <td colspan="2">Purchase Request No</td> 
+                    <td colspan="2" class="bold">Purchase Request No</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->no }} </td>
-                    <td colspan="2">KM/HM</td> 
+                    <td colspan="2" class="bold">KM/HM</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->km_hm }} </td>
                 </tr>
                 <tr>
-                    <td colspan="2">Date</td> 
+                    <td colspan="2" class="bold">Date</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->created_at->format('d-m-Y')}}</td>
-                    <td colspan="2">MOL</td> 
+                    <td colspan="2" class="bold">MOL</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->mol }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Unit Code</td> 
+                    <td colspan="2" class="bold">Unit Code</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->unit->code }}</td>
                     <td colspan="5"></td> 
@@ -76,21 +76,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">Warehouse in Charge</td> 
+                    <td colspan="2" class="bold">Warehouse in Charge</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->warehouse_manager }}</td>
-                    <td colspan="2">Purpose</td> 
+                    <td colspan="2" class="bold">Purpose</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->purpose }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Maintenance Manager</td> 
+                    <td colspan="2" class="bold">Maintenance Manager</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->maintenance_manager }}</td>
                     <td colspan="5"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">Project Manager</td> 
+                    <td colspan="2" class="bold">Project Manager</td> 
                     <td>:</td> 
                     <td colspan="2">{{ $purchase->project_manager }}</td>
                     <td colspan="5"></td>

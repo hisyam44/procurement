@@ -75,7 +75,7 @@ class SupplierController extends Controller
         $supplier->description = $request->description;
         $success = $supplier->save();
          if($success){
-            \Session::flash('message','Successfully Added Data'); 
+            \Session::flash('message','Data Has Been Added'); 
         }
         return redirect('/supplier');
     }
@@ -100,7 +100,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        return view('error');
+        $supplier = Supplier::findOrFail($id);
+        return view('supplier.edit',['supplier' => $supplier]);
     }
 
     /**
@@ -112,8 +113,22 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        return view('error');
+        //return response()->json($request->all());
+        $supplier = Supplier::findOrFail($id);
+        $supplier->no = $request->no;
+        $supplier->type = $request->type;
+        $supplier->name = $request->name;
+        $supplier->address = $request->address;
+        $supplier->phone = $request->phone;
+        $supplier->attn = $request->attn;
+        $supplier->email = $request->email;
+        $supplier->contact = $request->contact;
+        $supplier->description = $request->description;
+        $success = $supplier->save();
+        if($success){
+            \Session::flash('message','Data Has Been Changed'); 
+        }
+        return redirect('/supplier');
     }
 
     /**
@@ -127,7 +142,7 @@ class SupplierController extends Controller
         $purchase = Supplier::findOrFail($id);
         $success = $purchase->delete();
          if($success){
-            \Session::flash('message','Successfully Erased Data'); 
+            \Session::flash('message','Data Has Been Erased'); 
         }
         return redirect('/supplier');
     }

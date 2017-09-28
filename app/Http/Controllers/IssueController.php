@@ -48,7 +48,7 @@ class IssueController extends Controller
    			$success = $issue->items()->save($item);
    		}
    		if($success){
-            \Session::flash('message','Successfully Added Data'); 
+            \Session::flash('message','Data Has Been Added'); 
         }
         return redirect('/issue');
     }
@@ -66,7 +66,7 @@ class IssueController extends Controller
     	$issue = Issue::findOrFail($id);
     	$success = $issue->delete();
     	if($success){
-            \Session::flash('message','Successfully Erased Data'); 
+            \Session::flash('message','Data Has Been Erased'); 
         }
         return redirect('/issue');
     }

@@ -62,7 +62,7 @@ class ItemController extends Controller
                 $part->code = $part_no;
                 $item->part_no()->save($part);
             }
-            \Session::flash('message','Successfully Added Data'); 
+            \Session::flash('message','Data Has Been Added'); 
         }
         return redirect('/item');
     }
@@ -115,7 +115,7 @@ class ItemController extends Controller
                 $part->code = $data['part_no'][$index];
                 $part->save();
             }
-            \Session::flash('message','Successfully Edited Data'); 
+            \Session::flash('message','Data Has Been Changed'); 
         }
         //return response()->json($data);
         return redirect('/item');
@@ -132,7 +132,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $success = $item->delete();
         if($success){
-            \Session::flash('message','Successfully Erased Data'); 
+            \Session::flash('message','Data Has Been Erased'); 
         }
         return redirect('/item');
     }
