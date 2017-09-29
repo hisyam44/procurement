@@ -28,14 +28,14 @@
                             <tr>
                                 <td>No</td>
                                 <td>Unit Code</td>
-                                <td>Lokasi</td>
+                                <td>Location</td>
                                 <td>S/N</td>
                                 <td>H/M</td>
-                                <td>Tanggal</td>
-                                <td>Diketahui</td>
-                                <td>Diterima</td>
-                                <td>Diserahkan</td>
-                                <td colspan="3">Aksi</td>
+                                <td>Date</td>
+                                <td>Acknowledged By</td>
+                                <td>Accepted By</td>
+                                <td>Given To</td>
+                                <td colspan="4">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +54,10 @@
                                     <a class="btn btn-info" href="{{ url('issue/'.$issue->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="{{ url('issue/'.$issue->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a class="btn btn-default" href="{{ url('issue/'.$issue->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ url('issue/'.$issue->id.'/edit') }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 </td>
                                 <td>
                                     <form method="post" action="{{ url('issue/'.$issue->id) }}">

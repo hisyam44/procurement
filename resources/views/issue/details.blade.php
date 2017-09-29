@@ -18,14 +18,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="bold">Tanggal</td>
-                    <td>{{ $issue->created_at }}</td>
+                    <td class="bold">Date</td>
+                    <td>{{ $issue->created_at->format('d-m-Y') }}</td>
                     <td></td>
                     <td class="bold">No</td>
                     <td>{{ $issue->no }}</td>
                 </tr>
                 <tr>
-                    <td class="bold">Lokasi</td>
+                    <td class="bold">Location</td>
                     <td>{{ $issue->lokasi }}</td>
                     <td></td>
                     <td class="bold">S/N</td>
@@ -44,10 +44,10 @@
                             <tr class="bold" style="background: #ddd">
                                 <td>No.</td>
                                 <td>Part NO</td>
-                                <td>Nama Barang</td>
+                                <td>Item Name</td>
                                 <td>QTY</td>
-                                <td>SAT</td>
-                                <td>Keterangan</td>
+                                <td>UOM</td>
+                                <td>Description/Issue</td>
                             </tr>
                             @foreach($issue->items as $index => $item)
                             <tr>
@@ -63,11 +63,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="bold">Diketahui/Disetujui,<br><br><br>{{ $issue->diketahui }}</td>
+                    <td class="bold">Acknowledged By,<br><br><br>{{ $issue->diketahui }}</td>
                     <td></td>
-                    <td class="bold">Diterima Oleh,<br><br><br>{{ $issue->diterima }}</td>
+                    <td class="bold">Accepted By,<br><br><br>{{ $issue->diterima }}</td>
                     <td></td>
-                    <td class="bold">Diserahkan Oleh,<br><br><br>{{ $issue->diserahkan }}</td>
+                    <td class="bold">Given To,<br><br><br>{{ $issue->diserahkan }}</td>
                 </tr>
             </tbody>
         </table>

@@ -62,6 +62,37 @@ class IssueController extends Controller
     	return view('issue.details',['issue' => $issue]);
     }
 
+    public function edit($id){
+        $issue = Issue::findOrFail($id);
+        return view('issue.edit',['issue' => $issue]);
+    }
+
+    public function update(Request $request, $id){
+        //return response()->json($request->all());
+        $issue = Issue::findOrFail($id);
+        $issue->no = $request->no;
+        $issue->unit_id = $request->unit_id;
+        $issue->sn = $request->sn;
+        $issue->hm = $request->hm;
+        $issue->lokasi = $request->lokasi;
+        $issue->created_at = $request->created_at;
+        $issue->diketahui = $request->diketahui;
+        $issue->diterima = $request->diterima;
+        $issue->diserahkan = $request->diserahkan;
+        $success = $issue->save();
+        foreach($issue->items as $i => $item){
+            $item->part_id = $request->part_id[$i];
+            $item->name = $request->name[$i];
+            $item->qty = $request->qty[$i];
+            $item->keterangan = $request->keterangan[$i];
+            $success = $item->save();
+        }
+        if($success){
+            \Session::flash('message','Data Has Been Changed'); 
+        }
+        return redirect('/issue');
+    }
+
     public function destroy($id){
     	$issue = Issue::findOrFail($id);
     	$success = $issue->delete();
