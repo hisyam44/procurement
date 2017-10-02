@@ -23,10 +23,27 @@
             </div>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-default btn-block" href="{{ url('item/stock') }}">Stock Report</a>
+                <a class="btn btn-default btn-block" href="" data-toggle="modal" data-target="#myModal">Stock Report</a>
             </div>
             <div class="col-md-3">
                 <a class="btn btn-success btn-block" href="{{ url('item/create') }}">New Item Master</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Stock Report {{ \Carbon\Carbon::now()->format('d-m-Y') }}</h4>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-info btn-block" href="{{ url('item/stock') }}">Show Preview</a>
+                    <a class="btn btn-success btn-block" href="{{ url('item/stock?print=1') }}">Download in Excel</a>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal">Dissmiss</button>
+                </div>
             </div>
         </div>
     </div>

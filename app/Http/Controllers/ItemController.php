@@ -185,10 +185,18 @@ class ItemController extends Controller
         return redirect('/item');
     }
 
-    public function stockReport(){
+    public function stockReport(Request $request){
         $part = \App\PartNo::orderBy('id','desc')->with('materials')->get();
+        if($request->print === "1"){
+            $excel = Excel::create('StockReport'.\Carbon\Carbon::now(), function($excel) use($part) {
+                $excel->sheet('report', function($sheet) use($part) {
+                    $sheet->loadView('item.stock',['part' => $part]);
+                });
+            });
+            return $excel->export('xls');
+        }
         return view('item.stock',['part' => $part]);
-        return response()->json($part);
+
     }
 
 }

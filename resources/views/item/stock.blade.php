@@ -7,7 +7,7 @@
         font-weight: bold;
     }
 </style>
-<table class="table table-bordered" id="tableData" style="margin: 0 auto;width: 100%;">
+<table class="table table-bordered" id="tableData" style="">
             <tbody>
                 <tr>
                     <td colspan="9">
