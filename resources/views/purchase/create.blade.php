@@ -19,7 +19,7 @@
                                         <option>Plant</option>
                                         <option>Production</option>
                                         <option>Safety</option>
-                                        <option>Engine</option>
+                                        <option>Engineering</option>
                                     </select>
                                 </div>
                             </div>
@@ -207,13 +207,13 @@
                             }
                             function checkDepartment(val){
                                 var val = $('#department').val();
-                                if(val != "HR and GA"){
+                                /*if(val != "HR and GA"){
                                     $('.model').parent().show();
                                     //$('.device_code').parent().show();
                                 }else{
                                     $('.model').parent().hide();    
                                     //$('.device_code').parent().hide();
-                                }
+                                }*/
                                 $(function () {
                                     $('.model').datetimepicker({
                                         format: 'YYYY-MM-DD',

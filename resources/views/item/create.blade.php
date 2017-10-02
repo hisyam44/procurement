@@ -52,14 +52,11 @@
                                             'ST (Special Tools)' : [],
                                             'LT (Lifting Tools)' : [],
                                             'PG (Personal Gadget)' : []},
-                                    'RP (Repairs)' : {'AG (Aggregate)' : [],
-                                            'BT (Bitumen)' : [],
-                                            'ST (Steel)' : [],
-                                            'CT (Cement)' : []},
                                     'CM (Construction Material)' : {'AG (Aggregate)' : [],
                                             'BT (Bitumen)' : [],
                                             'ST (Steel)' : [],
-                                            'CT (Cement)' : []}
+                                            'CT (Cement)' : []},
+                                    'RP (Repairs)' : {}
                                 };
                                 console.log(item_types);
                                 var $el = $("#code2");

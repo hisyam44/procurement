@@ -57,22 +57,17 @@
                                         <input id="unit_id" type="text" name="unit_id" value="{{ $order->purchase->unit->id }}" required hidden>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="part_no" class="col-md-4 control-label">Delivered By</label>
-                                    <div class="col-md-6">
-                                        <input id="deliveryman" type="text" class="form-control" name="deliveryman" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                                <input id="deliveryman" type="text"  value="0" name="deliveryman" hidden required>
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Location</label>
                                     <div class="col-md-6">
                                         <input id="lokasi" value="Logistik" type="text" class="form-control" name="lokasi" required>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="part_no" class="col-md-4 control-label">Date</label>
+                                    <label for="part_no" class="col-md-4 control-label">Date Receipt</label>
                                     <div class="col-md-6">
                                         <input id="created_at" type="text" class="form-control" name="created_at" required>
                                     </div>

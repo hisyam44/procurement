@@ -31,8 +31,8 @@
                                 <td>Unit Code</td>
                                 <td>Location</td>
                                 <td>Supplier</td>
-                                <td>Delivered By</td>
-                                <td>Date</td>
+
+                                <td>Date Receipt</td>
                                 <td>Acknowledged By</td>
                                 <td>Accepted By</td>
                                 <td colspan="4">Actions</td>
@@ -46,7 +46,7 @@
                                 <td>{{ $material->unit->code }}</td>
                                 <td>{{ $material->lokasi }}</td>
                                 <td>{{ $material->order->supplier->name }}</td>
-                                <td>{{ $material->deliveryman }}</td>
+
                                 <td>{{ $material->created_at->format('d-m-Y') }}</td>
                                 <td>{{ $material->diketahui }}</td>
                                 <td>{{ $material->diterima }}</td>

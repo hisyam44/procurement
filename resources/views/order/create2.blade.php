@@ -176,20 +176,21 @@
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Delivery Date</label>
                                     <div class="col-md-6">
-                                        <select class="form-control" name="delivery_date" required>
+                                        <input id="delivery_date" type="text" class="form-control" name="delivery_date" required>
+                                        <!-- <select class="form-control" name="delivery_date" required>
                                         @foreach($purchase->requests as $request)
                                             <option>{{ $request->model }}</option>
                                         @endforeach
-                                        </select>
+                                        </select> -->
                                     </div>
-                                    <!-- <script type="text/javascript">
+                                    <script type="text/javascript">
                                         $(function () {
                                             $('#delivery_date').datetimepicker({
                                                 format: 'YYYY-MM-DD',
                                                 defaultDate: new Date
                                             });
                                         });
-                                    </script> -->
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -217,6 +218,9 @@
                             diskon = sub_total*diskon/100;
                             $('#diskon_real').val(diskon);
                             total = sub_total-diskon;
+                            $('#total2').val(total);
+                            tax = total*tax/100;
+                            $('#tax_real').val(tax);
                             total = total-tax;
 
                             //total = total-diskon;
@@ -341,7 +345,7 @@
                                     <label for="part_no" class="col-md-4 control-label">Discount</label>
                                     <div class="col-md-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Rp</span> 
+                                        <span class="input-group-addon">&nbsp; &nbsp; &nbsp;</span> 
                                         <input id="diskon" type="text" class="form-control" onkeyup="changeValue()" value="0" required>
                                         <input id="diskon_real" value="0" name="diskon" hidden required>
                                         <span class="input-group-addon">%</span> 
@@ -349,11 +353,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="part_no" class="col-md-4 control-label">Tax</label>
+                                    <label for="part_no" class="col-md-4 control-label"></label>
                                     <div class="col-md-8">
                                     <div class="input-group">
                                     <span class="input-group-addon">Rp</span> 
-                                        <input id="tax" type="text" class="form-control" onkeyup="changeValue()" value="0" name="tax" required>
+                                        <input id="total2" type="text" class="form-control" readonly required>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="part_no" class="col-md-4 control-label">Tax</label>
+                                    <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">&nbsp; &nbsp; &nbsp;</span> 
+                                        <input id="tax" type="text" class="form-control" onkeyup="changeValue()" value="10" required>
+                                        <input id="tax_real" value="0" type="text" name="tax" hidden required>
+                                        <span class="input-group-addon">%</span> 
                                     </div>
                                     </div>
                                 </div>

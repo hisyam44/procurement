@@ -329,8 +329,19 @@
                                     <label for="part_no" class="col-md-4 control-label">Discount</label>
                                     <div class="col-md-8">
                                     <div class="input-group">
+                                        <span class="input-group-addon">&nbsp; &nbsp; &nbsp;</span> 
+                                        <input id="diskon" type="text" class="form-control" onkeyup="changeValue()" value="0" required>
+                                        <input id="diskon_real" value="0" name="diskon" hidden required>
+                                        <span class="input-group-addon">%</span> 
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="part_no" class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                    <div class="input-group">
                                     <span class="input-group-addon">Rp</span> 
-                                        <input id="diskon" type="text" class="form-control" onkeyup="changeValue()" value="0" name="diskon" required>
+                                        <input id="total2" type="text" class="form-control" readonly required>
                                     </div>
                                     </div>
                                 </div>
@@ -338,8 +349,10 @@
                                     <label for="part_no" class="col-md-4 control-label">Tax</label>
                                     <div class="col-md-8">
                                     <div class="input-group">
-                                    <span class="input-group-addon">Rp</span> 
-                                        <input id="tax" type="text" class="form-control" onkeyup="changeValue()" value="0" name="tax" required>
+                                        <span class="input-group-addon">&nbsp; &nbsp; &nbsp;</span> 
+                                        <input id="tax" type="text" class="form-control" onkeyup="changeValue()" value="10" required>
+                                        <input id="tax_real" value="0" type="text" name="tax" hidden required>
+                                        <span class="input-group-addon">%</span> 
                                     </div>
                                     </div>
                                 </div>

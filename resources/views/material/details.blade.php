@@ -15,7 +15,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="bold">Date</td>
+                    <td class="bold">Date Receipt</td>
                     <td>{{ $material->created_at->format('d-m-Y') }}</td>
                     <td></td>
                     <td class="bold">P.O. No.</td>
@@ -32,8 +32,8 @@
                     <td class="bold">Type / Code Unit</td>
                     <td>{{ $material->unit->code }}</td>
                     <td></td>
-                    <td class="bold">Delivered By</td>
-                    <td>{{ $material->deliveryman }}</td>
+                    <td class="bold">Date Process</td>
+                    <td>{{ $material->updated_at->format('d-m-Y') }}</td>
                 </tr>
                 <tr>
                     <td colspan="5">
