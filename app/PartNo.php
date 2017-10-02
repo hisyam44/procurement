@@ -12,4 +12,12 @@ class PartNo extends Model
     	return $this->belongsTo('App\Item');
     }
 
+    public function materials(){
+    	return $this->hasMany('App\MaterialItem','partno_id');
+    }
+
+    public function issues(){
+    	return $this->hasMany('App\IssueItem','part_id');
+    }
+
 }

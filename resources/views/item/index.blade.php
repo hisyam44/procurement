@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="panel-body"> 
-            <div class="col-md-9">
+            <div class="col-md-7">
                 <div class="panel-body">
                 <form class="form form-inline" action="{{ url('/importExcel') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
@@ -21,6 +21,9 @@
                     <button class="btn btn-success" type="submit">Import From Excel</button>
                 </form>
             </div>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-default btn-block" href="{{ url('item/stock') }}">Stock Report</a>
             </div>
             <div class="col-md-3">
                 <a class="btn btn-success btn-block" href="{{ url('item/create') }}">New Item Master</a>

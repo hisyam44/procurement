@@ -185,4 +185,10 @@ class ItemController extends Controller
         return redirect('/item');
     }
 
+    public function stockReport(){
+        $part = \App\PartNo::orderBy('id','desc')->with('materials')->get();
+        return view('item.stock',['part' => $part]);
+        return response()->json($part);
+    }
+
 }

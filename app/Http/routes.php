@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('/', function () {
 	    return view('welcome');
 	});
+	Route::get('item/stock','ItemController@stockReport');
 	Route::get('item/completion','PurchaseController@itemCompletion');
 	Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
 	Route::resource('item','ItemController');

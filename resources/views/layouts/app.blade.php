@@ -62,7 +62,7 @@
                     @if(strpos(Request::url(),"transaksi"))
                         FINANCE
                     @else
-                        PROCUREMENT & WAREHOUSE
+                        PROCUREMENT
                     @endif
                 @endif
                 </a>
@@ -89,6 +89,7 @@
                             <li><a href="{{ url('/order') }}">Purchase Order</a></li>
                             <li><a href="{{ url('/material') }}">Material Receipt</a></li>
                             <li><a href="{{ url('/issue') }}">Store Issue</a></li>
+                            <li><a href="{{ url('/return') }}">Store Return</a></li>
                            <!-- jjjjjjjjjjjjjjjjjjjj -->
                         @endif
                         @endif
