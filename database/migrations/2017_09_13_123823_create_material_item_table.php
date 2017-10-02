@@ -15,6 +15,7 @@ class CreateMaterialItemTable extends Migration
         Schema::create('material_item', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('material_id')->unsigned();
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
             $table->integer('partno_id')->unsigned();
             $table->string('part_name');
             $table->string('qty');

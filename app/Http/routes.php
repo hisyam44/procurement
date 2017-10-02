@@ -56,5 +56,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::post('importExcel','ItemController@importExcel');
 	
 	Route::resource('issue','IssueController');
+	
+	Route::resource('return','ReturnController');
 });
 //Route::get('/home', 'HomeController@index');

@@ -15,7 +15,7 @@
         <div class="panel-body"> 
             <div class="col-md-9">&nbsp;</div>
             <div class="col-md-3">
-                <a class="btn btn-success btn-block" href="{{ url('issue/create') }}">New Store Issue</a>
+                <a class="btn btn-success btn-block" href="{{ url('return/create') }}">New Store Return</a>
             </div>
         </div>
     </div>
@@ -34,33 +34,33 @@
                                 <td>Date</td>
                                 <td>Acknowledged By</td>
                                 <td>Accepted By</td>
-                                <td>Given To</td>
+                                <td>Returned By</td>
                                 <td colspan="4">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($issues as $index => $issue)
+                            @foreach($returns as $index => $return)
                             <tr>
-                                <td>{{ $issue->no }}</td>
-                                <td>{{ $issue->unit->code }}</td>
-                                <td>{{ $issue->lokasi }}</td>
-                                <td>{{ $issue->sn }}</td>
-                                <td>{{ $issue->hm }}</td>
-                                <td>{{ $issue->created_at }}</td>
-                                <td>{{ $issue->diketahui }}</td>
-                                <td>{{ $issue->diterima }}</td>
-                                <td>{{ $issue->diserahkan }}</td>
+                                <td>{{ $return->no }}</td>
+                                <td>{{ $return->unit->code }}</td>
+                                <td>{{ $return->lokasi }}</td>
+                                <td>{{ $return->sn }}</td>
+                                <td>{{ $return->hm }}</td>
+                                <td>{{ $return->created_at }}</td>
+                                <td>{{ $return->diketahui }}</td>
+                                <td>{{ $return->diterima }}</td>
+                                <td>{{ $return->dikembalikan }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ url('issue/'.$issue->id) }}"><span class="glyphicon glyphicon-search"></span></a>
+                                    <a class="btn btn-info" href="{{ url('return/'.$return->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-default" href="{{ url('issue/'.$issue->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a class="btn btn-default" href="{{ url('return/'.$return->id) }}?print=1"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="{{ url('issue/'.$issue->id.'/edit') }}"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a class="btn btn-success" href="{{ url('return/'.$return->id.'/edit') }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 </td>
                                 <td>
-                                    <form method="post" action="{{ url('issue/'.$issue->id) }}">
+                                    <form method="post" action="{{ url('return/'.$return->id) }}">
                                         {{ csrf_field() }}
                                         <input type="text" name="_method" value="delete" hidden>
                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
@@ -72,7 +72,7 @@
                     </table>
                 </div>
             </div>
-            {{ $issues->render() }}
+            {{ $returns->render() }}
         </div>
     </div>
 </div>

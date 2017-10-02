@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
             <div class="panel-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/issue') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/return') }}">
                     {{ csrf_field() }}
                     <div class="row">
                     <div class="panel panel-default">
@@ -173,9 +173,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="part_no" class="col-md-4 control-label">Given To</label>
+                                    <label for="part_no" class="col-md-4 control-label">Returned By</label>
                                     <div class="col-md-6">
-                                        <input id="diserahkan" type="text" class="form-control" name="diserahkan" required>
+                                        <input id="diserahkan" type="text" class="form-control" name="dikembalikan" required>
                                     </div>
                                 </div>
                             </div>

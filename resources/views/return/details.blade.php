@@ -11,7 +11,7 @@
             <tbody>
                 <tr>
                     <td colspan="5">
-                        <h3 style="text-align: center;">Store Issue</h3>
+                        <h3 style="text-align: center;">Store Return</h3>
                     </td>
                 </tr>
                 <tr>
@@ -64,7 +64,7 @@
                     <td></td>
                     <td class="bold">Accepted By,<br><br><br>{{ $issue->diterima }}</td>
                     <td></td>
-                    <td class="bold">Given To,<br><br><br>{{ $issue->diserahkan }}</td>
+                    <td class="bold">Returned By,<br><br><br>{{ $issue->dikembalikan }}</td>
                 </tr>
             </tbody>
         </table>

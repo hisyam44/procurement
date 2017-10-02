@@ -31,5 +31,23 @@ class ItemsTableSeeder extends Seeder
                 'updated_at' => '2017-09-11 10:39:25',
             ),
         ));
+        \DB::table('item_part_no')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
+                'item_id' => 1,
+                'code' => 'GH125415',
+                'created_at' => '0000-00-00 00:00:00',
+                'updated_at' => '0000-00-00 00:00:00',
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'item_id' => 1,
+                'code' => 'HH123762',
+                'created_at' => '0000-00-00 00:00:00',
+                'updated_at' => '0000-00-00 00:00:00',
+            ),
+        ));
     }
 }

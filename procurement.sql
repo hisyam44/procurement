@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2017 at 09:39 
+-- Generation Time: Oct 02, 2017 at 03:15 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -301,7 +301,14 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `diserahkan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `issues`
+--
+
+INSERT INTO `issues` (`id`, `unit_id`, `no`, `lokasi`, `sn`, `hm`, `diketahui`, `diterima`, `diserahkan`, `created_at`, `updated_at`) VALUES
+(1, 94, '20170001', 'Wangandowo', '12', '21', 'Sumardi', 'Mawardi', 'Slamet', '2017-10-01 17:00:00', '2017-10-02 06:10:05');
 
 -- --------------------------------------------------------
 
@@ -311,14 +318,22 @@ CREATE TABLE IF NOT EXISTS `issues` (
 
 CREATE TABLE IF NOT EXISTS `issue_item` (
 `id` int(10) unsigned NOT NULL,
-  `issue_id` int(11) NOT NULL,
-  `part_id` int(11) NOT NULL,
+  `issue_id` int(10) unsigned NOT NULL,
+  `part_id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `issue_item`
+--
+
+INSERT INTO `issue_item` (`id`, `issue_id`, `part_id`, `name`, `qty`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Part Item', '3', 'Lorem Ipsum', '2017-10-02 06:10:05', '2017-10-02 06:10:05'),
+(2, 1, 2, 'Part', '4', 'Lorem Ispum', '2017-10-02 06:10:05', '2017-10-02 06:10:05');
 
 -- --------------------------------------------------------
 
@@ -346,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `items` (
 --
 
 INSERT INTO `items` (`id`, `item_no`, `description`, `uom`, `weight`, `dimension`, `shelf_life`, `warranty`, `remark`, `component`, `created_at`, `updated_at`) VALUES
-(1, '155000001', 'Part Item For DT', 'Packet', '1 Kg', '12 x 12 x 12 M', '12 Hours', '12 Years', 'New Seris', 'PG (Personal Gadget)', '2017-09-11 03:39:25', '2017-09-26 06:32:22');
+(1, '155000001', 'asd', 'Packet', '1 Kg', '12 x 12 x 12 M', '12 Jam', '12 Tahun', 'L', 'PG (Personal Gadget)', '2017-09-11 03:39:25', '2017-09-11 03:39:25');
 
 -- --------------------------------------------------------
 
@@ -393,8 +408,8 @@ CREATE TABLE IF NOT EXISTS `materials` (
 --
 
 INSERT INTO `materials` (`id`, `unit_id`, `order_id`, `deliveryman`, `lokasi`, `diketahui`, `diterima`, `created_at`, `updated_at`) VALUES
-(1, 94, 2, 'Pos', 'Logistik', 'Sumardi', 'Mawardi', '2017-09-25 17:00:00', '2017-09-26 06:26:22'),
-(2, 94, 2, 'Pos', 'Logistik', 'Sumardi', 'Mawardi', '2017-09-25 17:00:00', '2017-09-26 06:27:23');
+(1, 94, 1, '0', 'Logistik', 'Sumardi', 'Mawardi', '2017-10-01 17:00:00', '2017-10-02 06:07:04'),
+(2, 94, 1, '0', 'Logistik', 'Sumardi', 'Mawardi', '2017-10-01 17:00:00', '2017-10-02 06:07:31');
 
 -- --------------------------------------------------------
 
@@ -412,16 +427,17 @@ CREATE TABLE IF NOT EXISTS `material_item` (
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `material_item`
 --
 
 INSERT INTO `material_item` (`id`, `material_id`, `partno_id`, `part_name`, `qty`, `net`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'PG (Personal Gadget)', '3', '12', 'from 5 only 3 Part Item received ', '2017-09-26 06:26:22', '2017-09-26 06:26:22'),
-(2, 1, 1, 'PG (Personal Gadget)', '3', '32', 'Receive part item.', '2017-09-26 06:26:22', '2017-09-26 06:26:22'),
-(3, 2, 2, 'PG (Personal Gadget)', '2', '32', 'all Part Item has been received.', '2017-09-26 06:27:23', '2017-09-26 06:27:23');
+(1, 1, 1, 'PG (Personal Gadget)', '5', '21', 'Request this Part Item 10', '2017-10-02 06:07:04', '2017-10-02 06:07:04'),
+(2, 1, 2, 'PG (Personal Gadget)', '8', '12', 'Request this Part Item  15', '2017-10-02 06:07:04', '2017-10-02 06:07:04'),
+(3, 2, 1, 'PG (Personal Gadget)', '5', '43', 'Request this Part Item 10', '2017-10-02 06:07:31', '2017-10-02 06:07:31'),
+(4, 2, 2, 'PG (Personal Gadget)', '7', '23', 'Request this Part Item  15', '2017-10-02 06:07:31', '2017-10-02 06:07:31');
 
 -- --------------------------------------------------------
 
@@ -460,7 +476,9 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_09_12_172813_create_materials_table', 1),
 ('2017_09_13_123823_create_material_item_table', 1),
 ('2017_09_21_201600_create_issues_table', 1),
-('2017_09_21_202042_create_issue_item_table', 1);
+('2017_09_21_202042_create_issue_item_table', 1),
+('2017_10_02_110351_create_returns_table', 1),
+('2017_10_02_110520_create_return_item_table', 1);
 
 -- --------------------------------------------------------
 
@@ -492,14 +510,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `diketahui` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`id`, `supplier_id`, `purchase_id`, `type`, `no`, `address`, `reference_no`, `dispatch_to`, `dispatch_address`, `dispatch_name`, `payment_term`, `incoterms`, `ship_by`, `delivery_date`, `sub_total`, `tax`, `diskon`, `total`, `warranty`, `author`, `diketahui`, `created_at`, `updated_at`) VALUES
-(2, 1, 1, 'ho', 'HO 1-001', '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com', '00001', 'PT Sumber Mitra Jaya', 'Gudang Base Camp Jl Raya Bojong Kajen Wangandowo, Jawa Tengah 51156', 'Mawardi', 'Wangandowo', 'DDP', 'air', '2017-09-26', '8250000', '15670', '990000', '7244330', ' 2 Years from date of install', 'Slamet', 'Sumardi', '2017-09-25 17:00:00', '2017-09-26 06:22:38');
+(1, 1, 1, 'ho', 'HO 1-001', '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com', '00001', 'PT Sumber Mitra Jaya', 'Gudang Base Camp Jl Raya Bojong Kajen Wangandowo, Jawa Tengah 51156', 'Mawardi', 'Wangandowo', 'DDP', 'air', '2017-10-02', '295000', '29500', '0', '265500', ' 2 Years from date of install', 'Slamet', 'Sumardi', '2017-10-01 17:00:00', '2017-10-02 06:02:10');
 
 -- --------------------------------------------------------
 
@@ -516,17 +534,15 @@ CREATE TABLE IF NOT EXISTS `order_item` (
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_item`
 --
 
 INSERT INTO `order_item` (`id`, `item_id`, `order_id`, `qty`, `unit_price`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '1', '6500000', 'Server', '2017-09-11 03:42:41', '2017-09-11 03:42:41'),
-(2, 2, 1, '1', '1100000', 'LED LG 20" 20MP48 IPS Panel', '2017-09-11 03:42:41', '2017-09-11 03:42:41'),
-(3, 2, 2, '5', '1200000', 'Order this Part Item ', '2017-09-26 06:22:38', '2017-09-26 06:22:38'),
-(4, 1, 2, '3', '750000', 'Order other part item.', '2017-09-26 06:22:38', '2017-09-26 06:22:38');
+(1, 1, 1, '10', '10000', 'Request this Part Item 10', '2017-10-02 06:02:10', '2017-10-02 06:02:10'),
+(2, 2, 1, '15', '13000', 'Request this Part Item  15', '2017-10-02 06:02:11', '2017-10-02 06:02:11');
 
 -- --------------------------------------------------------
 
@@ -567,7 +583,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 --
 
 INSERT INTO `purchases` (`id`, `unit_id`, `no`, `type`, `department`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, 94, '00001', 'BD', 'Plant', '12/09-2017', '12312', 'Siti', 'Slamet', 'Veera', 'Fix Unit Damage', '2017-09-25 17:00:00', '2017-09-26 06:17:17');
+(1, 94, '00001', 'BD', 'Engineering', '12/10-2017', '21', 'Siti', 'Slamet', 'Veera', 'fix', '2017-10-01 17:00:00', '2017-10-02 06:00:55');
 
 -- --------------------------------------------------------
 
@@ -593,8 +609,60 @@ CREATE TABLE IF NOT EXISTS `requests` (
 --
 
 INSERT INTO `requests` (`id`, `purchase_id`, `part_no_id`, `component`, `description`, `qty`, `model`, `damage_description`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'PG (Personal Gadget)', 'asd', '5', '2017-09-26', 'Request this Part Item ', '2017-09-26 06:17:17', '2017-09-26 06:17:17'),
-(2, 1, 1, 'PG (Personal Gadget)', 'asd', '3', '2017-09-26', 'Request other part item.', '2017-09-26 06:17:17', '2017-09-26 06:17:17');
+(1, 1, 1, 'PG (Personal Gadget)', 'asd', '10', '2017-10-02', 'Request this Part Item 10', '2017-10-02 06:00:55', '2017-10-02 06:00:55'),
+(2, 1, 2, 'PG (Personal Gadget)', 'asd', '15', '2017-10-02', 'Request this Part Item  15', '2017-10-02 06:00:55', '2017-10-02 06:00:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `returns`
+--
+
+CREATE TABLE IF NOT EXISTS `returns` (
+`id` int(10) unsigned NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lokasi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `hm` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `diketahui` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `diterima` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dikembalikan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `returns`
+--
+
+INSERT INTO `returns` (`id`, `unit_id`, `no`, `lokasi`, `sn`, `hm`, `diketahui`, `diterima`, `dikembalikan`, `created_at`, `updated_at`) VALUES
+(1, 94, '20170001', 'wangandowo', '12', '21', 'Sumardi', 'Mawardi', 'Slamet', '2017-10-01 17:00:00', '2017-10-02 06:12:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return_item`
+--
+
+CREATE TABLE IF NOT EXISTS `return_item` (
+`id` int(10) unsigned NOT NULL,
+  `return_id` int(10) unsigned NOT NULL,
+  `part_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `return_item`
+--
+
+INSERT INTO `return_item` (`id`, `return_id`, `part_id`, `name`, `qty`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Part', '2', 'Lorem Ipsum', '2017-10-02 06:12:56', '2017-10-02 06:12:56'),
+(2, 1, 2, 'Part Item', '2', 'Lorem Ipsum', '2017-10-02 06:12:56', '2017-10-02 06:12:56');
 
 -- --------------------------------------------------------
 
@@ -622,7 +690,7 @@ CREATE TABLE IF NOT EXISTS `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `no`, `type`, `name`, `address`, `phone`, `attn`, `email`, `contact`, `description`, `created_at`, `updated_at`) VALUES
-(1, '2016 - 0001', '', 'Megakom', 'Jl Manggis No 45\nSampangan, Pekalongan Timur\nKota Pekalongan, Jawa Tengah 51126', '62 285 421864', 'Danny Tanuwinata\n', '', '', '', NULL, NULL);
+(1, '2016 - 0001', 'Perseroan Komanditer(CV)', 'Megakom', 'Jl Manggis No 45\nSampangan, Pekalongan Timur\nKota Pekalongan, Jawa Tengah 51126', '62 285 421864', 'Danny Tanuwinata', 'admin1@admin.com', '62 285 421864', 'Sampangan, Pekalongan Timur', NULL, '2017-10-02 05:41:26');
 
 -- --------------------------------------------------------
 
@@ -873,9 +941,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$8pBUFNyg/ljNFuWEntWzB.zzUyPQW6A9kftUU7eqQbgj9qrZNYPe6', 'admin', NULL, '2017-09-26 06:12:21', '2017-09-26 06:12:21'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$f7JRi3m0cA4/VbjYpyVRbOhGZ.lr05bzFitAgYcHLoYLr8I2n37dy', 'checker', NULL, '2017-09-26 06:12:21', '2017-09-26 06:12:21'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$e2Qesp3UZuvhTxXBXz5PQ.7omWGnAUE4XHAtLCFYbhPcUgHF/o.Bm', 'operator', NULL, '2017-09-26 06:12:22', '2017-09-26 06:12:22');
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$/4qEmz3xhvKrzTM4qmlCEONpcTzCkELtFd4CzvYp3qeMm31dwqPjK', 'admin', NULL, '2017-10-02 06:14:18', '2017-10-02 06:14:18'),
+(2, 'checker 1', 'checker1@admin.com', '$2y$10$ZHuPaNtw.4yHNTxvzh8Vj.J1ho.11HYfnG6GnIFizMhrSyuwRAPzK', 'checker', NULL, '2017-10-02 06:14:18', '2017-10-02 06:14:18'),
+(3, 'operator 1', 'operator1@admin.com', '$2y$10$CghTvCF0ZI0GV5SjnYeOFeC6Ig/WStahygH7ULwsSIU9It9ngYnD2', 'operator', NULL, '2017-10-02 06:14:19', '2017-10-02 06:14:19');
 
 --
 -- Indexes for dumped tables
@@ -933,7 +1001,7 @@ ALTER TABLE `issues`
 -- Indexes for table `issue_item`
 --
 ALTER TABLE `issue_item`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `issue_item_issue_id_foreign` (`issue_id`);
 
 --
 -- Indexes for table `items`
@@ -957,7 +1025,7 @@ ALTER TABLE `materials`
 -- Indexes for table `material_item`
 --
 ALTER TABLE `material_item`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `material_item_material_id_foreign` (`material_id`);
 
 --
 -- Indexes for table `orders`
@@ -969,7 +1037,7 @@ ALTER TABLE `orders`
 -- Indexes for table `order_item`
 --
 ALTER TABLE `order_item`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `order_item_order_id_foreign` (`order_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -988,6 +1056,18 @@ ALTER TABLE `purchases`
 --
 ALTER TABLE `requests`
  ADD PRIMARY KEY (`id`), ADD KEY `requests_purchase_id_foreign` (`purchase_id`);
+
+--
+-- Indexes for table `returns`
+--
+ALTER TABLE `returns`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `return_item`
+--
+ALTER TABLE `return_item`
+ ADD PRIMARY KEY (`id`), ADD KEY `return_item_return_id_foreign` (`return_id`);
 
 --
 -- Indexes for table `suppliers`
@@ -1056,12 +1136,12 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `issues`
 --
 ALTER TABLE `issues`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `issue_item`
 --
 ALTER TABLE `issue_item`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `items`
 --
@@ -1081,17 +1161,17 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `material_item`
 --
 ALTER TABLE `material_item`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `purchases`
 --
@@ -1101,6 +1181,16 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `returns`
+--
+ALTER TABLE `returns`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `return_item`
+--
+ALTER TABLE `return_item`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -1139,16 +1229,40 @@ ALTER TABLE `costs`
 ADD CONSTRAINT `costs_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `issue_item`
+--
+ALTER TABLE `issue_item`
+ADD CONSTRAINT `issue_item_issue_id_foreign` FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `item_part_no`
 --
 ALTER TABLE `item_part_no`
 ADD CONSTRAINT `item_part_no_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `material_item`
+--
+ALTER TABLE `material_item`
+ADD CONSTRAINT `material_item_material_id_foreign` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_item`
+--
+ALTER TABLE `order_item`
+ADD CONSTRAINT `order_item_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `requests`
 --
 ALTER TABLE `requests`
 ADD CONSTRAINT `requests_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `return_item`
+--
+ALTER TABLE `return_item`
+ADD CONSTRAINT `return_item_return_id_foreign` FOREIGN KEY (`return_id`) REFERENCES `returns` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

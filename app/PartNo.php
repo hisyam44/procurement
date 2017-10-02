@@ -20,4 +20,8 @@ class PartNo extends Model
     	return $this->hasMany('App\IssueItem','part_id');
     }
 
+    public function returns(){
+        return $this->hasMany('App\ReturnItem','part_id');
+    }
+
 }

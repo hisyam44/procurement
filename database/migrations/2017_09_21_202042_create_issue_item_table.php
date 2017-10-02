@@ -14,8 +14,9 @@ class CreateIssueItemTable extends Migration
     {
         Schema::create('issue_item', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('issue_id');
-            $table->integer('part_id');
+            $table->integer('issue_id')->unsigned();
+            $table->foreign('issue_id')->references('id')->on('issues')->onDelete('cascade');
+            $table->integer('part_id')->unsigned();
             $table->string('name');
             $table->string('qty');
             $table->string('keterangan');

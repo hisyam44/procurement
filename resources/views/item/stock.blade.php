@@ -28,18 +28,25 @@
                     @foreach($prt->materials as $material)
                         <?php $receipts += $material->qty ?>
                     @endforeach
+
                     <?php $iss = 0 ?>
                     @foreach($prt->issues as $issue)
                         <?php $iss += $issue->qty ?>
                     @endforeach
-                    <?php $stock = $receipts-$iss ?>
+
+                    <?php $returns = 0 ?>
+                    @foreach($prt->returns as $issue)
+                        <?php $returns += $issue->qty ?>
+                    @endforeach
+
+                    <?php $stock = $receipts-$iss+$returns ?>
                 <tr>
                     <td>{{ $prt->code }}</td>
                     <td>{{ $prt->item->item_no }}</td>
                     <td>{{ $prt->item->component }}</td>
                     <td>{{ $receipts }}</td>
                     <td>{{ $iss }}</td>
-                    <td></td>
+                    <td>{{ $returns }}</td>
                     <td>{{ $stock }}</td>
                 </tr>
                 @endforeach
