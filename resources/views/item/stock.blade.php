@@ -10,14 +10,16 @@
 <table class="table table-bordered" id="tableData" style="margin: 0 auto;width: 100%;">
             <tbody>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="9">
                         <h3 style="text-align: center;">Stock Report - {{ \Carbon\Carbon::now()->format('d-m-Y') }}</h3>
                     </td>
                 </tr>
-                <tr>
+                <tr class="bold">
+                    <td>No.</td>
                     <td>Part Number</td>
                     <td>Item Number</td>
                     <td>Component</td>
+                    <td>Latest Unit Price</td>
                     <td>Receipts</td>
                     <td>Issues</td>
                     <td>Returns</td>
@@ -39,11 +41,17 @@
                         <?php $returns += $issue->qty ?>
                     @endforeach
 
+                    @foreach($prt->orders as $issue)
+                        <?php $price = $issue->unit_price ?>
+                    @endforeach
+
                     <?php $stock = $receipts-$iss+$returns ?>
                 <tr>
+                    <td>{{ $index+1 }}</td>
                     <td>{{ $prt->code }}</td>
                     <td>{{ $prt->item->item_no }}</td>
                     <td>{{ $prt->item->component }}</td>
+                    <td>Rp. {{ number_format($price) }}</td>
                     <td>{{ $receipts }}</td>
                     <td>{{ $iss }}</td>
                     <td>{{ $returns }}</td>

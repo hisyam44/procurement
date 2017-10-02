@@ -24,4 +24,7 @@ class PartNo extends Model
         return $this->hasMany('App\ReturnItem','part_id');
     }
 
+    public function orders(){
+        return $this->hasMany('App\OrderItem','item_id');
+    }
 }

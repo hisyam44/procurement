@@ -27,7 +27,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('error');
+        return view('unit.create');
     }
 
     /**
@@ -38,8 +38,12 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        return view('error');
-        //
+        //return response()->json($request->all());
+        $unit = Unit::create($request->all());
+        if($unit){
+            \Session::flash('message','Added New Data'); 
+        }
+        return redirect('/unit');
     }
 
     /**
@@ -51,7 +55,6 @@ class UnitController extends Controller
     public function show($id)
     {
         return view('error');
-        //
     }
 
     /**
@@ -62,8 +65,8 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        //
-        return view('error');
+        $unit = Unit::findOrFail($id);
+        return view('unit.edit',['unit' => $unit]);
     }
 
     /**
@@ -75,8 +78,11 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        return view('error');
+        $success = Unit::find($id)->update($request->all());
+        if($success){
+            \Session::flash('message','Data Has Been Changed'); 
+        }
+        return redirect('/unit');
     }
 
     /**
