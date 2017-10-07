@@ -15,10 +15,10 @@
         <div class="panel-body"> 
             <div class="col-md-9">
                 
-            {{ $accs->render() }}
+            {{ $users->render() }}
             </div>
             <div class="col-md-3">
-                <a class="btn btn-success btn-block" href="" data-toggle="modal" data-target="#myModal">New Category</a>
+                <a class="btn btn-success btn-block" href="{{ url('user/create') }}">New User</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                     <h4 class="modal-title">New Category</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/transaksi/acc') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/transaksi/user') }}">
                     {{ csrf_field() }}
                         <div class="form-group">
                             <label for="code" class="col-md-4 control-label">Category Name</label>
@@ -60,16 +60,24 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>Category Name</td>
+                                <td>No</td>
+                                <td>Type</td>
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Department</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($accs as $index => $acc)
+                            @foreach($users as $index => $user)
                             <tr>
-                                <td>{{ $acc->name }}</td>
+                                <td>{{ $index+1 }}</td>
+                                <td>{{ strtoupper($user->role) }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->department }}</td>
                                 <td>
-                                    <form method="post" action="{{ url('transaksi/acc/'.$acc->id) }}">
+                                    <form method="post" action="{{ url('user/'.$user->id) }}">
                                         {{ csrf_field() }}
                                         <input type="text" name="_method" value="delete" hidden>
                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>

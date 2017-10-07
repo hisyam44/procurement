@@ -3,11 +3,12 @@
 @section('content')
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-3">Selamat Datang !</h1>
-        <p class="lead">Pilih salah satu Aplikasi dibawah ini.</p>
+        <h1 class="display-3">Welcome, {{ Auth::user()->name }} !</h1>
+        <!-- <p class="lead">Pilih salah satu Aplikasi dibawah ini.</p> -->
         <p class="lead">
-            <a class="btn btn-primary" href="{{ url('item') }}">PROCUREMENT & WAREHOUSE</a>
+            <a class="btn btn-primary" href="{{ url('purchase') }}">PROCUREMENT & WAREHOUSE</a>
             <a class="btn btn-success" href="{{ url('transaksi') }}">FINANCE</a>
+            <a class="btn btn-default" href="{{ url('user') }}">USER MANAGEMENT</a>
         </p>
     </div>
 </div>

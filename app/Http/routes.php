@@ -17,13 +17,48 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('/', function () {
 	    return view('welcome');
 	});
-	Route::get('item/stock','ItemController@stockReport');
-	Route::get('item/completion','PurchaseController@itemCompletion');
-	Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
-	Route::resource('item','ItemController');
 
-	Route::get('purchase/completion','PurchaseController@purchaseCompletion');
-	Route::resource('purchase','PurchaseController');
+	Route::get('/403', function () {
+	    return view('errors.503');
+	});
+
+	Route::group(['middleware' => ['redirect.operator','redirect.hod','redirect.supervisior']], function (){
+		Route::resource('user','UserController');
+	});
+
+	Route::group(['middleware' => ['redirect.operator','redirect.hod']], function (){
+		Route::get('item/stock','ItemController@stockReport');
+		Route::get('item/completion','PurchaseController@itemCompletion');
+		Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
+		Route::resource('item','ItemController');
+	});
+
+	Route::group(['middleware' => ['redirect.supervisior','redirect.hod']], function (){
+		Route::get('purchase/completion','PurchaseController@purchaseCompletion');
+		Route::resource('purchase','PurchaseController');
+
+	});
+
+	Route::group(['middleware' => ['redirect.hod']], function (){
+		//order
+		Route::get('order/completion','OrderController@orderCompletion');
+		Route::resource('order','OrderController');
+		//supplier
+		Route::get('supplier/completion','SupplierController@supplierCompletion');
+		Route::resource('supplier','SupplierController');
+		
+		Route::resource('material','MaterialController');
+
+		Route::get('unit/completion','PurchaseController@unitCompletion');
+		Route::resource('unit','UnitController');
+
+		Route::post('importExcel','ItemController@importExcel');
+		
+		Route::resource('issue','IssueController');
+		
+		Route::resource('return','ReturnController');
+	});
+
 
 	Route::get('transaksi/pettycash','TransaksiController@pettyCash');
 	Route::get('transaksi/cash','TransaksiController@indexSingle');
@@ -42,22 +77,5 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
 	Route::get('iou/completion','TransaksiController@iouCompletion');
-	//order
-	Route::get('order/completion','OrderController@orderCompletion');
-	Route::resource('order','OrderController');
-	//supplier
-	Route::get('supplier/completion','SupplierController@supplierCompletion');
-	Route::resource('supplier','SupplierController');
-	
-	Route::resource('material','MaterialController');
-
-	Route::get('unit/completion','PurchaseController@unitCompletion');
-	Route::resource('unit','UnitController');
-
-	Route::post('importExcel','ItemController@importExcel');
-	
-	Route::resource('issue','IssueController');
-	
-	Route::resource('return','ReturnController');
 });
 //Route::get('/home', 'HomeController@index');

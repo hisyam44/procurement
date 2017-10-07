@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 02, 2017 at 03:15 
+-- Generation Time: Oct 07, 2017 at 07:52 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `accounting_category` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `accounting_category`
@@ -190,7 +190,8 @@ INSERT INTO `accounting_category` (`id`, `name`, `created_at`, `updated_at`) VAL
 (150, 'THR Konstruksi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (151, 'Tunjangan Lainnya/K', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (152, '(Expenses (Direct))', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(153, '(Pengeluaran Lagsng Konstruksi)', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(153, '(Pengeluaran Lagsng Konstruksi)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(154, 'Penarikan Tunai', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -930,20 +931,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `role` enum('admin','checker','operator') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'operator',
+  `role` enum('dev','admin','supervisior','hod','operator') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'operator',
+  `department` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$/4qEmz3xhvKrzTM4qmlCEONpcTzCkELtFd4CzvYp3qeMm31dwqPjK', 'admin', NULL, '2017-10-02 06:14:18', '2017-10-02 06:14:18'),
-(2, 'checker 1', 'checker1@admin.com', '$2y$10$ZHuPaNtw.4yHNTxvzh8Vj.J1ho.11HYfnG6GnIFizMhrSyuwRAPzK', 'checker', NULL, '2017-10-02 06:14:18', '2017-10-02 06:14:18'),
-(3, 'operator 1', 'operator1@admin.com', '$2y$10$CghTvCF0ZI0GV5SjnYeOFeC6Ig/WStahygH7ULwsSIU9It9ngYnD2', 'operator', NULL, '2017-10-02 06:14:19', '2017-10-02 06:14:19');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin 1', 'admin1@admin.com', '$2y$10$WORhTaFsVS7iFjQwkjtUjeaZKMG3UTLiuxDd19CEGj.OOr5wu8XFC', 'admin', 'None', NULL, '2017-10-06 22:49:59', '2017-10-06 22:49:59'),
+(2, 'hisyam', 'hisyam@hisyam.com', '$2y$10$iBW2LjIIeOHmngz6tSG4XersuINiAca8sCiR2Ry7aVaP8NlSX1lp.', 'dev', 'None', NULL, '2017-10-06 22:49:59', '2017-10-06 22:49:59');
 
 --
 -- Indexes for dumped tables
@@ -1101,7 +1102,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounting_category`
 --
 ALTER TABLE `accounting_category`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=155;
 --
 -- AUTO_INCREMENT for table `attachments`
 --
@@ -1211,7 +1212,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=165;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --

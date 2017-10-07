@@ -186,7 +186,7 @@ class ItemController extends Controller
     }
 
     public function stockReport(Request $request){
-        $part = \App\PartNo::orderBy('id','desc')->with('materials')->get();
+        $part = \App\PartNo::orderBy('id','asc')->with('materials')->get();
         if($request->print === "1"){
             $excel = Excel::create('StockReport'.\Carbon\Carbon::now(), function($excel) use($part) {
                 $excel->sheet('report', function($sheet) use($part) {

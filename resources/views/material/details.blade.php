@@ -64,7 +64,7 @@
                 <tr>
                     <td class="bold">Acknowledged By,<br><br><br>{{ $material->diketahui }}</td>
                     <td></td>
-                    <td></td>
+                    <td class="bold">Approval By,<br><br><br>Veera</td>
                     <td></td>
                     <td class="bold">Accepted By,<br><br><br>{{ $material->diterima }}</td>
                 </tr>
