@@ -65,7 +65,8 @@
                                 <script type="text/javascript">
                                     $(function () {
                                         $('#created_at').datetimepicker({
-                                            format: 'YYYY-MM-DD'
+                                            format: 'YYYY-MM-DD',
+                                            defaultDate: new Date
                                         });
                                     });
                                 </script>
@@ -89,6 +90,14 @@
                                     <input id="project_code" type="text" class="form-control" value="20-16-PB001" name="project_code" required readonly>
                                 </div>
                             </div>
+                            @if($type == "bank")
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">No.Giro/Cek</label>
+                                <div class="col-md-6">
+                                    <input id="keterangan" type="text" class="form-control" name="keterangan" required>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                         <div class="col-md-4">
 
@@ -147,26 +156,25 @@
                                                 <option>EQ</option>
                                                 <option>SC</option>
                                                 <option>OH</option>
+                                                <option>PB</option>
+                                                <option>OI</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-2">
-                                            <input id="code[]" type="text" class="form-control" name="code[]" required>
-                                        </div>
-                                        <div class="col-md-2">
+                                            <input id="code[]" type="text" name="code[]" value="0" required hidden>
+                                        <div class="col-md-3">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
                                                 <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." value="0" onkeyup="jumlahTotal()" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required>
                                         </div>
                                         <div class="col-md-1">
-                                            
+                                            <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                             </div>
                         </div>
@@ -186,7 +194,7 @@
                                         <div class="col-md-6">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input id="amount_total" type="text" class="form-control" name="amount_total" value="0" required>
+                                            <input id="amount_total" type="text" class="form-control" name="amount_total" value="0" readonly required>
                                         </div>
                                         </div>
                                         <script type="text/javascript">
@@ -203,12 +211,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    @if(strpos(Request::url(),"cash"))
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Ket</label>
                                         <div class="col-md-9">
                                             <input id="keterangan" type="text" class="form-control" name="keterangan" required>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                                 <div class="col-md-3">
                                     <a class="btn btn-success pull-right" onclick="appendNewFormRequest()">Add New Cost</a>
@@ -226,7 +236,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <input class="form-control type" id="type[]" value="Debet" name="type[]" readonly required> </div><div class="col-md-2"> <input class="form-control cost_type" id="cost_type[]" name="cost_type[]" value="MT" readonly required> </div><div class="col-md-2"> <input id="code[]" type="text" class="form-control" name="code[]" required> </div><div class="col-md-2"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." value="0" onkeyup="jumlahTotal()" required> </div></div><div class="col-md-3"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
+                                $('<div class="row"> <div class="form-group"> <div class="col-md-2"> <input class="form-control type" id="type[]" value="Debet" name="type[]" readonly required> </div><div class="col-md-2"> <input class="form-control cost_type" id="cost_type[]" name="cost_type[]" value="MT" readonly required> </div><input id="code[]" type="text" name="code[]" hidden required> <div class="col-md-3"> <div class="input-group"> <span class="input-group-addon">Rp.</span> <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" placeholder="Jumlah..." value="0" onkeyup="jumlahTotal()" required> </div></div><div class="col-md-4"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Details..." required> </div><div class="col-md-1"> <a class="btn btn-danger pull-right" onclick="deleteRequest(this)">Delete</a> </div></div></div>').appendTo(formRequest);
                                 jumlahTotal();
                             }
                         </script>
@@ -255,7 +265,7 @@
                                     <input id="kasir" type="text" class="form-control" name="kasir" required>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" {{ strpos(Request::url(),"bank")?'style=display:none':'' }}>
                                 <label for="penerima" class="col-md-4 control-label">Yang Menerima</label>
                                 <div class="col-md-6">
                                     <input id="penerima" type="text" class="form-control" name="penerima" required>

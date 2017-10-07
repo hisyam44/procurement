@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="type_transaksi" class="col-md-4 control-label">Category Accounting</label>
+                                    <label for="type_transaksi" class="col-md-4 control-label">Category Operational</label>
                                     <div class="col-md-6">
                                         <input type="text" id="category_accounting_id" name="category_accounting" required hidden></input>
                                         <input type="text" class="form-control" id="category_accounting" required></input>
@@ -56,7 +56,8 @@
                                 <script type="text/javascript">
                                     $(function () {
                                         $('#created_at').datetimepicker({
-                                            format: 'YYYY-MM-DD'
+                                            format: 'YYYY-MM-DD',
+                                            defaultDate: new Date
                                         });
                                     });
                                 </script>
@@ -160,7 +161,7 @@
                                         <div class="col-md-6">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input id="amount_total" type="text" class="form-control" name="amount_total" value="0" required>
+                                            <input id="amount_total" type="text" class="form-control" name="amount_total" value="0" readonly required>
                                         </div>
                                         </div>
                                         <script type="text/javascript">

@@ -1088,6 +1088,13 @@ class AccountingCategoryTableSeeder extends Seeder
                 'created_at' => '0000-00-00 00:00:00',
                 'updated_at' => '0000-00-00 00:00:00',
             ),
+            153 => 
+            array (
+                'id' => 154,
+            'name' => 'Penarikan Tunai',
+                'created_at' => '0000-00-00 00:00:00',
+                'updated_at' => '0000-00-00 00:00:00',
+            ),
         ));
         
         

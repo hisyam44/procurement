@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="type_transaksi" class="col-md-4 control-label">Category Accounting</label>
+                                    <label for="type_transaksi" class="col-md-4 control-label">Category Operational</label>
                                     <div class="col-md-6">
                                         <input type="text" id="category_accounting_id" name="category_accounting" required hidden></input>
                                         <input type="text" class="form-control" id="category_accounting" readonly required></input>

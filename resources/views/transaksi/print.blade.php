@@ -25,20 +25,21 @@
             <td>Penerima</td> -->
             <td>No Voucher</td>
             <td>Tanggal</td>
-            <td>Category Accounting</td>
             <td>Atas Nama</td>
         @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
+            <td>Category Operational</td>
             <td colspan="3">Details</td>
             <td colspan="3">Jumlah</td>
         @else
+            <td>Category Accounting</td>
             <td>Cost Type</td>
-            <td>Cost Code</td>
-            <td>Details</td>
+
+            <td colspan="2">Details</td>
             <td>Debit</td>
             <td>Kredit</td>
             <td>Saldo</td>
         @endif
-            <td>Ket</td>
+            <td>{{ strpos(Request::url(),"bank")?'No.Giro/Cek':'Keterangan' }}</td>
         </tr>
     </thead>
     <tbody>
@@ -72,15 +73,15 @@
                         ?>
                         <td>{{ $trans->no_voucher }}</td>
                         <td>{{ $trans->created_at->format('d-M-Y') }}</td>
-                        <td>{{ $trans->accounting->name }}</td>
                         <td>{{ $trans->receiver }}</td>
+                        <td>{{ $trans->accounting->name }}</td>
                     @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
                         <td colspan="3">{{ $cost->description }}</td>
                         <td colspan="3">{{ $cost->amount }}</td>
                     @else
                         <td>{{ $cost->cost_type }}</td>
-                        <td>{{ $cost->code }}</td>
-                        <td>{{ $cost->description }}</td>
+
+                        <td colspan="2">{{ $cost->description }}</td>
                         <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
                         <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
                         <td>{{ $saldo }}</td>

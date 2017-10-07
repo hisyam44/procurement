@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('transaksi/ious/create','TransaksiController@createIous');
 	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
 	Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
+	Route::resource('transaksi/acc','AccountingController');
 	Route::resource('transaksi','TransaksiController');
 	
 	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');

@@ -89,7 +89,11 @@
                                 <td>Nama Project</td>
                                 <td>Kode Project</td>
                             @endif -->
+                            @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
+                                <td>Category Operational</td>
+                            @else
                                 <td>Category Accounting</td>
+                            @endif
                                 <td>Atas Nama</td>
                             @if(substr(Route::getCurrentRoute()->getPath(),10) === "bank")
                                 <td>No. Rek</td>
@@ -97,7 +101,7 @@
                                 <td>Bank Details</td>
                             @endif
                                 <td>Jumlah Total</td>
-                                <td>Keterangan</td>
+                                <td>{{ strpos(Request::url(),"bank")?'No.Giro/Cek':'Keterangan' }}</td>
                                 <!-- <td>Direksi</td>
                                 <td>Kepala Bagian</td>
                                 <td>Kasir</td>
@@ -157,9 +161,8 @@
                                             @else
                                             <td colspan="2">{{ strtoupper($cost->type) }}</td>
                                             <td colspan="2">Cost Type : {{ $cost->cost_type }}</td>
-                                            <td colspan="2">Cost Code : {{ $cost->code }}</td>
-                                            <td colspan="2">Rp.{{ $cost->amount }}</td>
-                                            <td colspan="2">{{ $cost->description }}</td>
+                                            <td colspan="3">Rp.{{ $cost->amount }}</td>
+                                            <td colspan="3">{{ $cost->description }}</td>
                                             @endif
                                         </tr>
                                 @endforeach
