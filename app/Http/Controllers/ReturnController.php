@@ -10,6 +10,9 @@ use PDF;
 
 class ReturnController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['except' => ['index','create','store']]);
+    }
     /**
      * Display a listing of the resource.
      *

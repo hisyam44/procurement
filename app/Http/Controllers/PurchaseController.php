@@ -13,6 +13,9 @@ use PDF;
 
 class PurchaseController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['only' => ['show','edit','upadate','destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

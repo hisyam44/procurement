@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="code" class="col-md-4 control-label">Type</label>
                         <div class="col-md-6">
-                            <select class="form-control" name="role" required>
+                            <select class="form-control" name="role" onchange="showDepartment(this.value)" required>
                                 <option>Admin</option>
                                 <option>HoD</option>
                                 <option>Supervisior</option>
@@ -24,11 +24,19 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <script type="text/javascript">
+                        function showDepartment(val){
+                            if(val != "Admin"){
+                                $('#department').show();
+                            }else{
+                                $('#department').hide();
+                            }
+                        }
+                    </script>
+                    <div class="form-group" id="department" style="display: none">
                         <label for="code" class="col-md-4 control-label">Department</label>
                         <div class="col-md-6">
                             <select class="form-control" name="department" required>
-                                <option>None</option>
                                 <option>Engineering</option>
                                 <option>Logistic</option>
                                 <option>QC</option>

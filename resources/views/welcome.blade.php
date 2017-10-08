@@ -3,8 +3,7 @@
 @section('content')
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-3">Welcome, {{ Auth::user()->name }} !</h1>
-        <!-- <p class="lead">Pilih salah satu Aplikasi dibawah ini.</p> -->
+        <p class="lead">Welcome, {{ Auth::user()->name }} !</p>
         <p class="lead">
             <a class="btn btn-primary" href="{{ url('purchase') }}">PROCUREMENT & WAREHOUSE</a>
             <a class="btn btn-success" href="{{ url('transaksi') }}">FINANCE</a>

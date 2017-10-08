@@ -42,7 +42,11 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
-        $user->department = $request->department;
+        if($request->role == "Admin"){
+            $user->department = "None";
+        }else{
+            $user->department = $request->department;
+        }
         $user->password = bcrypt($request->password);
         $success = $user->save();
         if($success){

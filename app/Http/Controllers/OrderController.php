@@ -10,6 +10,9 @@ use PDF;
 
 class OrderController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['except' => ['index','create','store','orderCompletion']]);
+    }
     /**
      * Display a listing of the resource.
      *

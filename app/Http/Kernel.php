@@ -52,5 +52,8 @@ class Kernel extends HttpKernel
         'redirect.operator' => \App\Http\Middleware\redirectOperator::class,
         'redirect.supervisior' => \App\Http\Middleware\redirectSupervisior::class,
         'redirect.hod' => \App\Http\Middleware\redirectHoD::class,
+        'allow.logistic' => \App\Http\Middleware\allowLogistic::class,
+        'allow.department' => \App\Http\Middleware\alowDepartment::class,
+        'allow.finance' => \App\Http\Middleware\allowFinance::class,
     ];
 }

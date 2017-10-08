@@ -18,6 +18,17 @@ Route::group(['middleware' => ['auth']],function(){
 	    return view('welcome');
 	});
 
+	
+	Route::get('accounting/completion','PurchaseController@accountingCompletion');
+	Route::get('item/completion','PurchaseController@itemCompletion');
+	Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
+	Route::get('purchase/completion','PurchaseController@purchaseCompletion');
+	Route::get('order/completion','OrderController@orderCompletion');
+	Route::get('supplier/completion','SupplierController@supplierCompletion');
+	Route::get('unit/completion','PurchaseController@unitCompletion');
+	Route::post('importExcel','ItemController@importExcel');
+	Route::resource('purchase','PurchaseController');
+
 	Route::get('/403', function () {
 	    return view('errors.503');
 	});
@@ -26,56 +37,52 @@ Route::group(['middleware' => ['auth']],function(){
 		Route::resource('user','UserController');
 	});
 
-	Route::group(['middleware' => ['redirect.operator','redirect.hod']], function (){
+	Route::group(['middleware' => ['allow.logistic','redirect.operator']], function (){
 		Route::get('item/stock','ItemController@stockReport');
-		Route::get('item/completion','PurchaseController@itemCompletion');
-		Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
 		Route::resource('item','ItemController');
 	});
 
 	Route::group(['middleware' => ['redirect.supervisior','redirect.hod']], function (){
-		Route::get('purchase/completion','PurchaseController@purchaseCompletion');
-		Route::resource('purchase','PurchaseController');
 
 	});
 
-	Route::group(['middleware' => ['redirect.hod']], function (){
+	Route::group(['middleware' => ['allow.department']], function (){
+		Route::resource('unit','UnitController');
+	});
+	
+	Route::group(['middleware' => ['allow.logistic']], function (){
 		//order
-		Route::get('order/completion','OrderController@orderCompletion');
 		Route::resource('order','OrderController');
-		//supplier
-		Route::get('supplier/completion','SupplierController@supplierCompletion');
-		Route::resource('supplier','SupplierController');
 		
 		Route::resource('material','MaterialController');
 
-		Route::get('unit/completion','PurchaseController@unitCompletion');
-		Route::resource('unit','UnitController');
+		//supplier
+		Route::resource('supplier','SupplierController');
 
-		Route::post('importExcel','ItemController@importExcel');
 		
 		Route::resource('issue','IssueController');
 		
 		Route::resource('return','ReturnController');
 	});
 
-
-	Route::get('transaksi/pettycash','TransaksiController@pettyCash');
-	Route::get('transaksi/cash','TransaksiController@indexSingle');
-	Route::get('transaksi/cash/create','TransaksiController@createCash');
-	Route::get('transaksi/bank','TransaksiController@indexSingle');
-	Route::get('transaksi/bank/create','TransaksiController@createBank');
-	Route::get('transaksi/iou','TransaksiController@indexSingle');
-	Route::get('transaksi/iou/create','TransaksiController@createIou');
-	Route::get('transaksi/ious','TransaksiController@indexSingle');
-	Route::get('transaksi/ious/create','TransaksiController@createIous');
-	Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
-	Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
-	Route::resource('transaksi/acc','AccountingController');
-	Route::resource('transaksi','TransaksiController');
-	
-	Route::delete('attachment/{id}','TransaksiController@attachmentDelete');
-	Route::get('accounting/completion','PurchaseController@accountingCompletion');
-	Route::get('iou/completion','TransaksiController@iouCompletion');
+	Route::group(['middleware' => ['allow.finance']], function (){
+		Route::resource('transaksi/acc','AccountingController');
+		
+		Route::get('transaksi/pettycash','TransaksiController@pettyCash');
+		Route::get('transaksi/cash','TransaksiController@indexSingle');
+		Route::get('transaksi/cash/create','TransaksiController@createCash');
+		Route::get('transaksi/bank','TransaksiController@indexSingle');
+		Route::get('transaksi/bank/create','TransaksiController@createBank');
+		Route::get('transaksi/iou','TransaksiController@indexSingle');
+		Route::get('transaksi/iou/create','TransaksiController@createIou');
+		Route::get('transaksi/ious','TransaksiController@indexSingle');
+		Route::get('transaksi/ious/create','TransaksiController@createIous');
+		Route::get('transaksi/{id}/attachment','TransaksiController@attachmentView');
+		Route::post('transaksi/{id}/attachment','TransaksiController@attachmentPost');
+		Route::resource('transaksi','TransaksiController');
+		
+		Route::delete('attachment/{id}','TransaksiController@attachmentDelete');
+		Route::get('iou/completion','TransaksiController@iouCompletion');
+	});
 });
 //Route::get('/home', 'HomeController@index');

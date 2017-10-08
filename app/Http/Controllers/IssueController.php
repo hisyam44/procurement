@@ -10,6 +10,9 @@ use PDF;
 
 class IssueController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['except' => ['index','create','store']]);
+    }
     public function index(){
     	$issues = Issue::orderBy('created_at','desc')->orderBy('no','asc')->paginate(10);
     	return view('issue.index',['issues' => $issues]);

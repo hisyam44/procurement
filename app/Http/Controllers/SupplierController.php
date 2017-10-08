@@ -9,6 +9,9 @@ use App\Supplier;
 
 class SupplierController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['except' => ['index','supplierCompletion','create','store']]);
+    }
     /**
      * Display a listing of the resource.
      *

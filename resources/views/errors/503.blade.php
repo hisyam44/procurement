@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
+        <title>403 - Forbidden</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Sorry, You don't have a permission to see this page. :(</div>
+                <div class="title">Sorry, You don't have a permission to access this page.</div>
             </div>
         </div>
     </body>

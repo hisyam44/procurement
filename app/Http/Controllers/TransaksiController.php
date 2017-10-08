@@ -13,6 +13,9 @@ use PDF;
 
 class TransaksiController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,51 +24,6 @@ class TransaksiController extends Controller
     public function index(Request $request)
     {
         return view('home');
-        $transaksi = Transaksi::query();
-        if($request->type != null){
-            $transaksi = $transaksi->where('type',$request->type);
-        }
-        if($request->start_date != null){
-            $transaksi = $transaksi->where('created_at','>=',$request->start_date);
-        }
-        if($request->end_date != null){
-            $transaksi = $transaksi->where('created_at','<=',$request->end_date);
-        }
-        if($request->cost_code != null){
-            $cost_code = $request->cost_code;
-            $transaksi = $transaksi->whereHas('costs',function ($q) use($cost_code){
-                $q->where('code','LIKE','%'.$cost_code.'%');
-            });
-        }
-        /*if($request->rekening_code != null){
-            $rekening_code = $request->rekening_code;
-            $transaksi = $transaksi->whereHas('costs',function ($q) use($rekening_code){
-                $q->where('rekening_code','LIKE','%'.$rekening_code.'%');
-            });
-        }*/
-        if($request->cost_type != null){
-            $cost_type = $request->cost_type;
-            $transaksi = $transaksi->whereHas('costs',function ($q) use($cost_type){
-                $q->where('type',$cost_type);
-            });
-        }
-        if(count($request->all()) < 2){
-            $transaksi = $transaksi->limit(20);
-        }
-        $transaksi = $transaksi->orderBy('created_at','desc')->get();
-        if($request->print){
-            $view = "transaksi.print";
-            $data = [];
-            $data['transaksi'] = $transaksi;
-            //return view('transaksi.print',$data);
-            $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
-                $excel->sheet('laporan', function($sheet) use($view,$data) {
-                    $sheet->loadView($view,$data);
-                });
-            });
-            return $excel->export('xls');
-        }
-        return view('transaksi.index',['transaksi' => $transaksi]);
     }
 
     public function indexSingle(Request $request){
@@ -73,6 +31,10 @@ class TransaksiController extends Controller
         $tipe = substr($request->path(),10);
         $transaksi = Transaksi::where('type',$tipe)->orderBy('no_voucher','desc')->get();
         if($request->print){
+            $user = \Auth::user();
+            if($user->role == "operator"){
+                return redirect('403');
+            }
             $view = "transaksi.print";
             $data = [];
             $data['transaksi'] = $transaksi;
