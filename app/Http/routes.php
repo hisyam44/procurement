@@ -18,6 +18,8 @@ Route::group(['middleware' => ['auth']],function(){
 	    return view('welcome');
 	});
 
+	Route::get('user/password','UserController@changePassword');
+	Route::post('user/password','UserController@newPassword');
 	
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
 	Route::get('item/completion','PurchaseController@itemCompletion');
@@ -67,7 +69,7 @@ Route::group(['middleware' => ['auth']],function(){
 
 	Route::group(['middleware' => ['allow.finance']], function (){
 		Route::resource('transaksi/acc','AccountingController');
-		
+
 		Route::get('transaksi/pettycash','TransaksiController@pettyCash');
 		Route::get('transaksi/cash','TransaksiController@indexSingle');
 		Route::get('transaksi/cash/create','TransaksiController@createCash');

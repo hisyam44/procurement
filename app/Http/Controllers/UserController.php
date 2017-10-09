@@ -105,4 +105,27 @@ class UserController extends Controller
         }
         return redirect('/user');
     }
+
+    public function changePassword(){
+        return view('user.password');
+    }
+
+    public function newPassword(Request $request){
+        $user = \Auth::user();
+        $password_same = \Hash::check($request->password,$user->password);
+        if(!$password_same){
+            return redirect('user/password');
+        }
+        if($request->new_password != $request->confirm_password){
+            return redirect('user/password');
+        }
+        $user->password = bcrypt($request->new_password);
+        $success = $user->save();
+        if($success){
+            \Session::flash('message','Password Has Been Changed'); 
+        }
+        return redirect('/user/password');
+        return response()->json($request->all());
+    }
+
 }
