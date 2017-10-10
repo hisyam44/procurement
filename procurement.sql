@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 07, 2017 at 07:52 
+-- Generation Time: Oct 10, 2017 at 05:41 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -292,7 +292,10 @@ CREATE TABLE IF NOT EXISTS `costs` (
 
 CREATE TABLE IF NOT EXISTS `issues` (
 `id` int(10) unsigned NOT NULL,
-  `unit_id` int(11) NOT NULL,
+  `unit_id` int(10) unsigned NOT NULL,
+  `operator_id` int(10) unsigned NOT NULL,
+  `hod_id` int(10) unsigned NOT NULL,
+  `admin_id` int(10) unsigned NOT NULL,
   `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lokasi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -308,8 +311,8 @@ CREATE TABLE IF NOT EXISTS `issues` (
 -- Dumping data for table `issues`
 --
 
-INSERT INTO `issues` (`id`, `unit_id`, `no`, `lokasi`, `sn`, `hm`, `diketahui`, `diterima`, `diserahkan`, `created_at`, `updated_at`) VALUES
-(1, 94, '20170001', 'Wangandowo', '12', '21', 'Sumardi', 'Mawardi', 'Slamet', '2017-10-01 17:00:00', '2017-10-02 06:10:05');
+INSERT INTO `issues` (`id`, `unit_id`, `operator_id`, `hod_id`, `admin_id`, `no`, `lokasi`, `sn`, `hm`, `diketahui`, `diterima`, `diserahkan`, `created_at`, `updated_at`) VALUES
+(1, 94, 3, 0, 0, '20170001', 'Wangandowo', '12', '21', 'Sumardi', 'Mawardi', 'Slamet', '2017-10-01 17:00:00', '2017-10-02 06:10:05');
 
 -- --------------------------------------------------------
 
@@ -396,6 +399,9 @@ CREATE TABLE IF NOT EXISTS `materials` (
 `id` int(10) unsigned NOT NULL,
   `unit_id` int(10) unsigned NOT NULL,
   `order_id` int(10) unsigned NOT NULL,
+  `operator_id` int(10) unsigned NOT NULL,
+  `hod_id` int(10) unsigned NOT NULL,
+  `admin_id` int(10) unsigned NOT NULL,
   `deliveryman` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lokasi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `diketahui` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -408,9 +414,9 @@ CREATE TABLE IF NOT EXISTS `materials` (
 -- Dumping data for table `materials`
 --
 
-INSERT INTO `materials` (`id`, `unit_id`, `order_id`, `deliveryman`, `lokasi`, `diketahui`, `diterima`, `created_at`, `updated_at`) VALUES
-(1, 94, 1, '0', 'Logistik', 'Sumardi', 'Mawardi', '2017-10-01 17:00:00', '2017-10-02 06:07:04'),
-(2, 94, 1, '0', 'Logistik', 'Sumardi', 'Mawardi', '2017-10-01 17:00:00', '2017-10-02 06:07:31');
+INSERT INTO `materials` (`id`, `unit_id`, `order_id`, `operator_id`, `hod_id`, `admin_id`, `deliveryman`, `lokasi`, `diketahui`, `diterima`, `created_at`, `updated_at`) VALUES
+(1, 94, 1, 3, 0, 0, '0', 'Logistik', 'Sumardi', 'Mawardi', '2017-10-01 17:00:00', '2017-10-02 06:07:04'),
+(2, 94, 1, 3, 0, 0, '0', 'Logistik', 'Sumardi', 'Mawardi', '2017-10-01 17:00:00', '2017-10-02 06:07:31');
 
 -- --------------------------------------------------------
 
@@ -491,6 +497,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 `id` int(10) unsigned NOT NULL,
   `supplier_id` int(10) unsigned NOT NULL,
   `purchase_id` int(10) unsigned NOT NULL,
+  `operator_id` int(10) unsigned NOT NULL,
+  `hod_id` int(10) unsigned NOT NULL,
+  `admin_id` int(10) unsigned NOT NULL,
   `type` enum('ho','local') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ho',
   `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -517,8 +526,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `supplier_id`, `purchase_id`, `type`, `no`, `address`, `reference_no`, `dispatch_to`, `dispatch_address`, `dispatch_name`, `payment_term`, `incoterms`, `ship_by`, `delivery_date`, `sub_total`, `tax`, `diskon`, `total`, `warranty`, `author`, `diketahui`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'ho', 'HO 1-001', '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com', '00001', 'PT Sumber Mitra Jaya', 'Gudang Base Camp Jl Raya Bojong Kajen Wangandowo, Jawa Tengah 51156', 'Mawardi', 'Wangandowo', 'DDP', 'air', '2017-10-02', '295000', '29500', '0', '265500', ' 2 Years from date of install', 'Slamet', 'Sumardi', '2017-10-01 17:00:00', '2017-10-02 06:02:10');
+INSERT INTO `orders` (`id`, `supplier_id`, `purchase_id`, `operator_id`, `hod_id`, `admin_id`, `type`, `no`, `address`, `reference_no`, `dispatch_to`, `dispatch_address`, `dispatch_name`, `payment_term`, `incoterms`, `ship_by`, `delivery_date`, `sub_total`, `tax`, `diskon`, `total`, `warranty`, `author`, `diketahui`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 3, 0, 0, 'ho', 'HO 1-001', '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com', '00001', 'PT Sumber Mitra Jaya', 'Gudang Base Camp Jl Raya Bojong Kajen Wangandowo, Jawa Tengah 51156', 'Mawardi', 'Wangandowo', 'DDP', 'air', '2017-10-02', '295000', '29500', '0', '265500', ' 2 Years from date of install', 'Slamet', 'Sumardi', '2017-10-01 17:00:00', '2017-10-02 06:02:10');
 
 -- --------------------------------------------------------
 
@@ -566,6 +575,9 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 CREATE TABLE IF NOT EXISTS `purchases` (
 `id` int(10) unsigned NOT NULL,
   `unit_id` int(10) unsigned NOT NULL,
+  `operator_id` int(10) unsigned NOT NULL,
+  `hod_id` int(10) unsigned NOT NULL,
+  `admin_id` int(10) unsigned NOT NULL,
   `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `department` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -583,8 +595,8 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 -- Dumping data for table `purchases`
 --
 
-INSERT INTO `purchases` (`id`, `unit_id`, `no`, `type`, `department`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, 94, '00001', 'BD', 'Engineering', '12/10-2017', '21', 'Siti', 'Slamet', 'Veera', 'fix', '2017-10-01 17:00:00', '2017-10-02 06:00:55');
+INSERT INTO `purchases` (`id`, `unit_id`, `operator_id`, `hod_id`, `admin_id`, `no`, `type`, `department`, `mol`, `km_hm`, `warehouse_manager`, `maintenance_manager`, `project_manager`, `purpose`, `created_at`, `updated_at`) VALUES
+(1, 94, 3, 0, 0, '00001', 'BD', 'Engineering', '12/10-2017', '21', 'Siti', 'Slamet', 'Veera', 'fix', '2017-10-01 17:00:00', '2017-10-02 06:00:55');
 
 -- --------------------------------------------------------
 
@@ -621,7 +633,10 @@ INSERT INTO `requests` (`id`, `purchase_id`, `part_no_id`, `component`, `descrip
 
 CREATE TABLE IF NOT EXISTS `returns` (
 `id` int(10) unsigned NOT NULL,
-  `unit_id` int(11) NOT NULL,
+  `unit_id` int(10) unsigned NOT NULL,
+  `operator_id` int(10) unsigned NOT NULL,
+  `hod_id` int(10) unsigned NOT NULL,
+  `admin_id` int(10) unsigned NOT NULL,
   `no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lokasi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -637,8 +652,8 @@ CREATE TABLE IF NOT EXISTS `returns` (
 -- Dumping data for table `returns`
 --
 
-INSERT INTO `returns` (`id`, `unit_id`, `no`, `lokasi`, `sn`, `hm`, `diketahui`, `diterima`, `dikembalikan`, `created_at`, `updated_at`) VALUES
-(1, 94, '20170001', 'wangandowo', '12', '21', 'Sumardi', 'Mawardi', 'Slamet', '2017-10-01 17:00:00', '2017-10-02 06:12:56');
+INSERT INTO `returns` (`id`, `unit_id`, `operator_id`, `hod_id`, `admin_id`, `no`, `lokasi`, `sn`, `hm`, `diketahui`, `diterima`, `dikembalikan`, `created_at`, `updated_at`) VALUES
+(1, 94, 3, 0, 0, '20170001', 'wangandowo', '12', '21', 'Sumardi', 'Mawardi', 'Slamet', '2017-10-01 17:00:00', '2017-10-02 06:12:56');
 
 -- --------------------------------------------------------
 
@@ -936,15 +951,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin 1', 'admin1@admin.com', '$2y$10$WORhTaFsVS7iFjQwkjtUjeaZKMG3UTLiuxDd19CEGj.OOr5wu8XFC', 'admin', 'None', NULL, '2017-10-06 22:49:59', '2017-10-06 22:49:59'),
-(2, 'hisyam', 'hisyam@hisyam.com', '$2y$10$iBW2LjIIeOHmngz6tSG4XersuINiAca8sCiR2Ry7aVaP8NlSX1lp.', 'dev', 'None', NULL, '2017-10-06 22:49:59', '2017-10-06 22:49:59');
+(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$60Wc8p/cr83zVG0HqiQelOC56fnkXV4jbM90lFH9bSIW3ruRp2giS', 'dev', 'None', NULL, '2017-10-09 20:41:18', '2017-10-09 20:41:18'),
+(2, 'Admin', 'admin1@admin.com', '$2y$10$SGkSPZpZV4Z5f2ubW0FYb.zxqAKeru/laZhfwKL/cRzK23RaFX.Ka', 'admin', 'None', NULL, '2017-10-09 20:41:18', '2017-10-09 20:41:18'),
+(3, 'Bejo', 'op@op.com', '$2y$10$4B02y6.skQpH2ypdloMPsOgMfdFgegkLfSEE.h.FkBDYEqcB.BlE.', 'operator', 'Logistic', NULL, '2017-10-09 20:41:18', '2017-10-09 20:41:18'),
+(4, 'Andra', 'hod@hod.com', '$2y$10$AV5kqWU2xRIfLl60H4W5q.s/k8eyOzF/kZgoo./8ZbcaX9uviuiGC', 'hod', 'Logistic', NULL, '2017-10-09 20:41:19', '2017-10-09 20:41:19');
 
 --
 -- Indexes for dumped tables
@@ -1212,7 +1229,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=165;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --

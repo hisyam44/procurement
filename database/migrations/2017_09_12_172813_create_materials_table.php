@@ -16,6 +16,9 @@ class CreateMaterialsTable extends Migration
             $table->increments('id');
             $table->integer('unit_id')->unsigned();
             $table->integer('order_id')->unsigned();
+            $table->integer('operator_id')->unsigned();
+            $table->integer('hod_id')->unsigned();
+            $table->integer('admin_id')->unsigned();
             $table->string('deliveryman');
             $table->string('lokasi');
             $table->string('diketahui');

@@ -50,6 +50,8 @@ class MaterialController extends Controller
         $material = new Material();
         $material->unit_id = $request->unit_id;
         $material->order_id = $request->order_id;
+        $user = \Auth::user();
+        $material->operator_id = $user->id;
         $material->deliveryman = $request->deliveryman;
         $material->lokasi = $request->lokasi;
         $material->diketahui = $request->diketahui;
@@ -148,4 +150,28 @@ class MaterialController extends Controller
         }
         return redirect('/material');
     }
+
+    public function approve($id){
+        $purchase = Material::findOrFail($id);
+        $user = \Auth::user();
+        if($user->role == "admin"){
+            if($purchase->admin_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/material');
+            }
+            $purchase->admin_id = $user->id;
+        }else{
+            if($purchase->hod_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/material');
+            }
+            $purchase->hod_id = $user->id;
+        }
+        $success = $purchase->save();
+        if($success){
+            \Session::flash('message','Data Has Been Approved'); 
+        }
+        return redirect('/material');
+    }
+
 }

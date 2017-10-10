@@ -73,7 +73,7 @@
                                 <td>Incoterms</td>
                                 <td>Delivery Date</td>
                                 <td>Total</td>
-                                <td colspan="4">Actions</td>
+                                <td colspan="5">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,6 +88,9 @@
                                 <td>{{ $order->incoterms }}</td>
                                 <td>{{ $order->delivery_date }}</td>
                                 <td>Rp.{{ number_format($order->total) }}</td>
+                                <td>
+                                    <a class="btn btn-default" href="" data-toggle="modal" data-target="#myModal{{ $index }}"><span class="glyphicon glyphicon-file"></span></a>
+                                </td>
                                 <td>
                                     <a class="btn btn-info" href="{{ url('order/'.$order->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
@@ -104,6 +107,34 @@
                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
+                                <div class="modal fade" id="myModal{{ $index }}" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Approval</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <dl class="dl-horizontal">
+                                                  <dt>Prepared By</dt>
+                                                  <dd>{{ $order->operator->name.', '.$order->operator->department.' Department' }}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                  <dt>Acknowledged By</dt>
+                                                  <dd>{{ $order->hod?$order->hod->name.", Head of Department ".$order->hod->department:"Doesn't Approved yet" }}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                  <dt>Approved By</dt>
+                                                  <dd>{{ $order->admin?$order->admin->name:"Doesn't Approved yet" }}</dd>
+                                                </dl>
+                                                <a class="btn btn-success btn-block" href="{{ url('order/'.$order->id.'/approve') }}">Approve as {{ \Auth::user()->name }}</a>
+                                            </div>
+                                            <!-- <div class="modal-footer">
+                                                <button class="btn" data-dismiss="modal">Dissmiss</button>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             @endforeach
                         </tbody>

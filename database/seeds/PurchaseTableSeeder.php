@@ -15,6 +15,7 @@ class PurchaseTableSeeder extends Seeder
     {
         $purchase = new Purchase();
         $purchase->unit_id  = 1;
+        $purchase->operator_id  = 3;
         $purchase->type  = "BD";
         $purchase->department = "Plant";
 

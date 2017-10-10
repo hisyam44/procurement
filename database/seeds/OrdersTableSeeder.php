@@ -19,6 +19,7 @@ class OrdersTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'unit_id' => 94,
+                'operator_id' => 3,
                 'no' => '00001',
                 'type' => 'BD',
                 'department' => 'Engineering',
@@ -72,6 +73,7 @@ class OrdersTableSeeder extends Seeder
                 'id' => 1,
                 'supplier_id' => 1,
                 'purchase_id' => 1,
+                'operator_id' => 3,
                 'type' => 'ho',
                 'no' => 'HO 1-001',
                 'address' => '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com',
@@ -103,6 +105,7 @@ class OrdersTableSeeder extends Seeder
                 'id' => 1,
                 'unit_id' => 94,
                 'order_id' => 1,
+                'operator_id' => 3,
                 'deliveryman' => '0',
                 'lokasi' => 'Logistik',
                 'diketahui' => 'Sumardi',
@@ -115,6 +118,7 @@ class OrdersTableSeeder extends Seeder
                 'id' => 2,
                 'unit_id' => 94,
                 'order_id' => 1,
+                'operator_id' => 3,
                 'deliveryman' => '0',
                 'lokasi' => 'Logistik',
                 'diketahui' => 'Sumardi',
@@ -184,6 +188,7 @@ class OrdersTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'unit_id' => 94,
+                'operator_id' => 3,
                 'no' => '20170001',
                 'lokasi' => 'Wangandowo',
                 'sn' => '12',
@@ -230,6 +235,7 @@ class OrdersTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'unit_id' => 94,
+                'operator_id' => 3,
                 'no' => '20170001',
                 'lokasi' => 'wangandowo',
                 'sn' => '12',

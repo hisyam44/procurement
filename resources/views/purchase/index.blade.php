@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="panel-body"> 
-            <div class="col-md-9">&nbsp;</div>
+            <div class="col-md-9">{{ $purchases->render() }}</div>
             <div class="col-md-3">
                 <a class="btn btn-success btn-block" href="{{ url('purchase/create') }}">New Purchase Request</a>
             </div>
@@ -36,7 +36,7 @@
                                 <td>Project Manager</td>
                                 <td>Purpose</td>
                                 <td>Date</td>
-                                <td colspan="4">Actions</td>
+                                <td colspan="5">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,6 +53,9 @@
                                 <td>{{ $purchase->purpose }}</td>
                                 <td>{{ $purchase->created_at->format('d-m-Y') }}</td>
                                 <td>
+                                    <a class="btn btn-default" href="" data-toggle="modal" data-target="#myModal{{ $index }}"><span class="glyphicon glyphicon-file"></span></a>
+                                </td>
+                                <td>
                                     <a class="btn btn-info" href="{{ url('purchase/'.$purchase->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
                                 <td>
@@ -68,6 +71,34 @@
                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
+                                <div class="modal fade" id="myModal{{ $index }}" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Approval</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <dl class="dl-horizontal">
+                                                  <dt>Prepared By</dt>
+                                                  <dd>{{ $purchase->operator->name.', '.$purchase->operator->department.' Department' }}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                  <dt>Acknowledged By</dt>
+                                                  <dd>{{ $purchase->hod?$purchase->hod->name.", Head of Department ".$purchase->hod->department:"Doesn't Approved yet" }}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                  <dt>Approved By</dt>
+                                                  <dd>{{ $purchase->admin?$purchase->admin->name:"Doesn't Approved yet" }}</dd>
+                                                </dl>
+                                                <a class="btn btn-success btn-block" href="{{ url('purchase/'.$purchase->id.'/approve') }}">Approve as {{ \Auth::user()->name }}</a>
+                                            </div>
+                                            <!-- <div class="modal-footer">
+                                                <button class="btn" data-dismiss="modal">Dissmiss</button>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             @endforeach
                         </tbody>
@@ -76,5 +107,6 @@
             </div>
         </div>
     </div>
+    
 </div>
 @endsection

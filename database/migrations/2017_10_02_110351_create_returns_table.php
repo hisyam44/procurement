@@ -14,7 +14,10 @@ class CreateReturnsTable extends Migration
     {
         Schema::create('returns', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('unit_id');
+            $table->integer('unit_id')->unsigned();
+            $table->integer('operator_id')->unsigned();
+            $table->integer('hod_id')->unsigned();
+            $table->integer('admin_id')->unsigned();
             $table->string('no');
             $table->string('lokasi');
             $table->string('sn');

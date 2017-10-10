@@ -14,7 +14,7 @@ use PDF;
 class PurchaseController extends Controller
 {
     function __construct(){
-        $this->middleware('redirect.operator',['only' => ['show','edit','upadate','destroy']]);
+        $this->middleware('redirect.operator',['only' => ['show','edit','upadate','destroy','approve']]);
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +23,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::all();
+        $purchases = Purchase::orderBy('id','desc')->paginate(15);
         return view('purchase.index',['purchases' => $purchases]);
     }
 
@@ -55,6 +55,8 @@ class PurchaseController extends Controller
         $no_voucher = sprintf('%05d',$no_voucher);
 
         $purchase = new Purchase();
+        $user = \Auth::user();
+        $purchase->operator_id = $user->id;
         $purchase->unit_id = $request->unit_id;
         $purchase->no = $no_voucher;
         $purchase->type = $request->type;
@@ -182,6 +184,29 @@ class PurchaseController extends Controller
         $success = $purchase->delete();
          if($success){
             \Session::flash('message','Data Has Been Erased'); 
+        }
+        return redirect('/purchase');
+    }
+
+    public function approve($id){
+        $purchase = Purchase::findOrFail($id);
+        $user = \Auth::user();
+        if($user->role == "admin"){
+            if($purchase->admin_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/purchase');
+            }
+            $purchase->admin_id = $user->id;
+        }else{
+            if($purchase->hod_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/purchase');
+            }
+            $purchase->hod_id = $user->id;
+        }
+        $success = $purchase->save();
+        if($success){
+            \Session::flash('message','Data Has Been Approved'); 
         }
         return redirect('/purchase');
     }

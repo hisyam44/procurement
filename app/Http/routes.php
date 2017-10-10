@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('supplier/completion','SupplierController@supplierCompletion');
 	Route::get('unit/completion','PurchaseController@unitCompletion');
 	Route::post('importExcel','ItemController@importExcel');
+	Route::get('purchase/{id}/approve','PurchaseController@approve');
 	Route::resource('purchase','PurchaseController');
 
 	Route::get('/403', function () {
@@ -54,16 +55,20 @@ Route::group(['middleware' => ['auth']],function(){
 	
 	Route::group(['middleware' => ['allow.logistic']], function (){
 		//order
+		Route::get('order/{id}/approve','OrderController@approve');
 		Route::resource('order','OrderController');
 		
+		Route::get('material/{id}/approve','MaterialController@approve');
 		Route::resource('material','MaterialController');
 
 		//supplier
 		Route::resource('supplier','SupplierController');
 
 		
+		Route::get('issue/{id}/approve','IssueController@approve');
 		Route::resource('issue','IssueController');
 		
+		Route::get('return/{id}/approve','ReturnController@approve');
 		Route::resource('return','ReturnController');
 	});
 

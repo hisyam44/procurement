@@ -16,6 +16,9 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('supplier_id')->unsigned();
             $table->integer('purchase_id')->unsigned();
+            $table->integer('operator_id')->unsigned();
+            $table->integer('hod_id')->unsigned();
+            $table->integer('admin_id')->unsigned();
             $table->enum('type',['ho','local'])->default('ho');
             $table->string('no');
             $table->string('address');

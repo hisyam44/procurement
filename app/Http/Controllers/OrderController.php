@@ -72,6 +72,8 @@ class OrderController extends Controller
         $order = new Order();
         $order->supplier_id = $request->supplier_id;
         $order->purchase_id = $request->purchase_id;
+        $user = \Auth::user();
+        $order->operator_id = $user->id;
         $order->type = $request->type;
         $order->no = $request->type.$request->no;
         $order->address = '51, Jl Raya Pekajangan Kec Kedungwuni, Kab Pekalongan Jawa Tengah , 51173 logistic.pbtr@sumbermitrajaya.com';
@@ -195,4 +197,28 @@ class OrderController extends Controller
         }
         return redirect('/order');
     }
+
+    public function approve($id){
+        $purchase = Order::findOrFail($id);
+        $user = \Auth::user();
+        if($user->role == "admin"){
+            if($purchase->admin_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/order');
+            }
+            $purchase->admin_id = $user->id;
+        }else{
+            if($purchase->hod_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/order');
+            }
+            $purchase->hod_id = $user->id;
+        }
+        $success = $purchase->save();
+        if($success){
+            \Session::flash('message','Data Has Been Approved'); 
+        }
+        return redirect('/order');
+    }
+
 }

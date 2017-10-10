@@ -53,6 +53,8 @@ class ReturnController extends Controller
         $issue = new Returns();
         $issue->no = $request->no;
         $issue->unit_id = $request->unit_id;
+        $user = \Auth::user();
+        $issue->operator_id = $user->id;
         $issue->sn = $request->sn;
         $issue->hm = $request->hm;
         $issue->lokasi = $request->lokasi;
@@ -152,4 +154,28 @@ class ReturnController extends Controller
         }
         return redirect('/return');
     }
+
+    public function approve($id){
+        $purchase = Returns::findOrFail($id);
+        $user = \Auth::user();
+        if($user->role == "admin"){
+            if($purchase->admin_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/return');
+            }
+            $purchase->admin_id = $user->id;
+        }else{
+            if($purchase->hod_id != 0){
+                \Session::flash('message','Data Has Been Already Approved');
+                return redirect('/return');
+            }
+            $purchase->hod_id = $user->id;
+        }
+        $success = $purchase->save();
+        if($success){
+            \Session::flash('message','Data Has Been Approved'); 
+        }
+        return redirect('/return');
+    }
+
 }

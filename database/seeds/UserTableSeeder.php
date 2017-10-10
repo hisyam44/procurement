@@ -22,11 +22,27 @@ class UserTableSeeder extends Seeder
         $user1->save();
         
         $user1 = new User();
-        $user1->name = "admin 1";
+        $user1->name = "Admin";
         $user1->email = "admin1@admin.com";
         $user1->password = bcrypt("qweasd");
         $user1->role = "admin";
         $user1->department = "None";
+        $user1->save();
+
+        $user1 = new User();
+        $user1->name = "Bejo";
+        $user1->email = "op@op.com";
+        $user1->password = bcrypt("qweasd");
+        $user1->role = "operator";
+        $user1->department = "Logistic";
+        $user1->save();
+
+        $user1 = new User();
+        $user1->name = "Andra";
+        $user1->email = "hod@hod.com";
+        $user1->password = bcrypt("qweasd");
+        $user1->role = "hod";
+        $user1->department = "Logistic";
         $user1->save();
 
     }

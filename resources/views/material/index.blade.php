@@ -35,7 +35,7 @@
                                 <td>Date Receipt</td>
                                 <td>Acknowledged By</td>
                                 <td>Accepted By</td>
-                                <td colspan="4">Actions</td>
+                                <td colspan="5">Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +50,9 @@
                                 <td>{{ $material->created_at->format('d-m-Y') }}</td>
                                 <td>{{ $material->diketahui }}</td>
                                 <td>{{ $material->diterima }}</td>
+                                <td>
+                                    <a class="btn btn-default" href="" data-toggle="modal" data-target="#myModal{{ $index }}"><span class="glyphicon glyphicon-file"></span></a>
+                                </td>
                                 <td>
                                     <a class="btn btn-info" href="{{ url('material/'.$material->id) }}"><span class="glyphicon glyphicon-search"></span></a>
                                 </td>
@@ -66,6 +69,34 @@
                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                                     </form>
                                 </td>
+                                <div class="modal fade" id="myModal{{ $index }}" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Approval</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <dl class="dl-horizontal">
+                                                  <dt>Prepared By</dt>
+                                                  <dd>{{ $material->operator->name.', '.$material->operator->department.' Department' }}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                  <dt>Acknowledged By</dt>
+                                                  <dd>{{ $material->hod?$material->hod->name.", Head of Department ".$material->hod->department:"Doesn't Approved yet" }}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                  <dt>Approved By</dt>
+                                                  <dd>{{ $material->admin?$material->admin->name:"Doesn't Approved yet" }}</dd>
+                                                </dl>
+                                                <a class="btn btn-success btn-block" href="{{ url('material/'.$material->id.'/approve') }}">Approve as {{ \Auth::user()->name }}</a>
+                                            </div>
+                                            <!-- <div class="modal-footer">
+                                                <button class="btn" data-dismiss="modal">Dissmiss</button>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             @endforeach
                         </tbody>
