@@ -112,19 +112,19 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Approval</h4>
+                                                <h4 class="modal-title">Approval Progress</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <dl class="dl-horizontal">
-                                                  <dt>Prepared By</dt>
+                                                  <dt>Prepared By (Operator)</dt>
                                                   <dd>{{ $order->operator->name.', '.$order->operator->department.' Department' }}</dd>
                                                 </dl>
                                                 <dl class="dl-horizontal">
-                                                  <dt>Acknowledged By</dt>
+                                                  <dt>Acknowledged By (HoD)</dt>
                                                   <dd>{{ $order->hod?$order->hod->name.", Head of Department ".$order->hod->department:"Doesn't Approved yet" }}</dd>
                                                 </dl>
                                                 <dl class="dl-horizontal">
-                                                  <dt>Approved By</dt>
+                                                  <dt>Approved By (Admin)</dt>
                                                   <dd>{{ $order->admin?$order->admin->name:"Doesn't Approved yet" }}</dd>
                                                 </dl>
                                                 <a class="btn btn-success btn-block" href="{{ url('order/'.$order->id.'/approve') }}">Approve as {{ \Auth::user()->name }}</a>

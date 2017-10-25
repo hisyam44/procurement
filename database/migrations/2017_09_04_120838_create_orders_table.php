@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->integer('supplier_id')->unsigned();
             $table->integer('purchase_id')->unsigned();
             $table->integer('operator_id')->unsigned();
+            $table->foreign('operator_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('hod_id')->unsigned();
             $table->integer('admin_id')->unsigned();
             $table->enum('type',['ho','local'])->default('ho');

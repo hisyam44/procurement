@@ -12,6 +12,7 @@ class IssueController extends Controller
 {
     function __construct(){
         $this->middleware('redirect.operator',['except' => ['index','create','store']]);
+        $this->middleware('redirect.supervisior',['only' => ['approve']]);
     }
     public function index(){
     	$issues = Issue::orderBy('created_at','desc')->orderBy('no','asc')->paginate(10);

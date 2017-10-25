@@ -12,6 +12,7 @@ class MaterialController extends Controller
 {
     function __construct(){
         $this->middleware('redirect.operator',['except' => ['index','create','store']]);
+        $this->middleware('redirect.supervisior',['only' => ['approve']]);
     }
     /**
      * Display a listing of the resource.

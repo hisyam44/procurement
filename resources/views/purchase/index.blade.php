@@ -76,19 +76,19 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Approval</h4>
+                                                <h4 class="modal-title">Approval Progress</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <dl class="dl-horizontal">
-                                                  <dt>Prepared By</dt>
+                                                  <dt>Prepared By (Operator)</dt>
                                                   <dd>{{ $purchase->operator->name.', '.$purchase->operator->department.' Department' }}</dd>
                                                 </dl>
                                                 <dl class="dl-horizontal">
-                                                  <dt>Acknowledged By</dt>
+                                                  <dt>Acknowledged By (HoD)</dt>
                                                   <dd>{{ $purchase->hod?$purchase->hod->name.", Head of Department ".$purchase->hod->department:"Doesn't Approved yet" }}</dd>
                                                 </dl>
                                                 <dl class="dl-horizontal">
-                                                  <dt>Approved By</dt>
+                                                  <dt>Approved By (Admin)</dt>
                                                   <dd>{{ $purchase->admin?$purchase->admin->name:"Doesn't Approved yet" }}</dd>
                                                 </dl>
                                                 <a class="btn btn-success btn-block" href="{{ url('purchase/'.$purchase->id.'/approve') }}">Approve as {{ \Auth::user()->name }}</a>

@@ -58,6 +58,10 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                 @if(Route::getCurrentRoute()->getPath() === "/")
                     Laravel
+                @elseif(strpos(Request::url(),"login"))
+                    Laravel
+                @elseif(strpos(Request::url(),"user"))
+                    Laravel
                 @else
                     @if(strpos(Request::url(),"transaksi"))
                         FINANCE
@@ -73,6 +77,8 @@
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
                         @if(Route::getCurrentRoute()->getPath() === "/")
+                        @elseif(strpos(Request::url(),"user"))
+                            <li><a href="{{ url('/user') }}">User</a></li>
                         @else
                         @if(strpos(Request::url(),"transaksi"))
                             <!-- <li><a href="{{ url('/transaksi') }}">Transaksi</a></li> -->
@@ -101,8 +107,6 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

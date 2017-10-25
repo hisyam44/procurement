@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 10, 2017 at 05:41 
+-- Generation Time: Oct 25, 2017 at 05:38 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -951,17 +951,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$60Wc8p/cr83zVG0HqiQelOC56fnkXV4jbM90lFH9bSIW3ruRp2giS', 'dev', 'None', NULL, '2017-10-09 20:41:18', '2017-10-09 20:41:18'),
-(2, 'Admin', 'admin1@admin.com', '$2y$10$SGkSPZpZV4Z5f2ubW0FYb.zxqAKeru/laZhfwKL/cRzK23RaFX.Ka', 'admin', 'None', NULL, '2017-10-09 20:41:18', '2017-10-09 20:41:18'),
-(3, 'Bejo', 'op@op.com', '$2y$10$4B02y6.skQpH2ypdloMPsOgMfdFgegkLfSEE.h.FkBDYEqcB.BlE.', 'operator', 'Logistic', NULL, '2017-10-09 20:41:18', '2017-10-09 20:41:18'),
-(4, 'Andra', 'hod@hod.com', '$2y$10$AV5kqWU2xRIfLl60H4W5q.s/k8eyOzF/kZgoo./8ZbcaX9uviuiGC', 'hod', 'Logistic', NULL, '2017-10-09 20:41:19', '2017-10-09 20:41:19');
+(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$RSq3H5k5KDtXzZLUv.IWUurJFKRA7pd3JcBxOCIzVneeRCVLTlWci', 'dev', 'None', NULL, '2017-10-24 20:37:21', '2017-10-24 20:37:21'),
+(2, 'Admin', 'admin1@admin.com', '$2y$10$nK7nKKizJQ3nXBZ5VxqsgOpqzO2vhS0nmxAGZB4W7nTefqB2I2Cke', 'admin', 'None', NULL, '2017-10-24 20:37:21', '2017-10-24 20:37:21'),
+(3, 'Operator 1', 'op@op.com', '$2y$10$2UV6f3QsJN4jYhGQypVZHOKbx0biGLf3.QAxKC4ptNUmEb.hZLoAC', 'operator', 'Logistic', NULL, '2017-10-24 20:37:21', '2017-10-24 20:37:21');
 
 --
 -- Indexes for dumped tables
@@ -1013,7 +1012,7 @@ ALTER TABLE `costs`
 -- Indexes for table `issues`
 --
 ALTER TABLE `issues`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `issues_operator_id_foreign` (`operator_id`);
 
 --
 -- Indexes for table `issue_item`
@@ -1037,7 +1036,7 @@ ALTER TABLE `item_part_no`
 -- Indexes for table `materials`
 --
 ALTER TABLE `materials`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `materials_operator_id_foreign` (`operator_id`);
 
 --
 -- Indexes for table `material_item`
@@ -1049,7 +1048,7 @@ ALTER TABLE `material_item`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `orders_operator_id_foreign` (`operator_id`);
 
 --
 -- Indexes for table `order_item`
@@ -1067,7 +1066,7 @@ ALTER TABLE `password_resets`
 -- Indexes for table `purchases`
 --
 ALTER TABLE `purchases`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `purchases_operator_id_foreign` (`operator_id`);
 
 --
 -- Indexes for table `requests`
@@ -1079,7 +1078,7 @@ ALTER TABLE `requests`
 -- Indexes for table `returns`
 --
 ALTER TABLE `returns`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `returns_operator_id_foreign` (`operator_id`);
 
 --
 -- Indexes for table `return_item`
@@ -1229,7 +1228,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=165;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -1247,6 +1246,12 @@ ALTER TABLE `costs`
 ADD CONSTRAINT `costs_transaksi_id_foreign` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `issues`
+--
+ALTER TABLE `issues`
+ADD CONSTRAINT `issues_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `issue_item`
 --
 ALTER TABLE `issue_item`
@@ -1259,10 +1264,22 @@ ALTER TABLE `item_part_no`
 ADD CONSTRAINT `item_part_no_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `materials`
+--
+ALTER TABLE `materials`
+ADD CONSTRAINT `materials_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `material_item`
 --
 ALTER TABLE `material_item`
 ADD CONSTRAINT `material_item_material_id_foreign` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+ADD CONSTRAINT `orders_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `order_item`
@@ -1271,10 +1288,22 @@ ALTER TABLE `order_item`
 ADD CONSTRAINT `order_item_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `purchases`
+--
+ALTER TABLE `purchases`
+ADD CONSTRAINT `purchases_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `requests`
 --
 ALTER TABLE `requests`
 ADD CONSTRAINT `requests_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `returns`
+--
+ALTER TABLE `returns`
+ADD CONSTRAINT `returns_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `return_item`
