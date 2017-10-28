@@ -43,7 +43,7 @@
                             <tr>
                                 <td>{{ $material->order->purchase->no }}</td>
                                 <td>{{ $material->order->no }}</td>
-                                <td>{{ $material->unit->code }}</td>
+                                <td>{{ isset($material->unit->code)?$material->unit->code:'-' }}</td>
                                 <td>{{ $material->lokasi }}</td>
                                 <td>{{ $material->order->supplier->name }}</td>
 

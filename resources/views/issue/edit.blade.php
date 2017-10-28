@@ -67,6 +67,28 @@
                                     <div class="col-md-6">
                                         <input id="lokasi" type="text" value="{{ $issue->lokasi }}" class="form-control" name="lokasi" required>
                                     </div>
+                                    <script type="text/javascript">
+                                        $("#lokasi").autocomplete({
+                                            source: function(request,response){
+                                                console.log(request.term);
+                                                $.ajax({
+                                                    url: "{{ url('/location/completion') }}",
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: request.term
+                                                    },
+                                                    success: function(data){
+                                                        console.log(data);
+                                                        response(data);
+                                                    }
+                                                });
+                                            },
+                                            minLength: 2,
+                                            select: function(event,ui){
+                                                
+                                            }
+                                        });
+                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Date</label>

@@ -43,7 +43,7 @@
                             @foreach($purchases as $index => $purchase)
                             <tr>
                                 <td>{{ $purchase->no }}</td>
-                                <td>{{ $purchase->unit->code }}</td>
+                                <td>{{ isset($purchase->unit->code)?$purchase->unit->code:'-' }}</td>
                                 <td>{{ $purchase->type }}</td>
                                 <td>{{ $purchase->mol }}</td>
                                 <td>{{ $purchase->km_hm }}</td>

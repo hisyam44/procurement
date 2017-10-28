@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 25, 2017 at 05:38 
+-- Generation Time: Oct 28, 2017 at 04:15 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -392,6 +392,57 @@ INSERT INTO `item_part_no` (`id`, `item_id`, `code`, `created_at`, `updated_at`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `locations`
+--
+
+CREATE TABLE IF NOT EXISTS `locations` (
+`id` int(10) unsigned NOT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `location_type` enum('galian','timbunan') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'galian',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `mulai` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `akhir` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `DT26` int(11) NOT NULL DEFAULT '0',
+  `DT71` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `code`, `location_type`, `name`, `mulai`, `akhir`, `DT26`, `DT71`, `created_at`, `updated_at`) VALUES
+(1, '', 'timbunan', 'Akses Road quary', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '', 'timbunan', 'Ambokembang', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '', 'timbunan', 'Arrayan', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '', 'timbunan', 'Bojong', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '', 'timbunan', 'Bulak Pelem', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '', 'timbunan', 'Karangsari', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '', 'timbunan', 'Purwodadi', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '', 'timbunan', 'Sijeruk', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '', 'timbunan', 'Cibiyuk', '', '', 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '', 'timbunan', 'Comal', '', '', 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '', 'timbunan', 'Kajen', '', '', 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '', 'timbunan', 'Bodeh', '', '', 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '', 'timbunan', 'Kali Winong', '', '', 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '', 'timbunan', 'Kelang Depok', '', '', 1, 1, '0000-00-00 00:00:00', '2017-05-31 19:46:55'),
+(15, '', 'timbunan', 'Klunjukan', '', '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '', 'galian', 'Wangandowo', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '', 'galian', 'Sampih 1', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '', 'galian', 'Sampih 2', '', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '', 'timbunan', 'Babalan', '', '', 1, 1, '2017-06-01 20:09:31', '2017-06-01 20:09:31'),
+(20, '', 'timbunan', 'Sitemu', '', '', 0, 1, '2017-05-30 03:16:32', '2017-05-30 03:16:32'),
+(21, '', 'timbunan', 'Jarakah', '', '', 0, 1, '2017-05-30 03:16:55', '2017-05-30 03:16:55'),
+(22, '', 'timbunan', 'Ampel Gading', '', '', 0, 1, '2017-05-30 22:15:12', '2017-05-30 22:15:12'),
+(23, '', 'timbunan', 'Jajar Wayang', '', '', 0, 1, '2017-05-31 23:33:25', '2017-05-31 23:33:25'),
+(24, '', 'timbunan', 'Rengas', '', '', 1, 0, '2017-06-05 00:57:51', '2017-06-05 00:57:51'),
+(25, '', 'timbunan', 'Pendowo', '', '', 0, 1, '2017-07-02 20:23:06', '2017-07-02 20:23:06'),
+(26, '', 'timbunan', 'Petanjungan', '', '', 1, 1, '2017-08-31 01:25:25', '2017-08-31 01:25:25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `materials`
 --
 
@@ -485,7 +536,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_09_21_201600_create_issues_table', 1),
 ('2017_09_21_202042_create_issue_item_table', 1),
 ('2017_10_02_110351_create_returns_table', 1),
-('2017_10_02_110520_create_return_item_table', 1);
+('2017_10_02_110520_create_return_item_table', 1),
+('2017_10_28_015136_create_locations_table', 1);
 
 -- --------------------------------------------------------
 
@@ -958,9 +1010,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$RSq3H5k5KDtXzZLUv.IWUurJFKRA7pd3JcBxOCIzVneeRCVLTlWci', 'dev', 'None', NULL, '2017-10-24 20:37:21', '2017-10-24 20:37:21'),
-(2, 'Admin', 'admin1@admin.com', '$2y$10$nK7nKKizJQ3nXBZ5VxqsgOpqzO2vhS0nmxAGZB4W7nTefqB2I2Cke', 'admin', 'None', NULL, '2017-10-24 20:37:21', '2017-10-24 20:37:21'),
-(3, 'Operator 1', 'op@op.com', '$2y$10$2UV6f3QsJN4jYhGQypVZHOKbx0biGLf3.QAxKC4ptNUmEb.hZLoAC', 'operator', 'Logistic', NULL, '2017-10-24 20:37:21', '2017-10-24 20:37:21');
+(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$1Lcp4nT4DQMXvIVPTIBQ3eI2tVDAldBFY.YSMU5iC6wLtkAjisRUa', 'dev', 'None', NULL, '2017-10-27 19:15:07', '2017-10-27 19:15:07'),
+(2, 'Admin', 'admin1@admin.com', '$2y$10$ZG1r9ovJDQR6cIApZWOTK.apIkvByyQmyHJ8wpnsqcCrL..KzGTr2', 'admin', 'None', NULL, '2017-10-27 19:15:08', '2017-10-27 19:15:08'),
+(3, 'Operator 1', 'op@op.com', '$2y$10$OyACmMbJqk.EbPDBu8c70.pDii.61ipdlPY9MSitVO.279yEA1Vka', 'operator', 'Logistic', NULL, '2017-10-27 19:15:08', '2017-10-27 19:15:08');
 
 --
 -- Indexes for dumped tables
@@ -1031,6 +1083,12 @@ ALTER TABLE `items`
 --
 ALTER TABLE `item_part_no`
  ADD PRIMARY KEY (`id`), ADD KEY `item_part_no_item_id_foreign` (`item_id`);
+
+--
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `materials`
@@ -1169,6 +1227,11 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `item_part_no`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `materials`
 --

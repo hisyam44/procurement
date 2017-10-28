@@ -268,4 +268,17 @@ class PurchaseController extends Controller
         return response()->json($results,200);
     }
 
+    public function locationCompletion(Request $request){
+        $locations = \App\Location::where('name','LIKE','%'.$request->term.'%')->get();
+        $results = [];
+        foreach($locations as $location){
+            $value = array(
+                'id' => $location->id,
+                'value' => $location->name,
+            );
+            $results[] = $value;
+        }
+        return response()->json($results,200);
+    }
+
 }

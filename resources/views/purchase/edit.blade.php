@@ -29,8 +29,41 @@
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Unit Code</label>
                                 <div class="col-md-6">
-                                    <input id="unit_code" type="text" class="form-control" name="unit_code" value="{{ $purchase->unit->code }}" required>
+                                    <div id="unitinput"> 
+                                    <input id="unit_code" type="text" class="form-control" name="unit_code" value="{{ isset($purchase->unit->code)?$purchase->unit->code:'-' }}">
                                     <input id="unit_id" type="text" name="unit_id" value="{{ $purchase->unit_id }}" hidden required>
+                                    </div>
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" id="unitcheck" onClick="showUnit()"> Set Unit Code
+                                    </label>
+                                    <script type="text/javascript">
+                                        var unit_id = $('#unit_id').val();
+                                        var unit_check = $('#unitcheck')
+                                        var show_unit = false;
+                                        var unitinput = $('#unitinput');
+                                        
+                                        if(unit_id == '0'){
+                                            show_unit = false;
+                                            unit_check.attr('checked');
+                                            unitShow();
+                                        }else{
+                                            show_unit = true;
+                                            unit_check.attr('checked','checked');
+                                            unitShow();
+                                        }
+                                        function showUnit(){
+                                            show_unit = !show_unit;
+                                            unitShow();
+                                        }
+                                        function unitShow(){
+                                            if(show_unit){
+                                                unitinput.show();
+                                            }else{
+                                                unitinput.hide();
+                                                $('#unit_id').val(0);
+                                            }
+                                        }
+                                    </script>
                                 </div>
                                     <script type="text/javascript">
                                         $("#unit_code").autocomplete({

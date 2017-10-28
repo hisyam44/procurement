@@ -44,7 +44,7 @@
                 <tr>
                     <td colspan="2" class="bold">Unit Code</td> 
                     <td>:</td> 
-                    <td colspan="2">{{ $purchase->unit->code }}</td>
+                    <td colspan="2">{{ isset($purchase->unit->code)?$purchase->unit->code:'-' }}</td>
                     <td colspan="5"></td> 
                 </tr>  
                 <tr>

@@ -26,8 +26,41 @@
                             <div class="form-group">
                                 <label for="part_no" class="col-md-4 control-label">Unit Code</label>
                                 <div class="col-md-6">
-                                    <input id="unit_code" type="text" class="form-control" name="unit_code" required>
-                                    <input id="unit_id" type="text" name="unit_id" hidden required>
+                                    <div id="unitinput"> 
+                                        <input id="unit_code" type="text" class="form-control" name="unit_code">
+                                        <input id="unit_id" type="text" name="unit_id" value="0" hidden required>
+                                    </div>
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" id="unitcheck" onClick="showUnit()"> Set Unit Code
+                                    </label>
+                                    <script type="text/javascript">
+                                        var unit_id = $('#unit_id').val();
+                                        var unit_check = $('#unitcheck')
+                                        var show_unit = false;
+                                        var unitinput = $('#unitinput');
+                                        
+                                        if(unit_id == '0'){
+                                            show_unit = false;
+                                            unit_check.attr('checked');
+                                            unitShow();
+                                        }else{
+                                            show_unit = true;
+                                            unit_check.attr('checked','checked');
+                                            unitShow();
+                                        }
+                                        function showUnit(){
+                                            show_unit = !show_unit;
+                                            unitShow();
+                                        }
+                                        function unitShow(){
+                                            if(show_unit){
+                                                unitinput.show();
+                                            }else{
+                                                unitinput.hide();
+                                                $('#unit_id').val(0);
+                                            }
+                                        }
+                                    </script>
                                 </div>
                                     <script type="text/javascript">
                                         $("#unit_code").autocomplete({
@@ -156,7 +189,7 @@
                                             <input id="satuan" type="text" class="form-control" placeholder="UOM..." readonly required>
                                         </div>
                                         <div class="col-md-3">
-                                            <input id="model" type="text" class="form-control model" name="model[]" value="{{ \Carbon\Carbon::now() }}" placeholder="">
+                                            <input id="model" type="text" class="form-control model" name="model[]" placeholder="Date of Requirement...">
                                         </div>
                                         <div class="col-md-6">
                                             <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required>
@@ -216,8 +249,7 @@
                                 }*/
                                 $(function () {
                                     $('.model').datetimepicker({
-                                        format: 'YYYY-MM-DD',
-                                        defaultDate: new Date()
+                                        format: 'YYYY-MM-DD'
                                     });
                                 });
                             }
@@ -226,7 +258,7 @@
                         <script type="text/javascript">
                             function appendNewFormRequest(){
                                 var formRequest = $('#formRequest');
-                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." readonly required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." readonly required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..."  readonly required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" value="{{ \Carbon\Carbon::now() }}" placeholder="Model..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
+                                $('<div class="panel"> <div class="panel-body"> <div class="row"> <div class="form-group"> <div class="col-md-3"> <input id="no" type="text" class="form-control" placeholder="Part No..." onfocus="autoComplete(this)" required><input id="item_id" type="text" name="item_id[]" required hidden> </div><div class="col-md-3"> <input id="component" type="text" class="form-control" name="component[]" placeholder="Component..." readonly required> </div><div class="col-md-6"> <input id="description" type="text" class="form-control" name="description[]" placeholder="Part Description..." readonly required> </div></div></div><div class="row"> <div class="form-group"> <div class="col-md-1"> <input id="qty" type="number" class="form-control" name="qty[]" placeholder="QTY..." required> </div><div class="col-md-2"> <input id="satuan" type="text" class="form-control" placeholder="UOM..."  readonly required> </div><div class="col-md-3"> <input id="model" type="text" class="form-control model" name="model[]" placeholder="Date of Requirement..."> </div><div class="col-md-6"> <input id="damage_description" type="text" class="form-control" name="damage_description[]" placeholder="Remark..." required> </div></div></div><a class="btn btn-danger pull-right" onclick="deleteRequest(this)">delete</a> </div></div>').appendTo(formRequest);
                                 checkDepartment();
 
                             }

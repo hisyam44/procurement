@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::post('user/password','UserController@newPassword');
 	
 	Route::get('accounting/completion','PurchaseController@accountingCompletion');
+	Route::get('location/completion','PurchaseController@locationCompletion');
 	Route::get('item/completion','PurchaseController@itemCompletion');
 	Route::get('item-code/completion','PurchaseController@itemCodeCompletion');
 	Route::get('purchase/completion','PurchaseController@purchaseCompletion');

@@ -53,8 +53,8 @@
                                 <div class="form-group">
                                     <label for="part_no" class="col-md-4 control-label">Unit Code</label>
                                     <div class="col-md-6">
-                                        <input id="unit_text" type="text" class="form-control" value="{{ $order->purchase->unit->code }}" readonly required>
-                                        <input id="unit_id" type="text" name="unit_id" value="{{ $order->purchase->unit->id }}" required hidden>
+                                        <input id="unit_text" type="text" class="form-control" value="{{ isset($order->purchase->unit->code)?$order->purchase->unit->code:'-' }}" readonly required>
+                                        <input id="unit_id" type="text" name="unit_id" value="{{ isset($order->purchase->unit->id)?$order->purchase->unit->id:0 }}" required hidden>
                                     </div>
                                 </div>
                                 <input id="deliveryman" type="text"  value="0" name="deliveryman" hidden required>

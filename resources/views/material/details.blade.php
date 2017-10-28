@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td class="bold">Type / Code Unit</td>
-                    <td>{{ $material->unit->code }}</td>
+                    <td>{{ isset($material->unit->code)?$material->unit->code:'-' }}</td>
                     <td></td>
                     <td class="bold">Date Process</td>
                     <td>{{ $material->updated_at->format('d-m-Y') }}</td>
