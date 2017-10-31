@@ -76,7 +76,9 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::group(['middleware' => ['allow.finance']], function (){
 		Route::resource('transaksi/acc','AccountingController');
 
-		Route::get('transaksi/pettycash','TransaksiController@pettyCash');
+		Route::post('transaksi/petty/print','PettyController@printFromDate');
+		Route::resource('transaksi/petty','PettyController');
+
 		Route::get('transaksi/cash','TransaksiController@indexSingle');
 		Route::get('transaksi/cash/create','TransaksiController@createCash');
 		Route::get('transaksi/bank','TransaksiController@indexSingle');

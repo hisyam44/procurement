@@ -291,10 +291,6 @@ class TransaksiController extends Controller
         return redirect('/transaksi');
     }
 
-    public function pettyCash(){
-        return view('transaksi.petty');
-    }
-
     public function iouCompletion(Request $request){
         $locations = Transaksi::where('type','iou')->where('no_voucher','LIKE','%'.$request->term.'%')->get();
         $results = [];

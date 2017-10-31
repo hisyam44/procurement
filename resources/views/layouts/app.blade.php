@@ -87,7 +87,7 @@
                             <li><a href="{{ url('/transaksi/iou') }}">IOU</a></li>
                             <li><a href="{{ url('/transaksi/ious') }}">IOU Settlement</a></li>
                             <li><a href="{{ url('/transaksi/acc') }}">Category Accounting</a></li>
-                            <li><a href="{{ url('/transaksi/pettycash') }}">Petty Cash</a></li>
+                            <li><a href="{{ url('/transaksi/petty') }}">Petty Cash</a></li>
                         @else
                             <li><a href="{{ url('/item') }}">Items</a></li>
                             <li><a href="{{ url('/supplier') }}">Suppliers</a></li>
