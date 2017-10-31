@@ -127,6 +127,7 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-md-6">&nbsp;</div>
+                                        <input id="co" type="text" name="tipe_cost" value="Credit" required hidden>
                                         <div class="col-md-2">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>

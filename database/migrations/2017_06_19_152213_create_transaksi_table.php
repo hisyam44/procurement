@@ -24,6 +24,7 @@ class CreateTransaksiTable extends Migration
             $table->string('bank');
             $table->string('bank_details');
             $table->string('amount_total');
+            $table->string('saldo');
             $table->string('direksi');
             $table->string('kepala_bagian');
             $table->string('kasir');

@@ -7,98 +7,141 @@
 <table class="table table-striped">
     <thead>
     	<tr>
-    		<td colspan="11">
-    			<h2 style="text-align: center;">Laporan Transaksi per tanggal {{ \Carbon\Carbon::now()->format('d-M-Y') }}</h2>
-    		</td>
-    	</tr>
+            <td colspan="11">
+                <h2 style="text-align: center;">Laporan Transaksi tanggal {{ $_GET['from'] }} s/d {{ $_GET['to'] }}</h2>
+            </td>
+        </tr>
+        @if(substr(Route::getCurrentRoute()->getPath(),10) === "cash")
         <tr style="font-weight: bold;text-align: center;">
-            <!-- <td>No</td>
-            <td>Nama Project</td>
-            <td>Kode Project</td>
-            <td>Tipe</td>
-            <td>Rekening</td>
-            <td>Kepada</td>
-            <td>Jumlah Total</td>
-            <td>Direksi</td>
-            <td>Kepala Bagian</td>
-            <td>Kasir</td>
-            <td>Penerima</td> -->
-            <td>No Voucher</td>
-            <td>Tanggal</td>
-            <td>Atas Nama</td>
-        @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
-            <td>Category Operational</td>
-            <td colspan="3">Details</td>
-            <td colspan="3">Jumlah</td>
-        @else
+            <td colspan="2">No Voucher</td>
+            <td colspan="2">Tanggal</td>
             <td>Category Accounting</td>
-            <td>Cost Type</td>
-
             <td colspan="2">Details</td>
             <td>Debit</td>
             <td>Kredit</td>
             <td>Saldo</td>
-        @endif
-            <td>{{ strpos(Request::url(),"bank")?'No.Giro/Cek':'Keterangan' }}</td>
+            <td>Keterangan</td>
         </tr>
+        @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "iou")
+        <tr style="font-weight: bold;text-align: center;">
+            <td colspan="3">No Voucher</td>
+            <td colspan="2">Nama</td>
+            <td colspan="2">Details</td>
+            <td colspan="2">Jumlah</td>
+            <td>Tanggal Kasbon</td>
+            <td>Keterangan</td>
+        </tr>
+        @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "ious")
+        <tr style="font-weight: bold;text-align: center;">
+            <td>No Voucher</td>
+            <td>Tanggal</td>
+            <td>Nama</td>
+            <td>Category Operational</td>
+            <td colspan="3">Details</td>
+            <td colspan="3">Jumlah</td>
+            <td>Keterangan</td>
+        </tr>
+        @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "bank")
+        <tr style="font-weight: bold;text-align: center;">
+            <td colspan="2">No Voucher</td>
+            <td>Tanggal</td>
+            <td>No.Giro/Cek</td>
+            <td>Category Accounting</td>
+            <td colspan="2">Details</td>
+            <td>Debit</td>
+            <td>Kredit</td>
+            <td>Saldo</td>
+            <td>Keterangan</td>
+        </tr>
+        @else
+
+        @endif
     </thead>
     <tbody>
+    <?php
+        $total_saldo = $latest_saldo;
+        $total_debet = $latest_saldo;
+        $total_credit = 0;
+        $saldo = $latest_saldo;
+    ?>
+    <div id="transaksi">
+        @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
+        @else
+        <tr>
+            <td colspan="5"></td>
+            <td colspan="2">Saldo Terakhir</td>
+            <td>{{ number_format($latest_saldo) }}</td>
+            <td></td>
+            <td>{{ number_format($latest_saldo) }}</td>
+            <td></td>
+        </tr>
+        @endif
+    @foreach($transaksi as $index => $trans)
+        @foreach($trans->costs as $index => $cost)
         <?php
-            $total_saldo = 0;
-            $total_debet = 0;
-            $total_credit = 0;
-            $saldo = 0;
+            $cost->type=="debet"?$saldo+=$cost->amount:$saldo-=$cost->amount;
+            $total_saldo = $saldo;
+            $cost->type=="debet"?$total_debet+=$cost->amount:$total_credit+=$cost->amount;
         ?>
-        @foreach($transaksi as $index => $trans)
-        <div id="transaksi">
-            <!-- <tr>
-                <td>{{ sprintf('%06d',$trans->id) }}</td>
-                <td>{{ $trans->project_name }}</td>
-                <td>{{ $trans->project_code }}</td>
-                <td>{{ strtoupper($trans->type) }}</td>
-                <td>{{ $trans->receiver_rekening }}</td>
+            @if(substr(Route::getCurrentRoute()->getPath(),10) === "cash")
+            <tr>
+                <td colspan="2">{{ $trans->no_voucher }}</td>
+                <td colspan="2">{{ $trans->created_at->format('d-M-y') }}</td>
+                <td>{{ $trans->accounting->name }}</td>
+                <td colspan="2">{{ $cost->description }}</td>
+                <td>{{ $cost->type=="debet"?number_format($cost->amount):'' }}</td>
+                <td>{{ $cost->type=="credit"?number_format($cost->amount):'' }}</td>
+                <td>{{ number_format($saldo) }}</td>
+                <td>{{ $trans->keterangan }}</td>
+            </tr>
+            @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "iou")
+            <tr>
+                <td colspan="3">{{ $trans->no_voucher }}</td>
+                <td colspan="2">{{ $trans->receiver }}</td>
+                <td colspan="2">{{ $cost->description }}</td>
+                <td colspan="2">{{ number_format($cost->amount) }}</td>
+                <td>{{ $trans->created_at->format('d-M-y') }}</td>
+                <td>{{ $trans->keterangan }}</td>
+            </tr>
+            @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "ious")
+            <tr>
+                <td>{{ $trans->no_voucher }}</td>
+                <td>{{ $trans->created_at->format('d-M-y') }}</td>
                 <td>{{ $trans->receiver }}</td>
-                <td>Rp. {{ $trans->amount_total }}</td>
-                <td>{{ $trans->direksi }}</td>
-                <td>{{ $trans->kepala_bagian }}</td>
-                <td>{{ $trans->kasir }}</td>
-                <td>{{ $trans->penerima }}</td>
-            </tr> -->
-            @foreach($trans->costs as $index => $cost)
-                    <tr>
-                        <?php
-                            $cost->type=="debet"?$saldo+=$cost->amount:$saldo-=$cost->amount;
-                            $total_saldo = $saldo;
-                            $cost->type=="debet"?$total_debet+=$cost->amount:$total_credit+=$cost->amount;
-                        ?>
-                        <td>{{ $trans->no_voucher }}</td>
-                        <td>{{ $trans->created_at->format('d-M-Y') }}</td>
-                        <td>{{ $trans->receiver }}</td>
-                        <td>{{ $trans->accounting->name }}</td>
-                    @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
-                        <td colspan="3">{{ $cost->description }}</td>
-                        <td colspan="3">{{ $cost->amount }}</td>
-                    @else
-                        <td>{{ $cost->cost_type }}</td>
+                <td>{{ $trans->accounting->name }}</td>
+                <td colspan="3">{{ $cost->description }}</td>
+                <td colspan="3">{{ number_format($cost->amount) }}</td>
+                <td>{{ $trans->keterangan }}</td>
+            </tr>
+            @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "bank")
+            <tr>
+                <td colspan="2">{{ $trans->no_voucher }}</td>
+                <td>{{ $trans->created_at->format('d-M-y') }}</td>
+                <td>{{ $trans->keterangan }}</td>
+                <td>{{ $trans->accounting->name }}</td>
+                <td colspan="2">{{ $cost->description }}</td>
+                <td>{{ $cost->type=="debet"?number_format($cost->amount):'' }}</td>
+                <td>{{ $cost->type=="credit"?number_format($cost->amount):'' }}</td>
+                <td>{{ number_format($saldo) }}</td>
+                <td>{{ $trans->bank_details }}</td>
+            </tr>
+            @else
 
-                        <td colspan="2">{{ $cost->description }}</td>
-                        <td>{{ $cost->type=="debet"?$cost->amount:'' }}</td>
-                        <td>{{ $cost->type=="credit"?$cost->amount:'' }}</td>
-                        <td>{{ $saldo }}</td>
-                    @endif
-                        <td>{{ $trans->keterangan }}</td>
-                    </tr>
-            @endforeach
-        </div>
+            @endif
         @endforeach
+    @endforeach
+    </div>
             <tr>
                 <td colspan="7">Total</td>
-            @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou" || substr(Route::getCurrentRoute()->getPath(),10) === "ious")
-                <td colspan="3">{{ $total_saldo }}</td>
+            @if(substr(Route::getCurrentRoute()->getPath(),10) === "iou")
+                <td colspan="2"><b>{{ number_format($total_saldo*-1) }}</b></td>
+                <td></td>
+            @elseif(substr(Route::getCurrentRoute()->getPath(),10) === "ious")
+                <td colspan="3"><b>{{ number_format($total_saldo) }}</b></td>
             @else
-                <td>{{ $total_debet }}</td>
-                <td>{{ $total_credit }}</td>
-                <td>{{ $total_saldo }}</td>
+                <td><b>{{ number_format($total_debet) }}</b></td>
+                <td><b>{{ number_format($total_credit) }}</b></td>
+                <td><b>{{ number_format($total_saldo) }}</b></td>
             @endif
                 <td></td>
             </tr>

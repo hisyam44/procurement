@@ -45,7 +45,7 @@
         <p class="lead">Transaksi ini belum memiliki Lampiran Bukti (Attachment).</p>
         <p class="lead">
             <a class="btn btn-success" onclick="tambahAttachment()">Tambahkan Sekarang.</a>
-            <a class="btn btn-default" href="{{ url('transaksi') }}">Nanti</a>
+            <a class="btn btn-default" href="{{ url('transaksi/'.$attachments->type.'/create') }}">Nanti</a>
         </p>
     </div>
 @else

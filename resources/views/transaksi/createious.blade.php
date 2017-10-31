@@ -195,6 +195,7 @@
                                 $('.cost_type').val(cost_tipe);
                             }
                         </script>
+                        <input id="co" type="text" name="tipe_cost" value="Debet" required hidden>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-4">
@@ -203,7 +204,7 @@
                                         <div class="col-md-9">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input id="amount[]" type="text" class="form-control jumlah" name="amount[]" required>
+                                            <input id="amount[]" type="text" class="form-control jumlah" name="amount_total" required>
                                         </div>
                                         </div>
                                     </div>
@@ -214,7 +215,7 @@
                                         <div class="col-md-6">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input id="amount_total" type="text" class="form-control" name="amount_total" value="0" readonly required>
+                                            <input id="amount_total" type="text" class="form-control" name="amount[]" value="0" readonly required>
                                         </div>
                                         </div>
                                         <script type="text/javascript">

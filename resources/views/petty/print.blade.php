@@ -13,10 +13,10 @@
     	</tr>
         <tr style="font-weight: bold;text-align: center;">
             <td>Date</td>
-            <td>100.000</td>
-            <td>50.000</td>
-            <td>20.000</td>
-            <td>10.000</td>
+            <td>100000</td>
+            <td>50000</td>
+            <td>20000</td>
+            <td>10000</td>
             <td>5000</td>
             <td>2000</td>
             <td>1000</td>
@@ -53,7 +53,7 @@
             <td>{{ $petty->t500r }}</td>
             <td>{{ $petty->t200r }}</td>
             <td>{{ $petty->t100r }}</td>
-            <td>{{ $petty->total }}</td>
+            <td>{{ number_format($petty->total) }}</td>
             <?php
                 $t100rb += $petty->t100rb;
                 $t50rb += $petty->t50rb;
@@ -70,7 +70,7 @@
         </tr>
         @endforeach
         <tr>
-            <td>Total</td>
+            <td><b>Total</b></td>
             <td>{{ $t100rb }}</td>
             <td>{{ $t50rb }}</td>
             <td>{{ $t20rb }}</td>
@@ -81,7 +81,7 @@
             <td>{{ $t500r }}</td>
             <td>{{ $t200r }}</td>
             <td>{{ $t100r }}</td>
-            <td>{{ $total }}</td>
+            <td><b>{{ number_format($total) }}</b></td>
         </tr>
     </tbody>
 </table>

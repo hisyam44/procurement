@@ -29,8 +29,8 @@ class TransaksiController extends Controller
     public function indexSingle(Request $request){
         //return substr($request->path(),10);
         $tipe = substr($request->path(),10);
-        $transaksi = Transaksi::where('type',$tipe)->orderBy('no_voucher','desc')->get();
         if($request->print){
+            $transaksi = Transaksi::where('type',$tipe)->orderBy('no_voucher','asc')->where('created_at','>',$request->from)->where('created_at','<=',$request->to)->get();
             $user = \Auth::user();
             if($user->role == "operator"){
                 return redirect('403');
@@ -38,6 +38,11 @@ class TransaksiController extends Controller
             $view = "transaksi.print";
             $data = [];
             $data['transaksi'] = $transaksi;
+            $latest_saldo = Transaksi::where('type',$tipe)->where('id','<',$transaksi[0]->id)->orderBy('id','desc')->first();
+            $data['latest_saldo'] = isset($latest_saldo->saldo)?$latest_saldo->saldo:'0';
+            if ($tipe === "iou" || $tipe === "ious") {
+                $data['latest_saldo'] = 0;
+            }
             //return view('transaksi.print',$data);
             $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
                 $excel->sheet('laporan', function($sheet) use($view,$data) {
@@ -46,7 +51,33 @@ class TransaksiController extends Controller
             });
             return $excel->export('xls');
         }
+        $transaksi = Transaksi::where('type',$tipe)->orderBy('no_voucher','desc')->paginate(15);
         return view('transaksi.index',['transaksi' => $transaksi]);
+    }
+
+    public function dailyCash(Request $request)
+    {
+        $transaksi = Transaksi::where('type','cash')->orderBy('no_voucher','asc')->where('created_at',$request->date)->get();
+        $petties = \App\Petty::where('created_at',$request->date)->get();
+        $daily_iou = Transaksi::where('type','iou')->orderBy('no_voucher','asc')->where('created_at',$request->date)->sum('amount_total');
+        $user = \Auth::user();
+        if($user->role == "operator"){
+            return redirect('403');
+        }
+        $view = "transaksi.daily";
+        $data = [];
+        $data['transaksi'] = $transaksi;
+        $data['petties'] = $petties;
+        $data['daily_iou'] = $daily_iou;
+        $latest_saldo = Transaksi::where('type','cash')->where('id','<',$transaksi[0]->id)->orderBy('id','desc')->first();
+        $data['latest_saldo'] = isset($latest_saldo->saldo)?$latest_saldo->saldo:'0';
+        //return view('transaksi.daily',$data);
+        $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
+            $excel->sheet('laporan', function($sheet) use($view,$data) {
+                $sheet->loadView($view,$data);
+            });
+        });
+        return $excel->export('xls');
     }
 
     /**
@@ -123,26 +154,42 @@ class TransaksiController extends Controller
     {
         //return response()->json($request->all());
         $transaksi = new Transaksi();
-        $transaksi->accounting_id = $request->category_accounting;
+        $latest_saldo = Transaksi::where('type',$request->type_transaksi)->orderBy('id','DESC')->first();
 
-        $transaksi->no_voucher = $request->no_voucher;
-        $transaksi->type = $request->type_transaksi;
-        $transaksi->created_at = $request->created_at;
-        $transaksi->project_name = $request->project_name;
-        $transaksi->project_code = $request->project_code;
-        $transaksi->receiver = $request->receiver;
+        if(count($latest_saldo) === 0){
+            $latest_saldo = 0;
+        }else{
+            $latest_saldo = $latest_saldo->saldo;
+        }
+        if($request->tipe_cost === "Debet"){
+            $transaksi->saldo = $latest_saldo+$request->amount_total;
+        }else{
+            if($request->type_transaksi === "iou"){
+                $transaksi->saldo = $latest_saldo+$request->amount_total;
+            }else{
+                $transaksi->saldo = $latest_saldo-$request->amount_total;
+            }
+        }
+
         if($request->type_transaksi === "bank"){
             $transaksi->receiver_rekening = $request->receiver_rekening;
             $transaksi->bank = $request->bank;
             $transaksi->bank_details = $request->bank_details;
         }
         if($request->type_transaksi === "ious"){
-            $transaksi->amount_total = $request->amount[0];
-            $transaksi->keterangan = "Realisasi ".$request->no_iou;
+            $transaksi->keterangan = "Realisasi ".$request->no_iou." - Rp. ".$request->amount[0];
         }else{
-            $transaksi->amount_total = $request->amount_total;
             $transaksi->keterangan = $request->keterangan;
         }
+        
+        $transaksi->accounting_id = $request->category_accounting;
+        $transaksi->no_voucher = $request->no_voucher;
+        $transaksi->type = $request->type_transaksi;
+        $transaksi->created_at = $request->created_at;
+        $transaksi->project_name = $request->project_name;
+        $transaksi->project_code = $request->project_code;
+        $transaksi->receiver = $request->receiver;
+        $transaksi->amount_total = $request->amount_total;
         $transaksi->direksi = $request->direksi;
         $transaksi->kepala_bagian = $request->kepala_bagian;
         $transaksi->kasir = $request->kasir;
@@ -150,34 +197,26 @@ class TransaksiController extends Controller
         $success = $transaksi->save();
         $selisih = 0;
         for($i=0;$i<count($request->amount);$i++){
-            /*$latest_saldo = Cost::orderBy('id','DESC')->first();
-            if(count($latest_saldo) === 0){
-                $latest_saldo = 0;
-            }else{
-                $latest_saldo = $latest_saldo->saldo;
-            }*/
             $cost = new Cost();
+
             if($request->type_transaksi === "iou" || $request->type_transaksi === "ious"){
-                $cost->type = "debet";
-                $cost->code = "";
                 $cost->cost_type = "OH";
             }else{
-                $cost->type = $request->type[$i];
-                $cost->code = $request->code[$i];
                 $cost->cost_type = $request->cost_type[$i];
             }
-            $cost->amount = $request->amount[$i];
             if($request->type_transaksi === "ious"){
-                $selisih = $request->amount_total-$request->amount[$i];
+                $cost->amount = $request->amount_total;
+                $selisih = $request->amount[$i]-$request->amount_total;
                 $cost->description = "Selisih Realiasasi Settlement : Rp.".$selisih;
             }else{
+                $cost->amount = $request->amount[$i];
                 $cost->description = $request->description[$i];
             }
-            /*if($request->type[$i] === "Debet"){
-                $cost->saldo = $latest_saldo+$request->amount[$i];
-            }else{
-                $cost->saldo = $latest_saldo-$request->amount[$i];
-            }*/
+
+            $cost->code = "";
+            $cost->type = $request->tipe_cost;
+            
+
             $transaksi->costs()->save($cost);
         }
         if($success){
@@ -197,6 +236,7 @@ class TransaksiController extends Controller
     public function attachmentView(Request $request,$id){
         $transaksi = Transaksi::findOrFail($id);
         $attachments = $transaksi->attachments;
+        $attachments->type = $transaksi->type;
         if($request->print){
             $data = [];
             foreach($attachments as $attachment){

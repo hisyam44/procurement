@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 28, 2017 at 04:15 
+-- Generation Time: Oct 31, 2017 at 11:06 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -282,7 +282,26 @@ CREATE TABLE IF NOT EXISTS `costs` (
   `amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `costs`
+--
+
+INSERT INTO `costs` (`id`, `transaksi_id`, `type`, `code`, `cost_type`, `description`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 1, 'debet', '', 'MT', 'Awal', '55678000', '2017-10-31 13:03:54', '2017-10-31 13:03:54'),
+(2, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1245000', '2017-10-31 13:05:19', '2017-10-31 13:05:19'),
+(3, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1340000', '2017-10-31 13:05:19', '2017-10-31 13:05:19'),
+(4, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1789000', '2017-10-31 13:05:19', '2017-10-31 13:05:19'),
+(5, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '5670000', '2017-10-31 13:05:20', '2017-10-31 13:05:20'),
+(6, 3, 'debet', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '123890000', '2017-10-31 13:06:50', '2017-10-31 13:06:50'),
+(7, 4, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1278000', '2017-10-31 13:07:43', '2017-10-31 13:07:43'),
+(8, 4, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1268900', '2017-10-31 13:07:43', '2017-10-31 13:07:43'),
+(9, 5, 'credit', '', 'OH', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1239000', '2017-10-31 13:08:45', '2017-10-31 13:08:45'),
+(10, 6, 'credit', '', 'OH', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1267000', '2017-10-31 13:09:19', '2017-10-31 13:09:19'),
+(11, 6, 'credit', '', 'OH', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1235900', '2017-10-31 13:09:19', '2017-10-31 13:09:19'),
+(12, 7, 'credit', '', 'OH', '-', '1289000', '2017-10-31 14:07:11', '2017-10-31 14:07:11'),
+(13, 8, 'credit', '', 'MT', 'Proin eget tortor risus.', '678000', '2017-10-31 14:41:04', '2017-10-31 14:41:04');
 
 -- --------------------------------------------------------
 
@@ -537,7 +556,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2017_09_21_202042_create_issue_item_table', 1),
 ('2017_10_02_110351_create_returns_table', 1),
 ('2017_10_02_110520_create_return_item_table', 1),
-('2017_10_28_015136_create_locations_table', 1);
+('2017_10_28_015136_create_locations_table', 1),
+('2017_10_29_232915_create_petties_table', 1);
 
 -- --------------------------------------------------------
 
@@ -617,6 +637,39 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `petties`
+--
+
+CREATE TABLE IF NOT EXISTS `petties` (
+`id` int(10) unsigned NOT NULL,
+  `t100rb` int(11) NOT NULL,
+  `t50rb` int(11) NOT NULL,
+  `t20rb` int(11) NOT NULL,
+  `t10rb` int(11) NOT NULL,
+  `t5rb` int(11) NOT NULL,
+  `t2rb` int(11) NOT NULL,
+  `t1rb` int(11) NOT NULL,
+  `t500r` int(11) NOT NULL,
+  `t200r` int(11) NOT NULL,
+  `t100r` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `admin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `approval_1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `approval_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `petties`
+--
+
+INSERT INTO `petties` (`id`, `t100rb`, `t50rb`, `t20rb`, `t10rb`, `t5rb`, `t2rb`, `t1rb`, `t500r`, `t200r`, `t100r`, `total`, `admin`, `approval_1`, `approval_2`, `created_at`, `updated_at`) VALUES
+(1, 250, 168, 185, 212, 300, 65, 65, 56, 34, 12, 40951000, 'Chinna Babu', 'Pak Veera', 'Direksi', '2017-10-31 17:00:00', '2017-10-31 13:39:53');
 
 -- --------------------------------------------------------
 
@@ -778,6 +831,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `bank` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `bank_details` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `amount_total` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `saldo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `direksi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `kepala_bagian` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `kasir` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -786,7 +840,21 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `no_voucher`, `accounting_id`, `type`, `project_name`, `project_code`, `receiver`, `receiver_rekening`, `bank`, `bank_details`, `amount_total`, `saldo`, `direksi`, `kepala_bagian`, `kasir`, `penerima`, `attachment`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 'CASH 1-00001', 49, 'cash', 'Project PBTR Pekalongan', '20-16-PB001', 'dsfsdfsdf', '', '', '', '55678000', '55678000', 'sadasdas', 'dasdas', 'dasdasd', 'dsfsdfsdf', '', 'asdasd', '2017-10-28 17:00:00', '2017-10-31 13:03:54'),
+(2, 'CASH 1-00002', 56, 'cash', 'Project PBTR Pekalongan', '20-16-PB001', 'Ade', '', '', '', '10044000', '45634000', 'dfsdsd', 'fsdfsdf', 'sdfsdfsd', 'A', '', '-', '2017-10-31 17:00:00', '2017-10-31 13:05:19'),
+(3, 'BANK 2-00003', 41, 'bank', 'Project PBTR Pekalongan', '20-16-PB001', 'sdas', 'asdasd', 'asd', '-', '123890000', '123890000', 'fsd', 'fsdfsdfds', 'fsdfsdfsdf', 'sdas', '', 'GF 54363', '2017-10-28 17:00:00', '2017-10-31 13:06:50'),
+(4, 'BANK 2-00004', 62, 'bank', 'Project PBTR Pekalongan', '20-16-PB001', 'sds', 'sdfsdf', 'sdfsdf', '-', '2546900', '121343100', 'esftrsd', 'sdfsdfsdf', 'sdfsdfsdfsdf', 'sds', '', 'RT 2653', '2017-10-31 17:00:00', '2017-10-31 13:07:43'),
+(5, 'IOU 3-00005', 60, 'iou', 'Project PBTR Pekalongan', '20-16-PB001', 'Adi', '', '', '', '1239000', '1239000', 'sdfs', 'sdfsdfsd', 'sdfsd', 'Adi', '', '-', '2017-10-28 17:00:00', '2017-10-31 13:08:44'),
+(6, 'IOU 3-00006', 49, 'iou', 'Project PBTR Pekalongan', '20-16-PB001', 'Adi', '', '', '', '2502900', '3741900', 'sdfsdf', 'sdfsdfsdf', 'sdfsd', 'Adi', '', '-', '2017-10-31 17:00:00', '2017-10-31 13:09:19'),
+(7, 'IOU 3-00007', 49, 'iou', 'Project PBTR Pekalongan', '20-16-PB001', 'Ade', '', '', '', '1289000', '5030900', 'gfdgdfgdfg', 'dfgdfgdfg', 'fdgdfgdfg', 'Ade', '', '-', '2017-10-31 17:00:00', '2017-10-31 14:07:10'),
+(8, 'CASH 1-00008', 62, 'cash', 'Project PBTR Pekalongan', '20-16-PB001', 'sasa', '', '', '', '678000', '44956000', 'sdfsdfsd', 'sdfsdfsdf', 'fsdfsdf', 'sasa', '', 'Proin eget tortor risus.', '2017-10-31 17:00:00', '2017-10-31 14:41:04');
 
 -- --------------------------------------------------------
 
@@ -1010,9 +1078,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$1Lcp4nT4DQMXvIVPTIBQ3eI2tVDAldBFY.YSMU5iC6wLtkAjisRUa', 'dev', 'None', NULL, '2017-10-27 19:15:07', '2017-10-27 19:15:07'),
-(2, 'Admin', 'admin1@admin.com', '$2y$10$ZG1r9ovJDQR6cIApZWOTK.apIkvByyQmyHJ8wpnsqcCrL..KzGTr2', 'admin', 'None', NULL, '2017-10-27 19:15:08', '2017-10-27 19:15:08'),
-(3, 'Operator 1', 'op@op.com', '$2y$10$OyACmMbJqk.EbPDBu8c70.pDii.61ipdlPY9MSitVO.279yEA1Vka', 'operator', 'Logistic', NULL, '2017-10-27 19:15:08', '2017-10-27 19:15:08');
+(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$/N95eO66mJKFMDi4gYead.3G1O4WInRykNGxvWhzIOdDfrP4edFIW', 'dev', 'None', NULL, '2017-10-31 13:02:30', '2017-10-31 13:02:30'),
+(2, 'Admin', 'admin1@admin.com', '$2y$10$2OAEALRuzaCK.G4DB222h.Qmb5bFV5QgXmjwuYREhFgvz8JJy1joO', 'admin', 'None', NULL, '2017-10-31 13:02:30', '2017-10-31 13:02:30'),
+(3, 'Operator 1', 'op@op.com', '$2y$10$jJopdTDOhxx1aCeDn3zQ3eCCTmpsaM79zI3Gxm44gV9eh/6ZhgRuy', 'operator', 'Logistic', NULL, '2017-10-31 13:02:30', '2017-10-31 13:02:30');
 
 --
 -- Indexes for dumped tables
@@ -1121,6 +1189,12 @@ ALTER TABLE `password_resets`
  ADD KEY `password_resets_email_index` (`email`), ADD KEY `password_resets_token_index` (`token`);
 
 --
+-- Indexes for table `petties`
+--
+ALTER TABLE `petties`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `purchases`
 --
 ALTER TABLE `purchases`
@@ -1206,7 +1280,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `costs`
 --
 ALTER TABLE `costs`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `issues`
 --
@@ -1253,6 +1327,11 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 ALTER TABLE `order_item`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `petties`
+--
+ALTER TABLE `petties`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
@@ -1281,7 +1360,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `units`
 --

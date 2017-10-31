@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth']],function(){
 
 		Route::get('transaksi/cash','TransaksiController@indexSingle');
 		Route::get('transaksi/cash/create','TransaksiController@createCash');
+		Route::get('transaksi/cash/daily','TransaksiController@dailyCash');
 		Route::get('transaksi/bank','TransaksiController@indexSingle');
 		Route::get('transaksi/bank/create','TransaksiController@createBank');
 		Route::get('transaksi/iou','TransaksiController@indexSingle');

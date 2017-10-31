@@ -67,7 +67,7 @@
                                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/transaksi/petty/print') }}">
                                 {{ csrf_field() }}
                                     <div class="form-group">
-                                        <label for="code" class="col-md-4 control-label">From</label>
+                                        <label for="code" class="col-md-4 control-label">Dari Tanggal</label>
                                         <div class="col-md-6">
                                             <input type="text" name="from" class="form-control" id="from" value="{{ \Carbon\Carbon::now()->yesterday() }}" required>
                                         </div>
@@ -80,7 +80,7 @@
                                         </script>
                                     </div>
                                     <div class="form-group">
-                                        <label for="code" class="col-md-4 control-label">To</label>
+                                        <label for="code" class="col-md-4 control-label">Sampai Tanggal</label>
                                         <div class="col-md-6">
                                             <input type="text" name="to" class="form-control" id="to" required>
                                         </div>
