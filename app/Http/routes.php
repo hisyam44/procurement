@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::group(['middleware' => ['allow.logistic','redirect.operator']], function (){
 		Route::get('item/stock','ItemController@stockReport');
 		Route::resource('item','ItemController');
+		Route::resource('itemcode','ItemcodeController');
 	});
 
 	Route::group(['middleware' => ['redirect.supervisior','redirect.hod']], function (){

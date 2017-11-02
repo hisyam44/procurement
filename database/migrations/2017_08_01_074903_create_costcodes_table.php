@@ -12,15 +12,11 @@ class CreateCostcodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('costcodes', function (Blueprint $table) {
+        Schema::create('itemcode3', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('itemcode2_id')->unsigned();
+            $table->foreign('itemcode2_id')->references('id')->on('itemcode2')->onDelete('cascade');
             $table->string('name');
-            $table->string('lv1');
-            $table->string('lv2');
-            $table->string('lv3');
-            $table->string('kode');
-            $table->string('description');
-            $table->string('uom');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateCostcodesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('costcodes');
+        Schema::drop('itemcode3');
     }
 }

@@ -12,8 +12,9 @@ class CreateCostcodesLv4Table extends Migration
      */
     public function up()
     {
-        Schema::create('costcodes_lv4', function (Blueprint $table) {
+        Schema::create('itemcode4', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('itemcode3_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ class CreateCostcodesLv4Table extends Migration
      */
     public function down()
     {
-        Schema::drop('costcodes_lv4');
+        Schema::drop('itemcode4');
     }
 }

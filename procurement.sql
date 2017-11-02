@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 31, 2017 at 11:06 
+-- Generation Time: Nov 02, 2017 at 06:22 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -210,65 +210,6 @@ CREATE TABLE IF NOT EXISTS `attachments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `construction_category`
---
-
-CREATE TABLE IF NOT EXISTS `construction_category` (
-`id` int(10) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `construction_description`
---
-
-CREATE TABLE IF NOT EXISTS `construction_description` (
-`id` int(10) unsigned NOT NULL,
-  `construction_id` int(10) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `costcodes`
---
-
-CREATE TABLE IF NOT EXISTS `costcodes` (
-`id` int(10) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lv1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lv2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lv3` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `kode` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `uom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `costcodes_lv4`
---
-
-CREATE TABLE IF NOT EXISTS `costcodes_lv4` (
-`id` int(10) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `costs`
 --
 
@@ -282,26 +223,7 @@ CREATE TABLE IF NOT EXISTS `costs` (
   `amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `costs`
---
-
-INSERT INTO `costs` (`id`, `transaksi_id`, `type`, `code`, `cost_type`, `description`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 1, 'debet', '', 'MT', 'Awal', '55678000', '2017-10-31 13:03:54', '2017-10-31 13:03:54'),
-(2, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1245000', '2017-10-31 13:05:19', '2017-10-31 13:05:19'),
-(3, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1340000', '2017-10-31 13:05:19', '2017-10-31 13:05:19'),
-(4, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1789000', '2017-10-31 13:05:19', '2017-10-31 13:05:19'),
-(5, 2, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '5670000', '2017-10-31 13:05:20', '2017-10-31 13:05:20'),
-(6, 3, 'debet', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '123890000', '2017-10-31 13:06:50', '2017-10-31 13:06:50'),
-(7, 4, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1278000', '2017-10-31 13:07:43', '2017-10-31 13:07:43'),
-(8, 4, 'credit', '', 'MT', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1268900', '2017-10-31 13:07:43', '2017-10-31 13:07:43'),
-(9, 5, 'credit', '', 'OH', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1239000', '2017-10-31 13:08:45', '2017-10-31 13:08:45'),
-(10, 6, 'credit', '', 'OH', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1267000', '2017-10-31 13:09:19', '2017-10-31 13:09:19'),
-(11, 6, 'credit', '', 'OH', 'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.', '1235900', '2017-10-31 13:09:19', '2017-10-31 13:09:19'),
-(12, 7, 'credit', '', 'OH', '-', '1289000', '2017-10-31 14:07:11', '2017-10-31 14:07:11'),
-(13, 8, 'credit', '', 'MT', 'Proin eget tortor risus.', '678000', '2017-10-31 14:41:04', '2017-10-31 14:41:04');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -361,11 +283,164 @@ INSERT INTO `issue_item` (`id`, `issue_id`, `part_id`, `name`, `qty`, `keteranga
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `itemcode2`
+--
+
+CREATE TABLE IF NOT EXISTS `itemcode2` (
+`id` int(10) unsigned NOT NULL,
+  `itemcode_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `itemcode2`
+--
+
+INSERT INTO `itemcode2` (`id`, `itemcode_id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'HE (Heavy Equipment)', '2017-11-01 22:02:18', '2017-11-01 22:02:18'),
+(2, 1, 'TK (Trucks)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(3, 1, 'PT (Plants)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(4, 1, 'CM (Construction Material)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(5, 2, 'HE (Heavy Equipment)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(6, 2, 'TK (Trucks)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(7, 2, 'PT (Plants)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(8, 3, 'FL (Fuel)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(9, 3, 'LU (Lubes)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(10, 3, 'CH (Chemical)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(11, 3, 'CL (Cleaning Material)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(12, 4, 'FR (Furniture)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(13, 4, 'MI (Mechanical Installation)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(14, 4, 'EI (Electrical Installation)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(15, 4, 'ST (Stationary)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(16, 5, 'HT (Hand Tools)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(17, 5, 'PT (Power Tools)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(18, 5, 'ST (Special Tools)', '2017-11-01 22:02:19', '2017-11-01 22:02:19'),
+(19, 5, 'LT (Lifting Tools)', '2017-11-01 22:02:20', '2017-11-01 22:02:20'),
+(20, 5, 'PG (Personal Gadget)', '2017-11-01 22:02:20', '2017-11-01 22:02:20'),
+(21, 6, 'AG (Aggregate)', '2017-11-01 22:02:20', '2017-11-01 22:02:20'),
+(22, 6, 'BT (Bitumen)', '2017-11-01 22:02:20', '2017-11-01 22:02:20'),
+(23, 6, 'ST (Steel)', '2017-11-01 22:02:20', '2017-11-01 22:02:20'),
+(24, 6, 'CT (Cement)', '2017-11-01 22:02:20', '2017-11-01 22:02:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `itemcode3`
+--
+
+CREATE TABLE IF NOT EXISTS `itemcode3` (
+`id` int(10) unsigned NOT NULL,
+  `itemcode2_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `itemcode3`
+--
+
+INSERT INTO `itemcode3` (`id`, `itemcode2_id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'EX (Excavator)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(2, 1, 'DZ (Bulldozer)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(3, 1, 'GD (Motor Grader)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(4, 1, 'CM (Compactor/Vibro)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(5, 1, 'PV (Paver)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(6, 2, 'DT (Dump Truck)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(7, 2, 'FT (Fuel Truck)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(8, 2, 'LT (Lube Truck)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(9, 2, 'WT (Water Truck)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(10, 2, 'TT (Trailer)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(11, 2, 'AT (Articulated Truck)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(12, 3, 'SC (Stone Crusher)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(13, 3, 'AM (Alphalt Mixing Plant)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(14, 3, 'BP (Concrete Batching Plant)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(15, 4, 'AG (Aggregates)', '2017-11-01 22:09:26', '2017-11-01 22:09:26'),
+(16, 4, 'GT (Geotextile)', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(17, 4, 'FN (Fencing Material)', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(18, 4, 'LT (Lighting Equipment)', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(19, 4, 'DR (Drainage Material)', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(20, 4, 'CP (Chemical & Paints)', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(21, 4, 'BR (Barriers', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(22, 5, 'Ground Engaging Tools', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(23, 5, 'Engine ', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(24, 5, 'Work Equipment', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(25, 5, 'Undercarriage', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(26, 5, 'Electrical', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(27, 5, 'Hydraulic System', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(28, 5, 'Power Train', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(29, 5, 'Tires', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(30, 5, 'Transmission', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(31, 5, 'Differential', '2017-11-01 22:09:27', '2017-11-01 22:09:27'),
+(32, 6, 'Engine ', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(33, 6, 'Tires', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(34, 6, 'Electrical', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(35, 6, 'Hydraulic System', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(36, 6, 'Transmission', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(37, 6, 'Differential', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(38, 6, 'Attachments', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(39, 6, 'Cabin', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(40, 6, 'Chassis', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(41, 7, 'Electrical ', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(42, 7, 'Conveyor System', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(43, 8, 'IH (Industrial HSD)', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(44, 8, 'LH (SPBU HSD)', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(45, 8, 'PR (Premium)', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(46, 10, 'CC (Cleaning Chemical)', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(47, 10, 'LC (Lab Chemical)', '2017-11-01 22:09:28', '2017-11-01 22:09:28'),
+(48, 10, 'OT (Others)', '2017-11-01 22:09:28', '2017-11-01 22:09:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `itemcode4`
+--
+
+CREATE TABLE IF NOT EXISTS `itemcode4` (
+`id` int(10) unsigned NOT NULL,
+  `itemcode3_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `itemcodes`
+--
+
+CREATE TABLE IF NOT EXISTS `itemcodes` (
+`id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `itemcodes`
+--
+
+INSERT INTO `itemcodes` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'CG (Capital Good)', '2017-11-01 21:47:08', '2017-11-01 21:47:08'),
+(2, 'SP (Spares)', '2017-11-01 21:47:08', '2017-11-01 21:47:08'),
+(3, 'CN (Consumable)', '2017-11-01 21:47:08', '2017-11-01 21:47:08'),
+(4, 'OE (Office Equipment)', '2017-11-01 21:47:08', '2017-11-01 21:47:08'),
+(5, 'TL (Tools & Tackles)', '2017-11-01 21:47:08', '2017-11-01 21:47:08'),
+(6, 'CM (Construction Material)', '2017-11-01 21:47:08', '2017-11-01 21:47:08'),
+(7, 'RP (Repairs)', '2017-11-01 21:47:08', '2017-11-01 21:47:08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `items`
 --
 
 CREATE TABLE IF NOT EXISTS `items` (
 `id` int(10) unsigned NOT NULL,
+  `code_id` int(10) unsigned NOT NULL,
   `item_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `uom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -383,8 +458,8 @@ CREATE TABLE IF NOT EXISTS `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `item_no`, `description`, `uom`, `weight`, `dimension`, `shelf_life`, `warranty`, `remark`, `component`, `created_at`, `updated_at`) VALUES
-(1, '155000001', 'asd', 'Packet', '1 Kg', '12 x 12 x 12 M', '12 Jam', '12 Tahun', 'L', 'PG (Personal Gadget)', '2017-09-11 03:39:25', '2017-09-11 03:39:25');
+INSERT INTO `items` (`id`, `code_id`, `item_no`, `description`, `uom`, `weight`, `dimension`, `shelf_life`, `warranty`, `remark`, `component`, `created_at`, `updated_at`) VALUES
+(1, 0, '155000001', 'asd', 'Packet', '1 Kg', '12 x 12 x 12 M', '12 Jam', '12 Tahun', 'L', 'PG (Personal Gadget)', '2017-09-11 03:39:25', '2017-09-11 03:39:25');
 
 -- --------------------------------------------------------
 
@@ -662,14 +737,7 @@ CREATE TABLE IF NOT EXISTS `petties` (
   `approval_2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `petties`
---
-
-INSERT INTO `petties` (`id`, `t100rb`, `t50rb`, `t20rb`, `t10rb`, `t5rb`, `t2rb`, `t1rb`, `t500r`, `t200r`, `t100r`, `total`, `admin`, `approval_1`, `approval_2`, `created_at`, `updated_at`) VALUES
-(1, 250, 168, 185, 212, 300, 65, 65, 56, 34, 12, 40951000, 'Chinna Babu', 'Pak Veera', 'Direksi', '2017-10-31 17:00:00', '2017-10-31 13:39:53');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -840,21 +908,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id`, `no_voucher`, `accounting_id`, `type`, `project_name`, `project_code`, `receiver`, `receiver_rekening`, `bank`, `bank_details`, `amount_total`, `saldo`, `direksi`, `kepala_bagian`, `kasir`, `penerima`, `attachment`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 'CASH 1-00001', 49, 'cash', 'Project PBTR Pekalongan', '20-16-PB001', 'dsfsdfsdf', '', '', '', '55678000', '55678000', 'sadasdas', 'dasdas', 'dasdasd', 'dsfsdfsdf', '', 'asdasd', '2017-10-28 17:00:00', '2017-10-31 13:03:54'),
-(2, 'CASH 1-00002', 56, 'cash', 'Project PBTR Pekalongan', '20-16-PB001', 'Ade', '', '', '', '10044000', '45634000', 'dfsdsd', 'fsdfsdf', 'sdfsdfsd', 'A', '', '-', '2017-10-31 17:00:00', '2017-10-31 13:05:19'),
-(3, 'BANK 2-00003', 41, 'bank', 'Project PBTR Pekalongan', '20-16-PB001', 'sdas', 'asdasd', 'asd', '-', '123890000', '123890000', 'fsd', 'fsdfsdfds', 'fsdfsdfsdf', 'sdas', '', 'GF 54363', '2017-10-28 17:00:00', '2017-10-31 13:06:50'),
-(4, 'BANK 2-00004', 62, 'bank', 'Project PBTR Pekalongan', '20-16-PB001', 'sds', 'sdfsdf', 'sdfsdf', '-', '2546900', '121343100', 'esftrsd', 'sdfsdfsdf', 'sdfsdfsdfsdf', 'sds', '', 'RT 2653', '2017-10-31 17:00:00', '2017-10-31 13:07:43'),
-(5, 'IOU 3-00005', 60, 'iou', 'Project PBTR Pekalongan', '20-16-PB001', 'Adi', '', '', '', '1239000', '1239000', 'sdfs', 'sdfsdfsd', 'sdfsd', 'Adi', '', '-', '2017-10-28 17:00:00', '2017-10-31 13:08:44'),
-(6, 'IOU 3-00006', 49, 'iou', 'Project PBTR Pekalongan', '20-16-PB001', 'Adi', '', '', '', '2502900', '3741900', 'sdfsdf', 'sdfsdfsdf', 'sdfsd', 'Adi', '', '-', '2017-10-31 17:00:00', '2017-10-31 13:09:19'),
-(7, 'IOU 3-00007', 49, 'iou', 'Project PBTR Pekalongan', '20-16-PB001', 'Ade', '', '', '', '1289000', '5030900', 'gfdgdfgdfg', 'dfgdfgdfg', 'fdgdfgdfg', 'Ade', '', '-', '2017-10-31 17:00:00', '2017-10-31 14:07:10'),
-(8, 'CASH 1-00008', 62, 'cash', 'Project PBTR Pekalongan', '20-16-PB001', 'sasa', '', '', '', '678000', '44956000', 'sdfsdfsd', 'sdfsdfsdf', 'fsdfsdf', 'sasa', '', 'Proin eget tortor risus.', '2017-10-31 17:00:00', '2017-10-31 14:41:04');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1066,7 +1120,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `role` enum('dev','admin','supervisior','hod','operator') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'operator',
+  `role` enum('dev','admin','direksi','supervisior','hod','operator') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'operator',
   `department` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1078,9 +1132,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$/N95eO66mJKFMDi4gYead.3G1O4WInRykNGxvWhzIOdDfrP4edFIW', 'dev', 'None', NULL, '2017-10-31 13:02:30', '2017-10-31 13:02:30'),
-(2, 'Admin', 'admin1@admin.com', '$2y$10$2OAEALRuzaCK.G4DB222h.Qmb5bFV5QgXmjwuYREhFgvz8JJy1joO', 'admin', 'None', NULL, '2017-10-31 13:02:30', '2017-10-31 13:02:30'),
-(3, 'Operator 1', 'op@op.com', '$2y$10$jJopdTDOhxx1aCeDn3zQ3eCCTmpsaM79zI3Gxm44gV9eh/6ZhgRuy', 'operator', 'Logistic', NULL, '2017-10-31 13:02:30', '2017-10-31 13:02:30');
+(1, 'hisyam', 'hisyam@hisyam.com', '$2y$10$PsEwlHE8rYuc3PVpNeomUeB6jUEY1neEH.GmrtFtLi3GqOO5FuGLe', 'dev', 'None', NULL, '2017-11-01 22:21:57', '2017-11-01 22:21:57'),
+(2, 'Admin', 'admin1@admin.com', '$2y$10$LTXPy2lpZjXYBzzNAlXcyOFavv0H.h98CL67mvJ7qF1c0gY6RsQOO', 'admin', 'None', NULL, '2017-11-01 22:21:57', '2017-11-01 22:21:57'),
+(3, 'Operator 1', 'op@op.com', '$2y$10$i1GXHsn4vV8tf044TNkNFODemSv8E1eEqJ9zDy4qChmFmDs26xx6m', 'operator', 'Logistic', NULL, '2017-11-01 22:21:58', '2017-11-01 22:21:58');
 
 --
 -- Indexes for dumped tables
@@ -1099,30 +1153,6 @@ ALTER TABLE `attachments`
  ADD PRIMARY KEY (`id`), ADD KEY `attachments_transaksi_id_foreign` (`transaksi_id`);
 
 --
--- Indexes for table `construction_category`
---
-ALTER TABLE `construction_category`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `construction_description`
---
-ALTER TABLE `construction_description`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `costcodes`
---
-ALTER TABLE `costcodes`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `costcodes_lv4`
---
-ALTER TABLE `costcodes_lv4`
- ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `costs`
 --
 ALTER TABLE `costs`
@@ -1139,6 +1169,30 @@ ALTER TABLE `issues`
 --
 ALTER TABLE `issue_item`
  ADD PRIMARY KEY (`id`), ADD KEY `issue_item_issue_id_foreign` (`issue_id`);
+
+--
+-- Indexes for table `itemcode2`
+--
+ALTER TABLE `itemcode2`
+ ADD PRIMARY KEY (`id`), ADD KEY `itemcode2_itemcode_id_foreign` (`itemcode_id`);
+
+--
+-- Indexes for table `itemcode3`
+--
+ALTER TABLE `itemcode3`
+ ADD PRIMARY KEY (`id`), ADD KEY `itemcode3_itemcode2_id_foreign` (`itemcode2_id`);
+
+--
+-- Indexes for table `itemcode4`
+--
+ALTER TABLE `itemcode4`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `itemcodes`
+--
+ALTER TABLE `itemcodes`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `items`
@@ -1257,30 +1311,10 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=155;
 ALTER TABLE `attachments`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `construction_category`
---
-ALTER TABLE `construction_category`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `construction_description`
---
-ALTER TABLE `construction_description`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `costcodes`
---
-ALTER TABLE `costcodes`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `costcodes_lv4`
---
-ALTER TABLE `costcodes_lv4`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `costs`
 --
 ALTER TABLE `costs`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `issues`
 --
@@ -1291,6 +1325,26 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `issue_item`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `itemcode2`
+--
+ALTER TABLE `itemcode2`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `itemcode3`
+--
+ALTER TABLE `itemcode3`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT for table `itemcode4`
+--
+ALTER TABLE `itemcode4`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `itemcodes`
+--
+ALTER TABLE `itemcodes`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `items`
 --
@@ -1330,7 +1384,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `petties`
 --
 ALTER TABLE `petties`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `purchases`
 --
@@ -1360,7 +1414,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -1398,6 +1452,18 @@ ADD CONSTRAINT `issues_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENC
 --
 ALTER TABLE `issue_item`
 ADD CONSTRAINT `issue_item_issue_id_foreign` FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `itemcode2`
+--
+ALTER TABLE `itemcode2`
+ADD CONSTRAINT `itemcode2_itemcode_id_foreign` FOREIGN KEY (`itemcode_id`) REFERENCES `itemcodes` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `itemcode3`
+--
+ALTER TABLE `itemcode3`
+ADD CONSTRAINT `itemcode3_itemcode2_id_foreign` FOREIGN KEY (`itemcode2_id`) REFERENCES `itemcode2` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `item_part_no`

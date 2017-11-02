@@ -12,7 +12,7 @@ class CreateConstructionCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('construction_category', function (Blueprint $table) {
+        Schema::create('itemcodes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateConstructionCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('construction_category');
+        Schema::drop('itemcodes');
     }
 }

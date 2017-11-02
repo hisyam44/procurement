@@ -12,9 +12,10 @@ class CreateConstructionDescriptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('construction_description', function (Blueprint $table) {
+        Schema::create('itemcode2', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('construction_id')->unsigned();
+            $table->integer('itemcode_id')->unsigned();
+            $table->foreign('itemcode_id')->references('id')->on('itemcodes')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ class CreateConstructionDescriptionTable extends Migration
      */
     public function down()
     {
-        Schema::drop('construction_description');
+        Schema::drop('itemcode2');
     }
 }
