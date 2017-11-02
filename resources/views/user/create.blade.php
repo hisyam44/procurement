@@ -18,6 +18,7 @@
                         <div class="col-md-6">
                             <select class="form-control" name="role" onchange="showDepartment(this.value)" required>
                                 <option>Admin</option>
+                                <option>Direksi</option>
                                 <option>HoD</option>
                                 <option>Supervisior</option>
                                 <option>Operator</option>
@@ -26,10 +27,14 @@
                     </div>
                     <script type="text/javascript">
                         function showDepartment(val){
-                            if(val != "Admin"){
-                                $('#department').show();
-                            }else{
+                            if(val == "Admin"){
                                 $('#department').hide();
+                            }else{
+                                if(val == "Direksi"){
+                                    $('#department').hide();
+                                }else{
+                                    $('#department').show();
+                                }
                             }
                         }
                     </script>

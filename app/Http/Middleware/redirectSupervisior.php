@@ -16,7 +16,7 @@ class redirectSupervisior
     public function handle($request, Closure $next)
     {
         $user = \Auth::user();
-        if($user->role == "supervisior"){
+        if($user->role == "direksi"){
             return redirect('/403');
         }
         return $next($request);

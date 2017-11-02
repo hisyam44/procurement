@@ -10,6 +10,9 @@ use Excel;
 
 class ItemController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.supervisior',['except' => ['index','importExcel','stockReport']]);
+    }
     /**
      * Display a listing of the resource.
      *

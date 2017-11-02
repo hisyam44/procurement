@@ -15,7 +15,7 @@ class PurchaseController extends Controller
 {
     function __construct(){
         $this->middleware('redirect.operator',['only' => ['show','edit','upadate','destroy','approve']]);
-        $this->middleware('redirect.supervisior',['only' => ['approve']]);
+        $this->middleware('redirect.supervisior',['except' => ['index','printPurchase']]);
     }
     /**
      * Display a listing of the resource.

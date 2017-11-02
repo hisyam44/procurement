@@ -42,7 +42,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
-        if($request->role == "Admin"){
+        if($request->role == "Admin" || $request->role == "Direksi"){
             $user->department = "None";
         }else{
             $user->department = $request->department;

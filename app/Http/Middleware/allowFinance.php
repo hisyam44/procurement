@@ -23,6 +23,9 @@ class allowFinance
             if($user->role == "admin"){
                 return $next($request);
             }
+            if($user->role == "direksi"){
+                return $next($request);
+            }
             return redirect('403');
         }
         if($user->department === "Finance"){

@@ -26,6 +26,9 @@ class allowLogistic
             if($user->role == "admin"){
                 return $next($request);
             }
+            if($user->role == "direksi"){
+                return $next($request);
+            }
             return redirect('403');
         }
         

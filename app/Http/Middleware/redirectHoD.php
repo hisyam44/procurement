@@ -19,6 +19,9 @@ class redirectHoD
         if($user->role == "hod"){
             return redirect('/403');
         }
+        if($user->role == "supervisior"){
+            return redirect('/403');
+        }
         return $next($request);
     }
 }

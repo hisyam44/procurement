@@ -15,6 +15,7 @@ class TransaksiController extends Controller
 {
     function __construct(){
         $this->middleware('redirect.operator',['only' => ['destroy']]);
+        $this->middleware('redirect.supervisior',['except' => ['indexSingle','dailyCash','attachmentView']]);
     }
     /**
      * Display a listing of the resource.
@@ -43,7 +44,7 @@ class TransaksiController extends Controller
             if ($tipe === "iou" || $tipe === "ious") {
                 $data['latest_saldo'] = 0;
             }
-            //return view('transaksi.print',$data);
+            return view('transaksi.print',$data);
             $excel = Excel::create('laporan_transaksi'.\Carbon\Carbon::now(), function($excel) use($view,$data) {
                 $excel->sheet('laporan', function($sheet) use($view,$data) {
                     $sheet->loadView($view,$data);
@@ -58,6 +59,9 @@ class TransaksiController extends Controller
     public function dailyCash(Request $request)
     {
         $transaksi = Transaksi::where('type','cash')->orderBy('no_voucher','asc')->where('created_at',$request->date)->get();
+        if(count($transaksi) === 0){
+            return response()->json('Belum ada Transaksi Kas Pada Tanggal ini.');
+        }
         $petties = \App\Petty::where('created_at',$request->date)->get();
         $daily_iou = Transaksi::where('type','iou')->orderBy('no_voucher','asc')->where('created_at',$request->date)->sum('amount_total');
         $user = \Auth::user();

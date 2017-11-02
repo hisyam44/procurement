@@ -10,6 +10,10 @@ use Excel;
 
 class PettyController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.operator',['only' => ['destroy','printFromDate']]);
+        $this->middleware('redirect.supervisior',['except' => ['index','printFromDate']]);
+    }
     /**
      * Display a listing of the resource.
      *
