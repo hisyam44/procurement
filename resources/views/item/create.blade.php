@@ -31,40 +31,18 @@
                             </div>
                         </div>
                             <script type="text/javascript">
-                                var item_types = {
-                                    'CG (Capital Good)' : {'HE (Heavy Equipment)' : ['EX (Excavator)', 'DZ (Bulldozer)', 'GD (Motor Grader)', 'CM (Compactor/Vibro)', 'PV (Paver)'],
-                                            'TK (Trucks)' : ['DT (Dump Truck)', 'FT (Fuel Truck)', 'LT (Lube Truck)', 'WT (Water Truck)', 'TT (Trailer)', 'AT (Articulated Truck)'],
-                                            'PT (Plants)' : ['SC (Stone Crusher)', 'AM (Alphalt Mixing Plant)', 'BP (Concrete Batching Plant)'],
-                                            'CM (Construction Material)' : ['AG (Aggregates)', 'GT (Geotextile)', 'FN (Fencing Material)', 'LT (Lighting Equipment)', 'DR (Drainage Material)', 'CP (Chemical & Paints)', 'BR (Barriers']},
-                                    'SP (Spares)' : {'HE (Heavy Equipment)' : ['Ground Engaging Tools', 'Engine ', 'Work Equipment', 'Undercarriage', 'Electrical', 'Hydraulic System', 'Power Train', 'Tires', 'Transmission', 'Differential'],
-                                            'TK (Trucks)' : ['Engine ', 'Tires', 'Electrical', 'Hydraulic System', 'Transmission', 'Differential', 'Attachments', 'Cabin', 'Chassis'],
-                                            'PT (Plants)' : ['Electrical ', 'Conveyor System']},
-                                    'CN (Consumable)' : {'FL (Fuel)' : ['IH (Industrial HSD)', 'LH (SPBU HSD)', 'PR (Premium)'],
-                                            'LU (Lubes)' : [],
-                                            'CH (Chemical)' : ['CC (Cleaning Chemical)', 'LC (Lab Chemical)', 'OT (Others)'],
-                                            'CL (Cleaning Material)' : []},
-                                    'OE (Office Equipment)' : {'FR (Furniture)' : [],
-                                            'MI (Mechanical Installation)' : [],
-                                            'EI (Electrical Installation)' : [],
-                                            'ST (Stationary)' : []},
-                                    'TL (Tools & Tackles)' : {'HT (Hand Tools)' : [],
-                                            'PT (Power Tools)' : [],
-                                            'ST (Special Tools)' : [],
-                                            'LT (Lifting Tools)' : [],
-                                            'PG (Personal Gadget)' : []},
-                                    'CM (Construction Material)' : {'AG (Aggregate)' : [],
-                                            'BT (Bitumen)' : [],
-                                            'ST (Steel)' : [],
-                                            'CT (Cement)' : []},
-                                    'RP (Repairs)' : {}
-                                };
-                                console.log(item_types);
+                                var item_types = 0;
                                 var $el = $("#code2");
                                 var num = 0;
-                                $.each(item_types, function(key,value) {
-                                    num++;
-                                    $el.append($("<option></option>").attr("value", num).text(key));
+                                $.getJSON("{{ url('itemcode/list') }}", function(data){
+                                    console.log(data);
+                                    item_types = data;
+                                    $.each(item_types, function(key,value) {
+                                        num++;
+                                        $el.append($("<option></option>").attr("value", num).text(key));
+                                    });
                                 });
+                                //console.log(item_types);
                                 function gantiCode(){
                                     var code1 = $('#code1').val();
                                     var code2 = $('#code2').val();

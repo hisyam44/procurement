@@ -16,8 +16,8 @@ class ItemcodeController extends Controller
      */
     public function index()
     {
-        echo "hi";
-        //return response()->json($request->all());
+        $itemcodes = Itemcode::orderBy('id','asc')->get();
+        return view('item.code',['itemcodes' => $itemcodes]);
     }
 
     /**
@@ -38,7 +38,24 @@ class ItemcodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return response()->json($request->all());
+        $success = false;
+        if($request->code_type === "1"){
+            $code = new \App\Itemcode2;
+            $code->itemcode_id = $request->code_id;
+            $code->name = $request->name;
+            $success = $code->save();
+        }
+        if($request->code_type === "2"){
+            $code = new \App\Itemcode3;
+            $code->itemcode2_id = $request->code_id;
+            $code->name = $request->name;
+            $success = $code->save();
+        }
+        if($success){
+            \Session::flash('message','Added New Data');
+        }
+        return redirect('/itemcode');
     }
 
     /**
@@ -49,7 +66,18 @@ class ItemcodeController extends Controller
      */
     public function show($id)
     {
-        //
+        $itemcodes = Itemcode::orderBy('id','asc')->get();
+        $data = [];
+        foreach($itemcodes as $item){
+            $data[$item->name] = [];
+            foreach($item->itemcode2 as $item2){
+                $data[$item->name][$item2->name] = [];
+                foreach($item2->itemcode3 as $item3){
+                    $data[$item->name][$item2->name][] = $item3->name;
+                }
+            }
+        }
+        return response()->json($data);
     }
 
     /**

@@ -13,19 +13,22 @@
     </div>
     <div class="row">
         <div class="panel-body"> 
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="panel-body">
                 <form class="form form-inline" action="{{ url('/importExcel') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input class="form-control" type="file" name="import_file" required></input>
                     <button class="btn btn-success" type="submit">Import From Excel</button>
                 </form>
-            </div>
+                </div>
             </div>
             <div class="col-md-2">
                 <a class="btn btn-default btn-block" href="" data-toggle="modal" data-target="#myModal">Stock Report</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
+                <a class="btn btn-info btn-block" href="{{ url('/itemcode') }}">Item Code List</a>
+            </div>
+            <div class="col-md-2">
                 <a class="btn btn-success btn-block" href="{{ url('item/create') }}">New Item Master</a>
             </div>
         </div>
