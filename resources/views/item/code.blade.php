@@ -59,10 +59,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row details">
+                        <div class="row details panel-body">
                         @foreach($item->itemcode2 as $item2)
                             <div class="col-md-12">
-                                <div class="panel">
+                                <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div id="type_code" class="hidden">2</div>
