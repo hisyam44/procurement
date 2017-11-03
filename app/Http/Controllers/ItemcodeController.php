@@ -9,6 +9,10 @@ use App\Itemcode;
 
 class ItemcodeController extends Controller
 {
+    function __construct(){
+        $this->middleware('redirect.supervisior');
+        $this->middleware('redirect.hod');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +44,11 @@ class ItemcodeController extends Controller
     {
         //return response()->json($request->all());
         $success = false;
+        if($request->code_type === "0"){
+            $code = new Itemcode;
+            $code->name = $request->name;
+            $success = $code->save();
+        }
         if($request->code_type === "1"){
             $code = new \App\Itemcode2;
             $code->itemcode_id = $request->code_id;
@@ -100,7 +109,27 @@ class ItemcodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return response()->json($request->all());
+        $success = false;
+        if($request->code_type === "1"){
+            $code = Itemcode::findOrFail($request->code_id);
+            $code->name = $request->name;
+            $success = $code->save();
+        }
+        if($request->code_type === "2"){
+            $code = \App\Itemcode2::findOrFail($request->code_id);
+            $code->name = $request->name;
+            $success = $code->save();
+        }
+        if($request->code_type === "3"){
+            $code = \App\Itemcode3::findOrFail($request->code_id);
+            $code->name = $request->name;
+            $success = $code->save();
+        }
+        if($success){
+            \Session::flash('message','Data Has Been Changed');
+        }
+        return redirect('/itemcode');
     }
 
     /**
@@ -109,8 +138,25 @@ class ItemcodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        //return response()->json($request->all());
+        $success = false;
+        if($request->code_type === "1"){
+            $code = Itemcode::findOrFail($request->code_id);
+            $success = $code->delete();
+        }
+        if($request->code_type === "2"){
+            $code = \App\Itemcode2::findOrFail($request->code_id);
+            $success = $code->delete();
+        }
+        if($request->code_type === "3"){
+            $code = \App\Itemcode3::findOrFail($request->code_id);
+            $success = $code->delete();
+        }
+        if($success){
+            \Session::flash('message','Data Has Been Erased');
+        }
+        return redirect('/itemcode');
     }
 }
