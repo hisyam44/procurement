@@ -172,10 +172,23 @@
                 <td colspan="12">&nbsp;</td>
             </tr>
             <tr>
+                <td colspan="12">
+                    <div style="font-weight: bold;">IOU Settlement tanggal {{ $_GET['date'] }}</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10">Total IOU Settlement</td>
+                <td style="text-align: right;color:#00f;"><b>{{ number_format($daily_ious) }}</b></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="12">&nbsp;</td>
+            </tr>
+            <tr>
                 <td colspan="7"></td>
                 <td colspan="3"><b>Hasil Akhir</b></td>
-                <td style="text-align: right;color:#f00;"><b>{{ number_format($total_saldo-$daily_iou-$total) }}</b></td>
-                <td></td>
+                <td style="text-align: right;color:#f00;"><b>{{ number_format((($daily_iou-$daily_ious)+$total)-$total_saldo) }}</b></td>
+                <td>**(Petty Cash + (Kasbon - Settlement) ) - Total Kas</td>
             </tr>
     </tbody>
 </table>

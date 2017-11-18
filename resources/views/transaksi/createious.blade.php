@@ -64,7 +64,7 @@
                                     <label for="type_transaksi" class="col-md-4 control-label">Category Operational</label>
                                     <div class="col-md-6">
                                         <input type="text" id="category_accounting_id" name="category_accounting" required hidden></input>
-                                        <input type="text" class="form-control" id="category_accounting" readonly required></input>
+                                        <input type="text" class="form-control" id="category_accounting" required></input>
                                     </div>
                                     <script type="text/javascript">
                                         $("#category_accounting").autocomplete({
@@ -267,13 +267,13 @@
                             <div class="form-group">
                                 <label for="direksi" class="col-md-4 control-label">Direksi</label>
                                 <div class="col-md-6">
-                                    <input id="direksi" type="text" class="form-control" name="direksi" readonly required>
+                                    <input id="direksi" type="text" class="form-control" value="Sarita" name="direksi" readonly required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="kepala_bagian" class="col-md-4 control-label">Kepala Bagian</label>
                                 <div class="col-md-6">
-                                    <input id="kepala_bagian" type="text" class="form-control" name="kepala_bagian" readonly required>
+                                    <input id="kepala_bagian" type="text" class="form-control" value="Veera" name="kepala_bagian" readonly required>
                                 </div>
                             </div>
                         </div>
@@ -281,7 +281,7 @@
                             <div class="form-group">
                                 <label for="kasir" class="col-md-4 control-label">Kasir</label>
                                 <div class="col-md-6">
-                                    <input id="kasir" type="text" class="form-control" name="kasir" readonly required>
+                                    <input id="kasir" type="text" class="form-control" value="Chinnababu" name="kasir" readonly required>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -248,13 +248,13 @@
                             <div class="form-group">
                                 <label for="direksi" class="col-md-4 control-label">Direksi</label>
                                 <div class="col-md-6">
-                                    <input id="direksi" type="text" class="form-control" name="direksi" required>
+                                    <input id="direksi" type="text" class="form-control" value="Sarita" name="direksi" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="kepala_bagian" class="col-md-4 control-label">Kepala Bagian</label>
                                 <div class="col-md-6">
-                                    <input id="kepala_bagian" type="text" class="form-control" name="kepala_bagian" required>
+                                    <input id="kepala_bagian" type="text" class="form-control" value="Veera" name="kepala_bagian" required>
                                 </div>
                             </div>
                         </div>
@@ -262,7 +262,7 @@
                             <div class="form-group">
                                 <label for="kasir" class="col-md-4 control-label">Kasir</label>
                                 <div class="col-md-6">
-                                    <input id="kasir" type="text" class="form-control" name="kasir" required>
+                                    <input id="kasir" type="text" value="Chinnababu" class="form-control" name="kasir" required>
                                 </div>
                             </div>
                             <div class="form-group" {{ strpos(Request::url(),"bank")?'style=display:none':'' }}>

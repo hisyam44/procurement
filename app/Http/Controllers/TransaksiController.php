@@ -64,6 +64,7 @@ class TransaksiController extends Controller
         }
         $petties = \App\Petty::where('created_at',$request->date)->get();
         $daily_iou = Transaksi::where('type','iou')->orderBy('no_voucher','asc')->where('created_at',$request->date)->sum('amount_total');
+        $daily_ious = Transaksi::where('type','ious')->orderBy('no_voucher','asc')->where('created_at',$request->date)->sum('amount_total');
         $user = \Auth::user();
         if($user->role == "operator"){
             return redirect('403');
@@ -73,6 +74,7 @@ class TransaksiController extends Controller
         $data['transaksi'] = $transaksi;
         $data['petties'] = $petties;
         $data['daily_iou'] = $daily_iou;
+        $data['daily_ious'] = $daily_ious;
         $latest_saldo = Transaksi::where('type','cash')->where('id','<',$transaksi[0]->id)->orderBy('id','desc')->first();
         $data['latest_saldo'] = isset($latest_saldo->saldo)?$latest_saldo->saldo:'0';
         //return view('transaksi.daily',$data);
@@ -211,7 +213,7 @@ class TransaksiController extends Controller
             if($request->type_transaksi === "ious"){
                 $cost->amount = $request->amount_total;
                 $selisih = $request->amount[$i]-$request->amount_total;
-                $cost->description = "Selisih Realiasasi Settlement : Rp.".$selisih;
+                $cost->description = "Selisih Pengembalian = Rp.".$selisih;
             }else{
                 $cost->amount = $request->amount[$i];
                 $cost->description = $request->description[$i];
